@@ -5,7 +5,7 @@
     common/core
 
     ################ Optionals ################
-    common/optional/wms/sway.nix
+    common/optional/wms/sway
     common/optional/cursor.nix
     common/optional/obsidian.nix
     common/optional/discord.nix

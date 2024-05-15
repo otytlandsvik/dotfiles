@@ -5,7 +5,8 @@
   ...
 }:
 {
-  # TODO: add swayidle as a service
+  # NOTE: i3status does not allow for left alignment. Switch to waybar?
+  imports = [ ./i3status.nix ];
 
   # Sway related packages
   home.packages = with pkgs; [
@@ -51,6 +52,22 @@
           "${mod}+greater" = "move workspace to output right";
           "${mod}+less" = "move workspace to output left";
         };
+
+      bars = [
+        {
+          fonts = {
+            names = [
+              "DejaVu Sans Mono"
+              "FontAwesome5Free"
+            ];
+            style = "Bold Semi-Condensed";
+            size = 11.0;
+          };
+          position = "top";
+          # TODO: Find a better way to reference the config
+          statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-statusbar.toml";
+        }
+      ];
     };
   };
 

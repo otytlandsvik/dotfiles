@@ -1,7 +1,9 @@
 { pkgs, ... }:
 {
   fonts.fontconfig.enable = true;
-  home.packages = [
-    pkgs.meslo-lgs-nf # Nerdfont
+  home.packages = with pkgs; [
+    meslo-lgs-nf # Nerdfont
+    font-awesome_5
+    dejavu_fonts
   ];
 }
