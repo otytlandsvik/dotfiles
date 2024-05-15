@@ -12,6 +12,7 @@
     ./nixvim
     ./fonts.nix
     ./fish.nix
+    ./zoxide.nix
   ]; # ++ (builtins.attrValues outputs.homeManagerModules);
 
   # Let home manager install and manage itself
