@@ -5,6 +5,7 @@
   ...
 }:
 {
+  # TODO: add swayidle as a service
 
   # Sway related packages
   home.packages = with pkgs; [

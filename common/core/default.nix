@@ -45,6 +45,7 @@
       fastfetch # System info
       bat # cat replacement
       fd # find replacement
+      btop # fancy htop
       ;
   };
 }

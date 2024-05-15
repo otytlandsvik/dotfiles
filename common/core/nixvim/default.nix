@@ -231,6 +231,9 @@
       # Comment utilities
       comment.enable = true;
 
+      # Highlight todo comments
+      todo-comments.enable = true;
+
       # Automatically close braces
       autoclose = {
         enable = true;
