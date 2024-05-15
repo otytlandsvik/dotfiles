@@ -43,6 +43,9 @@
           # Screenshots
           "Print" = "exec shotman -c region";
 
+          # Open firefox
+          "${mod}+x" = "exec firefox";
+
           # Move workspace to other output
           "${mod}+greater" = "move workspace to output right";
           "${mod}+less" = "move workspace to output left";

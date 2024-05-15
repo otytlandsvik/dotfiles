@@ -7,6 +7,8 @@
     ################ Optionals ################
     common/optional/wms/sway.nix
     common/optional/obsidian.nix
+    common/optional/discord.nix
+    common/optional/ferdium.nix
   ];
 
   # The home.packages option allows you to install Nix packages into your
