@@ -7,6 +7,7 @@
       ll = "eza -al --icons";
       ls = "eza";
       lg = "lazygit";
+      cat = "bat";
     };
 
     shellAbbrs = {

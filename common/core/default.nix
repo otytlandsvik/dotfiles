@@ -39,6 +39,7 @@
       delta # Diff pager for git
       ripgrep # grep goodness
       pfetch # System info
+      bat # cat replacement
       ;
   };
 }
