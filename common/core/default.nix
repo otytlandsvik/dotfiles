@@ -8,11 +8,12 @@
   imports = [
     # Packages with custom configs
     ./git.nix
-    ./lazygit.nix
-    ./nixvim
+    ./lazygit.nix # Terminal-based git GUI
+    ./nixvim # neovim configured through nix
     ./fonts.nix
-    ./fish.nix
-    ./zoxide.nix
+    ./fish.nix # Shell customizations
+    ./zoxide.nix # cd replacement
+    ./eza.nix # ls replacement
   ]; # ++ (builtins.attrValues outputs.homeManagerModules);
 
   # Let home manager install and manage itself
@@ -38,12 +39,12 @@
   home.packages = builtins.attrValues {
     inherit (pkgs)
 
-      eza # ls replacement
       fzf # Fuzzy find
       delta # Diff pager for git
       ripgrep # grep goodness
-      pfetch # System info
+      fastfetch # System info
       bat # cat replacement
+      fd # find replacement
       ;
   };
 }
