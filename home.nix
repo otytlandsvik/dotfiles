@@ -1,8 +1,12 @@
 { ... }:
 {
   imports = [
+    ################ Required ################
     common/core
+
+    ################ Optionals ################
     common/optional/wms/sway.nix
+    common/optional/obsidian.nix
   ];
 
   # The home.packages option allows you to install Nix packages into your

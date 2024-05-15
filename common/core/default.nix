@@ -30,6 +30,9 @@
     };
   };
 
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
   # Packages without custom configs
   home.packages = builtins.attrValues {
     inherit (pkgs)
