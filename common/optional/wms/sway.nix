@@ -5,7 +5,6 @@
   ...
 }:
 {
-  # NOTE: Sway may already be enabled from /hosts/ config
 
   # Sway related packages
   home.packages = with pkgs; [
@@ -39,24 +38,26 @@
         # NOTE: mkOptionDefault to extend/override instead of overwriting all keybindings
         lib.mkOptionDefault {
           # Engage swaylock
-          "${mod}+Ctrl+l" = "exec swaylock -c 000000";
+          "${mod}+Ctrl+l" = "exec swaylock -c 111111";
 
           # Screenshots
           "Print" = "exec shotman -c region";
+
+          # Move workspace to other output
+          "${mod}+greater" = "move workspace to output right";
+          "${mod}+less" = "move workspace to output left";
         };
     };
   };
 
   programs.swaylock = {
     enable = true;
-    package = pkgs.swaylock-effects;
     settings = {
       screenshots = true;
       clock = true;
       indicator = true;
       indicator-radius = 100;
       indicator-thickness = 7;
-      effect-blur = "12x9";
     };
   };
 }
