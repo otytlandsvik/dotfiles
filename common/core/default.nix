@@ -11,7 +11,8 @@
     ./lazygit.nix # Terminal-based git GUI
     ./nixvim # neovim configured through nix
     ./fonts.nix
-    ./fish.nix # Shell customizations
+    ./fish.nix # Shell
+    ./starship # Shell prompt
     ./zoxide.nix # cd replacement
     ./eza.nix # ls replacement
   ]; # ++ (builtins.attrValues outputs.homeManagerModules);
