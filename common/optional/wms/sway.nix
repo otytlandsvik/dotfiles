@@ -20,6 +20,7 @@
     config = {
       modifier = "Mod4";
       terminal = "alacritty";
+      defaultWorkspace = "workspace number 1";
 
       # Sway overrides xkb config from system
       input = {
@@ -55,7 +56,7 @@
       indicator = true;
       indicator-radius = 100;
       indicator-thickness = 7;
-      effect-blur = "7x5";
+      effect-blur = "12x9";
     };
   };
 }
