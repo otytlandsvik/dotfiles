@@ -94,41 +94,9 @@
           ];
           mapping = {
             "<CR>" = "cmp.mapping.confirm({ select = true })";
-            "<Up>" = ''
-              	      cmp.mapping(
-                            	function(fallback)
-                            	  if cmp.visible() then
-                            	    cmp.select_prev_item()
-                            	  else
-                            	    fallback()
-                            	  end
-                            	end, {"i", "s"})
-            '';
-            "<Down>" = ''
-              	      cmp.mapping(
-                            	function(fallback)
-                            	  if cmp.visible() then
-                            	    cmp.select_next_item()
-                            	  else
-                            	    fallback()
-                            	  end
-                            	end, { "i", "s" })
-            '';
-            "<Tab>" = ''
-              	      cmp.mapping(
-                            	function(fallback)
-                            	  local luasnip = require('luasnip')
-                            	  if cmp.visible() then
-                            	    cmp.select_next_item()
-                            	  elseif luasnip.expandable() then
-                            	    luasnip.expand()
-                            	  elseif luasnip.expand_or_jumpable() then
-                            	    luasnip.expand_or_jump()
-                            	  else
-                            	    fallback()
-                            	  end
-                            	end, { "i", "s" })
-            '';
+            "<Up>" = builtins.readFile ./lua/cmp/up.lua;
+            "<Down>" = builtins.readFile ./lua/cmp/down.lua;
+            "<Tab>" = builtins.readFile ./lua/cmp/tab.lua;
           };
         };
       };
@@ -186,15 +154,7 @@
       conform-nvim = {
         enable = true;
 
-        formatOnSave = ''
-          function(bufnr)
-            -- Disable with a global or buffer-local variable
-            if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
-              return
-            end
-              return { timeout_ms = 500, lsp_fallback = true }
-          end
-        '';
+        formatOnSave = builtins.readFile ./lua/formatOnSave.lua;
 
         formattersByFt = {
           nix = [ "nixfmt" ];
@@ -258,35 +218,8 @@
       gofumpt
     ];
 
-    extraConfigLua = ''
-            -- Timeout before keybind is triggered
-            vim.opt.timeoutlen = 250
-
-            -- Define commands to enable/disable format on save
-            -- from https://github.com/stevearc/conform.nvim/blob/master/doc/recipes.md#command-to-toggle-format-on-save
-            vim.api.nvim_create_user_command("FormatDisable", function(args)
-      	if args.bang then
-      	  -- FormatDisable! will disable only for current buffer
-      	  vim.b.disable_autoformat = true
-      	else
-      	  vim.g.disable_autoformat = true
-      	end
-            end, {
-      	desc = "Disable autoformat on save",
-      	bang = true,
-            })
-            vim.api.nvim_create_user_command("FormatEnable", function(args)
-      	if args.bang then
-      	  -- FormatEnable! will enable only for current buffer
-      	  vim.b.disable_autoformat = false
-      	else
-      	  vim.g.disable_autoformat = false
-      	end
-            end, {
-      	desc = "Enable autoformat on save",
-      	bang = true,
-            })
-    '';
+    # Keep lua config in lua file for syntax highlights and formatting
+    extraConfigLua = builtins.readFile ./lua/extraConfig.lua;
 
     # Keymaps
     keymaps = [

@@ -8,6 +8,7 @@
       ls = "eza";
       lg = "lazygit";
       cat = "bat";
+      fetch = "fastfetch";
     };
 
     shellAbbrs = {
