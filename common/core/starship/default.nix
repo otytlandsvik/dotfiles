@@ -36,11 +36,6 @@
         format = "[$ssh_symbol$hostname]($style) ";
       };
 
-      directory = {
-        format = "[$path]($style)[$read_only]($read_only_style) ";
-        read_only = " 󰌾";
-      };
-
       character = {
         success_symbol = "[λ](bold green)";
         error_symbol = "[λ](bold red)";

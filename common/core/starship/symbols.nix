@@ -5,6 +5,8 @@
 
     hostname.ssh_symbol = " ";
 
+    directory.read_only = " 󰌾";
+
     nix_shell.symbol = " ";
 
     os.symbols = {
