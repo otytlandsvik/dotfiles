@@ -6,7 +6,10 @@
 }:
 {
   # NOTE: i3status does not allow for left alignment. Switch to waybar?
-  imports = [ ./i3status.nix ];
+  imports = [
+    ./i3status.nix
+    ./mako.nix
+  ];
 
   # Sway related packages
   home.packages = with pkgs; [
