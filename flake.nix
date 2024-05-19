@@ -18,15 +18,12 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-colors.url = "github:misterio77/nix-colors";
   };
 
   outputs =
-    {
-      nixpkgs,
-      home-manager,
-      nixvim,
-      ...
-    }:
+    { nixpkgs, home-manager, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -36,10 +33,11 @@
       homeConfigurations."ole" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
-        modules = [
-          ./home.nix
-          nixvim.homeManagerModules.nixvim
-        ];
+        extraSpecialArgs = {
+          inherit inputs;
+        };
+
+        modules = [ ./home.nix ];
       };
     };
 }

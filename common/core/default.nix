@@ -7,6 +7,7 @@
 {
   imports = [
     # Packages with custom configs
+    ./alacritty.nix # Terminal emulator
     ./git.nix
     ./lazygit.nix # Terminal-based git GUI
     ./nixvim # neovim configured through nix

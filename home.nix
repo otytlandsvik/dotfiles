@@ -1,7 +1,9 @@
-{ ... }:
+{ inputs, ... }:
 {
   imports = [
     ################ Required ################
+    inputs.nixvim.homeManagerModules.nixvim
+    inputs.nix-colors.homeManagerModules.default
     common/core
 
     ################ Optionals ################
@@ -11,6 +13,9 @@
     common/optional/discord.nix
     common/optional/ferdium.nix
   ];
+
+  # Set global color scheme with nix-colors
+  colorScheme = inputs.nix-colors.colorSchemes.catppuccin-mocha;
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
