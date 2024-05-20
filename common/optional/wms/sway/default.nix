@@ -88,12 +88,10 @@
 
   programs.swaylock = {
     enable = true;
+    package = pkgs.swaylock-effects;
     settings = {
-      screenshots = true;
-      clock = true;
-      indicator = true;
+      effect-blur = "7x5";
       indicator-radius = 100;
-      indicator-thickness = 7;
     };
   };
 }
