@@ -1,10 +1,13 @@
-{ inputs, ... }:
+{ inputs, config, ... }:
 {
   imports = [
     ################ Required ################
+    common/core
+
+    ################ Extras passed from flake ################
     inputs.nixvim.homeManagerModules.nixvim
     inputs.nix-colors.homeManagerModules.default
-    common/core
+    inputs.stylix.homeManagerModules.stylix
 
     ################ Optionals ################
     common/optional/wms/sway
@@ -16,6 +19,13 @@
 
   # Set global color scheme with nix-colors
   colorScheme = inputs.nix-colors.colorSchemes.catppuccin-mocha;
+
+  stylix = {
+    # Pass theme to stylix
+    base16Scheme = config.colorScheme.palette;
+
+    image = ./assets/nix-black-4k.png;
+  };
 
   # The home.packages option allows you to install Nix packages into your
   # environment.

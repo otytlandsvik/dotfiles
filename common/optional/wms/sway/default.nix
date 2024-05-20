@@ -35,6 +35,18 @@
         };
       };
 
+      # Styling overrides
+      colors = with config.stylix.base16Scheme; {
+        focused = {
+          border = lib.mkForce "#${base0D}";
+          childBorder = lib.mkForce "#${base0D}";
+          indicator = lib.mkForce "#${base0C}";
+        };
+      };
+
+      # Provide title in status bar instead
+      window.titlebar = false;
+
       keybindings =
         let
           cfg = config.wayland.windowManager.sway.config;

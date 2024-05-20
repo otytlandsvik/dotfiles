@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 {
   imports = [ ./keymaps.nix ];
 
@@ -9,7 +14,17 @@
 
     clipboard.register = "unnamedplus"; # Use system clipboard
 
-    colorschemes.tokyonight.enable = true;
+    # TODO: get nix-colors working with treesitter
+
+    # colorschemes.base16 = {
+    #   enable = true;
+    #   colorscheme = lib.concatMapAttrs (name: value: {
+    #     ${name} = "#${value}";
+    #   }) config.colorScheme.palette;
+    # };
+
+    # Explicit theme for treesitter support
+    colorschemes.catppuccin.enable = true;
 
     opts = {
       number = true; # Absolute line number on current line
