@@ -1,0 +1,46 @@
+* {
+  font-family:
+    DejaVu Sans Mono,
+    Font Awesome;
+  font-size: 14;
+  font-weight: 600;
+}
+
+#tray,
+#clock,
+#cpu,
+#memory,
+#disk,
+#idle_inhibitor {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#workspaces button {
+  padding: 0 2px;
+}
+
+/* Use color codes from base16 theme */
+#workspaces button.focused {
+  color: @base0D;
+}
+
+#clock {
+  color: @base0B;
+}
+
+#memory {
+  color: @base07;
+}
+
+#cpu {
+  color: @base0C;
+}
+
+#disk {
+  color: @base09;
+}
+
+#idle_inhibitor {
+  color: @base0D;
+}

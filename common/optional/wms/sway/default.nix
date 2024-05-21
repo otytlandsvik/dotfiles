@@ -7,7 +7,8 @@
 {
   # NOTE: i3status does not allow for left alignment. Switch to waybar?
   imports = [
-    ./i3status.nix
+    # ./i3status.nix
+    ./waybar/waybar.nix
     ./mako.nix
   ];
 
@@ -70,17 +71,16 @@
 
       bars = [
         {
-          fonts = {
+          fonts = lib.mkForce {
             names = [
               "DejaVu Sans Mono"
               "FontAwesome5Free"
             ];
             style = "Bold Semi-Condensed";
-            size = 11.0;
+            size = 12.0;
           };
-          position = "top";
-          # TODO: Find a better way to reference the config
-          statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-statusbar.toml";
+          # position = "top";
+          command = "${pkgs.waybar}/bin/waybar";
         }
       ];
     };
