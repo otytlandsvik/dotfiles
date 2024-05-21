@@ -5,7 +5,6 @@
   ...
 }:
 {
-  # NOTE: i3status does not allow for left alignment. Switch to waybar?
   imports = [
     # ./i3status.nix
     ./waybar/waybar.nix
@@ -71,7 +70,7 @@
 
       bars = [
         {
-          fonts = lib.mkForce {
+          fonts = {
             names = [
               "DejaVu Sans Mono"
               "FontAwesome5Free"

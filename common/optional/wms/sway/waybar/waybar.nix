@@ -1,8 +1,19 @@
-{ ... }:
+{ config, lib, ... }:
+
+let
+  inherit config;
+  palette = config.stylix.base16Scheme;
+  paletteStrings = lib.mapAttrsToList (name: value: "@define-color ${name} #${value};") palette;
+in
 {
+
+  # Manually provide theme colors to for css
+  xdg.configFile."waybar/colors.css".text = ''
+    ${builtins.concatStringsSep "\n" paletteStrings}
+  '';
+
   # Disable stylix to apply own styling
   stylix.targets.waybar.enable = false;
-
   programs.waybar = {
     enable = true;
 
