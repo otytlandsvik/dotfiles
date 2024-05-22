@@ -6,8 +6,8 @@
 }:
 {
   imports = [
-    # ./i3status.nix
     ./waybar/waybar.nix
+    ./rofi.nix
     ./mako.nix
   ];
 
@@ -44,13 +44,11 @@
         };
       };
 
-      # Provide title in status bar instead
-      window.titlebar = false;
+      menu = "${pkgs.rofi}/bin/rofi -show drun";
 
       keybindings =
         let
-          cfg = config.wayland.windowManager.sway.config;
-          mod = cfg.modifier;
+          mod = config.wayland.windowManager.sway.config.modifier;
         in
         # NOTE: mkOptionDefault to extend/override instead of overwriting all keybindings
         lib.mkOptionDefault {
@@ -68,20 +66,10 @@
           "${mod}+less" = "move workspace to output left";
         };
 
-      bars = [
-        {
-          fonts = {
-            names = [
-              "DejaVu Sans Mono"
-              "FontAwesome5Free"
-            ];
-            style = "Bold Semi-Condensed";
-            size = 12.0;
-          };
-          # position = "top";
-          command = "${pkgs.waybar}/bin/waybar";
-        }
-      ];
+      # Provide title in status bar instead
+      window.titlebar = false;
+
+      bars = [ { command = "${pkgs.waybar}/bin/waybar"; } ];
     };
   };
 
@@ -89,7 +77,7 @@
     enable = true;
     package = pkgs.swaylock-effects;
     settings = {
-      effect-blur = "7x5";
+      effect-blur = "16x12";
       indicator-radius = 100;
     };
   };
