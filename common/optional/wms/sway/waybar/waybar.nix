@@ -41,6 +41,7 @@ in
           rewrite = {
             "(.*) — Mozilla Firefox" = "󰈹 $1";
             "(.*) - Discord" = "  $1";
+            "Ferdium - (.*)" = " $1";
           };
         };
 
