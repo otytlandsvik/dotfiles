@@ -1,7 +1,6 @@
 { config, lib, ... }:
 
 let
-  inherit config;
   palette = config.stylix.base16Scheme;
   paletteStrings = lib.mapAttrsToList (name: value: "@define-color ${name} #${value};") palette;
 in
@@ -14,6 +13,7 @@ in
 
   # Disable stylix to apply own styling
   stylix.targets.waybar.enable = false;
+
   programs.waybar = {
     enable = true;
 
