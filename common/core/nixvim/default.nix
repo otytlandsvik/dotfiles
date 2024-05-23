@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 {
   imports = [ ./keymaps.nix ];
 
@@ -9,7 +14,7 @@
 
     clipboard.register = "unnamedplus"; # Use system clipboard
 
-    colorschemes.tokyonight.enable = true;
+    colorschemes.catppuccin.enable = true;
 
     opts = {
       number = true; # Absolute line number on current line

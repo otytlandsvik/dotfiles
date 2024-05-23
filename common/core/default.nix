@@ -16,6 +16,8 @@
     ./starship # Shell prompt
     ./zoxide.nix # cd replacement
     ./eza.nix # ls replacement
+    ./btop.nix # fancy htop
+    ./direnv.nix
   ]; # ++ (builtins.attrValues outputs.homeManagerModules);
 
   # Let home manager install and manage itself
@@ -47,7 +49,6 @@
       fastfetch # System info
       bat # cat replacement
       fd # find replacement
-      btop # fancy htop
       ;
   };
 }

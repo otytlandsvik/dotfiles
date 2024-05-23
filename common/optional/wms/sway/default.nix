@@ -5,9 +5,9 @@
   ...
 }:
 {
-  # NOTE: i3status does not allow for left alignment. Switch to waybar?
   imports = [
-    ./i3status.nix
+    ./waybar/waybar.nix
+    ./rofi.nix
     ./mako.nix
   ];
 
@@ -35,10 +35,20 @@
         };
       };
 
+      # Styling overrides
+      colors = with config.stylix.base16Scheme; {
+        focused = {
+          border = lib.mkForce "#${base0D}";
+          childBorder = lib.mkForce "#${base0D}";
+          indicator = lib.mkForce "#${base0C}";
+        };
+      };
+
+      menu = "${pkgs.rofi}/bin/rofi -show drun";
+
       keybindings =
         let
-          cfg = config.wayland.windowManager.sway.config;
-          mod = cfg.modifier;
+          mod = config.wayland.windowManager.sway.config.modifier;
         in
         # NOTE: mkOptionDefault to extend/override instead of overwriting all keybindings
         lib.mkOptionDefault {
@@ -56,32 +66,19 @@
           "${mod}+less" = "move workspace to output left";
         };
 
-      bars = [
-        {
-          fonts = {
-            names = [
-              "DejaVu Sans Mono"
-              "FontAwesome5Free"
-            ];
-            style = "Bold Semi-Condensed";
-            size = 11.0;
-          };
-          position = "top";
-          # TODO: Find a better way to reference the config
-          statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-statusbar.toml";
-        }
-      ];
+      # Provide title in status bar instead
+      window.titlebar = false;
+
+      bars = [ { command = "${pkgs.waybar}/bin/waybar"; } ];
     };
   };
 
   programs.swaylock = {
     enable = true;
+    package = pkgs.swaylock-effects;
     settings = {
-      screenshots = true;
-      clock = true;
-      indicator = true;
+      effect-blur = "16x12";
       indicator-radius = 100;
-      indicator-thickness = 7;
     };
   };
 }

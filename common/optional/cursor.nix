@@ -1,9 +1,8 @@
 { pkgs, ... }:
 {
-  home.pointerCursor = {
-    gtk.enable = true;
-    package = pkgs.simp1e-cursors;
-    name = "Simp1e-Catppuccin-Mocha";
+  stylix.cursor = {
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Ice";
     size = 24;
   };
 }
