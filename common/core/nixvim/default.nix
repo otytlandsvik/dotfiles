@@ -14,16 +14,6 @@
 
     clipboard.register = "unnamedplus"; # Use system clipboard
 
-    # TODO: get nix-colors working with treesitter
-
-    # colorschemes.base16 = {
-    #   enable = true;
-    #   colorscheme = lib.concatMapAttrs (name: value: {
-    #     ${name} = "#${value}";
-    #   }) config.colorScheme.palette;
-    # };
-
-    # Explicit theme for treesitter support
     colorschemes.catppuccin.enable = true;
 
     opts = {
