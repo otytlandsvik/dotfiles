@@ -10,6 +10,7 @@
     ./rofi.nix
     ./mako.nix
     ./swaylock.nix
+    ./swayidle.nix
   ];
 
   # Sway related packages
@@ -44,20 +45,6 @@
           indicator = lib.mkForce "#${base0C}";
         };
       };
-
-      startup = [
-        {
-          # Run swayidle on startup to lock and put device to sleep after inactivity
-          # '-w' flag to swayidle and '-f' flag to swaylock ensure lock happens before sleep
-          command = builtins.concatStringsSep " " [
-            "swayidle -w"
-            "timeout 300 'swaylock -f'"
-            "timeout 600 'swaymsg \"output * dpms off\"'"
-            "resume 'swaymsg \"output * dpms on-\"'"
-            "before-sleep 'swaylock -f'"
-          ];
-        }
-      ];
 
       menu = "${pkgs.rofi}/bin/rofi -show drun";
 
