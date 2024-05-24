@@ -9,6 +9,7 @@
     ./waybar/waybar.nix
     ./rofi.nix
     ./mako.nix
+    ./swaylock.nix
   ];
 
   # Sway related packages
@@ -53,7 +54,7 @@
         # NOTE: mkOptionDefault to extend/override instead of overwriting all keybindings
         lib.mkOptionDefault {
           # Engage swaylock
-          "${mod}+Ctrl+l" = "exec swaylock -c 111111";
+          "${mod}+Ctrl+l" = "exec swaylock";
 
           # Screenshots
           "Print" = "exec shotman -c region";
@@ -70,15 +71,6 @@
       window.titlebar = false;
 
       bars = [ { command = "${pkgs.waybar}/bin/waybar"; } ];
-    };
-  };
-
-  programs.swaylock = {
-    enable = true;
-    package = pkgs.swaylock-effects;
-    settings = {
-      effect-blur = "16x12";
-      indicator-radius = 100;
     };
   };
 }
