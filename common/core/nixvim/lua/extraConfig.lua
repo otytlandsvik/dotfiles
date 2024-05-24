@@ -3,6 +3,16 @@
 -- Timeout before keybind is triggered
 vim.opt.timeoutlen = 250
 
+-- Highlight selection on yank
+vim.api.nvim_create_autocmd("TextYankPost", {
+	group = vim.api.nvim_create_augroup("highlight_yank", {}),
+	desc = "Highlight selection on yank",
+	pattern = "*",
+	callback = function()
+		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 300 })
+	end,
+})
+
 -- Define Commands to enable/disable format on save
 -- from https://github.com/stevearc/conform.nvim/blob/master/doc/recipes.md#command-to-toggle-format-on-save
 

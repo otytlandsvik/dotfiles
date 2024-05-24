@@ -1,9 +1,4 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}:
+{ pkgs, ... }:
 {
   imports = [ ./keymaps.nix ];
 
@@ -226,5 +221,6 @@
 
     # Keep lua config in lua file for syntax highlights and formatting
     extraConfigLua = builtins.readFile ./lua/extraConfig.lua;
+
   };
 }
