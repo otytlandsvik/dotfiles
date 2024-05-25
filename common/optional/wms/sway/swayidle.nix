@@ -11,13 +11,13 @@ in
         timeout = 300;
         command = "${swaylockPkg}/bin/swaylock";
       }
+      # {
+      #   timeout = 600;
+      #   command = "${pkgs.sway}/bin/swaymsg 'output * power off'";
+      #   resumeCommand = "${pkgs.sway}/bin/swaymsg 'output * power on'";
+      # }
       {
         timeout = 600;
-        command = "${pkgs.sway}/bin/swaymsg 'output power off'";
-        resumeCommand = "${pkgs.sway}/bin/swaymsg 'output * power on'";
-      }
-      {
-        timeout = 900;
         command = "${pkgs.systemd}/bin/systemctl suspend";
       }
     ];
@@ -28,11 +28,15 @@ in
       #   event = "before-sleep";
       #   command = "${swaylockPkg}/bin/swaylock";
       # }
+      {
+        event = "before-sleep";
+        command = "${pkgs.sway}/bin/swaymsg 'output * power off'";
+      }
       # NOTE: Is this event needed? We already use 'resumeCommand'...
-      # {
-      #   event = "after-resume";
-      #   command = "${pkgs.sway}/bin/swaymsg 'output * power on'";
-      # }
+      {
+        event = "after-resume";
+        command = "${pkgs.sway}/bin/swaymsg 'output * power on'";
+      }
     ];
   };
 }
