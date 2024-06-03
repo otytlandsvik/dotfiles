@@ -1,41 +1,28 @@
 { pkgs, config, ... }:
 let
-  # Use correct packge (swaylock-effects)
+  # Use correct packge (--swaylock-effects--)
   swaylockPkg = config.programs.swaylock.package;
 in
 {
   services.swayidle = {
     enable = true;
+    extraArgs = [ "-w" ]; # Wait for commands before sleep
     timeouts = [
       {
         timeout = 300;
-        command = "${swaylockPkg}/bin/swaylock";
+        command = "${swaylockPkg}/bin/swaylock -f"; # -f to deamonize
       }
-      # {
-      #   timeout = 600;
-      #   command = "${pkgs.sway}/bin/swaymsg 'output * power off'";
-      #   resumeCommand = "${pkgs.sway}/bin/swaymsg 'output * power on'";
-      # }
       {
         timeout = 600;
-        command = "${pkgs.systemd}/bin/systemctl suspend";
+        command = "${pkgs.sway}/bin/swaymsg 'output * power off'";
+        resumeCommand = "${pkgs.sway}/bin/swaymsg 'output * power on'";
       }
     ];
     events = [
-      # Timeout already engages swaylock, should be sufficient...
-      # NOTE: What about after manual suspend?
-      # {
-      #   event = "before-sleep";
-      #   command = "${swaylockPkg}/bin/swaylock";
-      # }
+      # Also make sure to engage swaylock on manual suspend
       {
         event = "before-sleep";
-        command = "${pkgs.sway}/bin/swaymsg 'output * power off'";
-      }
-      # NOTE: Is this event needed? We already use 'resumeCommand'...
-      {
-        event = "after-resume";
-        command = "${pkgs.sway}/bin/swaymsg 'output * power on'";
+        command = "${swaylockPkg}/bin/swaylock -f";
       }
     ];
   };
