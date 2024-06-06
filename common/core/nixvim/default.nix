@@ -114,6 +114,8 @@
       # Filetree viewer
       neo-tree = {
         enable = true;
+        # TODO: This should be enabled on default, and it should work...
+        buffers.followCurrentFile.enabled = true;
       };
 
       # File search
@@ -134,6 +136,10 @@
             options.desc = "Find buffers";
             action = "buffers";
           };
+        };
+        extensions = {
+          fzf-native.enable = true;
+          media-files.enable = true;
         };
       };
 
@@ -221,6 +227,5 @@
 
     # Keep lua config in lua file for syntax highlights and formatting
     extraConfigLua = builtins.readFile ./lua/extraConfig.lua;
-
   };
 }
