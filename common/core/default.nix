@@ -17,8 +17,9 @@
     ./zoxide.nix # cd replacement
     ./eza.nix # ls replacement
     ./btop.nix # fancy htop
+    ./bat.nix # cat replacement
     ./direnv.nix
-  ]; # ++ (builtins.attrValues outputs.homeManagerModules);
+  ];
 
   # Let home manager install and manage itself
   programs.home-manager.enable = true;
@@ -47,7 +48,6 @@
       delta # Diff pager for git
       ripgrep # grep goodness
       fastfetch # System info
-      bat # cat replacement
       fd # find replacement
       ;
   };
