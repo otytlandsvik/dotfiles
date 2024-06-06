@@ -16,6 +16,7 @@
     common/optional/discord.nix
     common/optional/ferdium.nix
     common/optional/evince.nix
+    common/optional/rider.nix
   ];
 
   # Set global color scheme with nix-colors
