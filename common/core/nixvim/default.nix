@@ -111,6 +111,78 @@
         diagnostics = "nvim_lsp"; # Show lsp warnings
       };
 
+      # Welcome screen
+      alpha = {
+        enable = true;
+        layout = [
+          {
+            type = "padding";
+            val = 2;
+          }
+          {
+            opts = {
+              hl = "Type";
+              position = "center";
+            };
+            type = "text";
+            val = [
+              "███╗   ██╗██╗██╗  ██╗██╗   ██╗██╗███╗   ███╗"
+              "████╗  ██║██║╚██╗██╔╝██║   ██║██║████╗ ████║"
+              "██╔██╗ ██║██║ ╚███╔╝ ██║   ██║██║██╔████╔██║"
+              "██║╚██╗██║██║ ██╔██╗ ╚██╗ ██╔╝██║██║╚██╔╝██║"
+              "██║ ╚████║██║██╔╝ ██╗ ╚████╔╝ ██║██║ ╚═╝ ██║"
+              "╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝  ╚═══╝  ╚═╝╚═╝     ╚═╝"
+            ];
+          }
+          {
+            type = "padding";
+            val = 2;
+          }
+          {
+            type = "group";
+            val =
+              let
+                mkButton = val: cmd: shortcut: {
+                  type = "button";
+                  inherit val;
+                  opts = {
+                    inherit shortcut;
+                    hl = "Operator";
+                    keymap = [
+                      "n"
+                      shortcut
+                      cmd
+                      { }
+                    ];
+                    position = "center";
+                    cursor = 2;
+                    width = 40;
+                    align_shortcut = "right";
+                    hl_shortcut = "Keyword";
+                  };
+                };
+              in
+              [
+                (mkButton " New File" "n" "<CMD>ene<CR>")
+                (mkButton " Find File" "f" "<CMD>lua require('telescope.builtin').find_files()<CR>")
+                (mkButton " Quit Neovim" "q" "<CMD>qa<CR>")
+              ];
+          }
+          {
+            type = "padding";
+            val = 2;
+          }
+          {
+            opts = {
+              hl = "String";
+              position = "center";
+            };
+            type = "text";
+            val = "Sweet nixified neovim 󰓠";
+          }
+        ];
+      };
+
       # Filetree viewer
       neo-tree = {
         enable = true;
@@ -207,12 +279,6 @@
         options.pairSpaces = true;
       };
     };
-
-    # Plugins that aren't exposed through nixvim
-    #    extraPlugins = builtins.attrValues {
-    #      inherit (pkgs.vimPlugins)
-    #        friendly-snippets; # Snippets for luasnip
-    #    };
 
     # Packages that are required by plugins, like formatters
     extraPackages = with pkgs; [
