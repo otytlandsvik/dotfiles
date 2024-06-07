@@ -7,8 +7,9 @@
 {
   imports = [
     ./waybar/waybar.nix
-    ./rofi.nix
-    ./mako.nix
+    ./rofi # dmenu replacement
+    ./rofi/powermenu.nix # powermenu using rofi
+    ./mako.nix # notification daemon
     ./swaylock.nix
     ./swayidle.nix
   ];
@@ -62,6 +63,9 @@
 
           # Open firefox
           "${mod}+x" = "exec firefox";
+
+          # Open powermenu
+          "${mod}+p" = "exec rofi-powermenu";
 
           # Move workspace to other output
           "${mod}+greater" = "move workspace to output right";

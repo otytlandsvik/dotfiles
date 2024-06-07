@@ -20,7 +20,7 @@ in
 
     theme = {
       window = {
-        width = mkLiteral "45%";
+        width = mkLiteral "800px";
         border = 2;
         border-color = mkLiteral "#${palette.base0D}";
       };
