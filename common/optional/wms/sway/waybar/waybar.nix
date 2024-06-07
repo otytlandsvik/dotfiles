@@ -23,13 +23,16 @@ in
         position = "top";
         height = 30;
 
-        modules-left = [ "sway/workspaces" ];
-        modules-center = [ "sway/window" ];
-        modules-right = [
-          "idle_inhibitor"
+        modules-left = [
+          "sway/workspaces"
           "disk"
           "cpu"
           "memory"
+        ];
+        modules-center = [ "sway/window" ];
+        modules-right = [
+          "idle_inhibitor"
+          "network"
           "clock"
           "tray"
         ];
@@ -55,6 +58,30 @@ in
           interval = 60;
         };
 
+        "network" = {
+          format-wifi = " ";
+          format-ethernet = " ";
+          format-disconnected = "";
+          tooltip-format-wifi = "{essid} ({signalStrength}%)";
+          tooltip-format-ethernet = "{ifname}";
+          max-length = 20;
+        };
+
+        # TODO: Might have to use the wireplumber module here instead
+        "pulseaudio" = {
+          format = "{volume}% {icon}";
+          format-muted = "󰝟 ";
+          format-icons = {
+            headphone = " ";
+            headset = " ";
+            default = [
+              " "
+              " "
+            ];
+          };
+          on-click = "pavucontrol";
+        };
+
         "memory" = {
           format = "  {}%";
           interval = 5;
@@ -74,8 +101,8 @@ in
         "idle_inhibitor" = {
           format = "{icon}";
           format-icons = {
-            activated = "󰒳";
-            deactivated = "󰒲";
+            activated = "󰒳 ";
+            deactivated = "󰒲 ";
           };
         };
       };

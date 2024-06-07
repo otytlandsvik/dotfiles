@@ -32,6 +32,14 @@
   color: @base0B;
 }
 
+#network {
+  color: @base0F;
+}
+
+#pulseaudio {
+  color: @base07;
+}
+
 #memory {
   color: @base07;
 }
