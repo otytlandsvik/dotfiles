@@ -5,7 +5,6 @@
     shellAliases = {
       l = "eza -l";
       ll = "eza -al";
-      ls = "eza";
       lg = "lazygit";
       cat = "bat";
       fetch = "fastfetch";
