@@ -60,8 +60,8 @@ in
 
         "network" = {
           format-wifi = " ";
-          format-ethernet = " ";
-          format-disconnected = "";
+          format-ethernet = "󰛳 ";
+          format-disconnected = "󰲛 ";
           tooltip-format-wifi = "{essid} ({signalStrength}%)";
           tooltip-format-ethernet = "{ifname}";
           max-length = 20;
@@ -88,7 +88,7 @@ in
         };
 
         "cpu" = {
-          format = "  {}%";
+          format = "  {}%";
           interval = 5;
         };
 
