@@ -6,7 +6,7 @@ let
 in
 {
 
-  # Manually provide theme colors to for css
+  # Manually provide theme colors for css
   xdg.configFile."waybar/colors.css".text = ''
     ${builtins.concatStringsSep "\n" paletteStrings}
   '';
@@ -64,6 +64,8 @@ in
           format-disconnected = "󰲛 ";
           tooltip-format-wifi = "{essid} ({signalStrength}%)";
           tooltip-format-ethernet = "{ifname}";
+          # TODO: Pass in terminal emulator as a binding for better modularity
+          on-click = "alacritty -e nmtui";
           max-length = 20;
         };
 
@@ -85,11 +87,13 @@ in
         "memory" = {
           format = "  {}%";
           interval = 5;
+          on-click = "alacritty -e btop";
         };
 
         "cpu" = {
           format = "  {}%";
           interval = 5;
+          on-click = "alacritty -e btop";
         };
 
         "disk" = {
