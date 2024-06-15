@@ -163,9 +163,9 @@
                 };
               in
               [
-                (mkButton " New File" "n" "<CMD>ene<CR>")
-                (mkButton " Find File" "f" "<CMD>lua require('telescope.builtin').find_files()<CR>")
-                (mkButton " Quit Neovim" "q" "<CMD>qa<CR>")
+                (mkButton " New File" "<CMD>ene<CR>" "n")
+                (mkButton " Find File" "<CMD>lua require('telescope.builtin').find_files()<CR>" "f")
+                (mkButton " Quit Neovim" "<CMD>qa<CR>" "q")
               ];
           }
           {
