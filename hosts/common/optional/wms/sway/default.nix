@@ -20,7 +20,7 @@
     let
       basePackages = [
         wl-clipboard # Clipboard manager
-        shotman # Screenshot utility
+        sway-contrib.grimshot # Screenshot utility
         playerctl # Media controller
       ];
       laptopPackages = [ brightnessctl ];
@@ -81,7 +81,7 @@
             "${mod}+Ctrl+l" = "exec swaylock";
 
             # Screenshots
-            "Print" = "exec shotman -c region";
+            "Print" = "exec grimshot savecopy anything";
 
             # Open firefox
             "${mod}+x" = "exec firefox";
