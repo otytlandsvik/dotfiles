@@ -17,12 +17,18 @@
   # Sway related packages
   home.packages =
     with pkgs;
-    [
-      wl-clipboard # Clipboard manager
-      shotman # Screenshot utility
-      playerctl # Media controller
-    ]
-    ++ (if config.laptop.enable then [ brightnessctl ] else [ ]);
+    let
+      basePackages = [
+        wl-clipboard # Clipboard manager
+        shotman # Screenshot utility
+        playerctl # Media controller
+      ];
+      laptopPackages = [ brightnessctl ];
+    in
+    lib.mkMerge [
+      basePackages
+      (lib.mkIf config.laptop.enable laptopPackages)
+    ];
 
   wayland.windowManager.sway = {
     enable = true;
@@ -35,19 +41,25 @@
 
       # Sway overrides xkb config from system
       input =
-        {
-          "type:keyboard" = {
-            xkb_layout = "us,no";
-            xkb_variant = "altgr-intl,";
-            xkb_options = "grp:win_space_toggle";
+        let
+          keyboardCfg = {
+            "type:keyboard" = {
+              xkb_layout = "us,no";
+              xkb_variant = "altgr-intl,";
+              xkb_options = "grp:win_space_toggle";
+            };
           };
-        }
-        // lib.mkIf config.laptop.enable {
-          "type:touchpad" = {
-            tap = "enabled";
-            natural_scroll = "enabled";
+          touchpadCfg = {
+            "type:touchpad" = {
+              tap = "enabled";
+              natural_scroll = "enabled";
+            };
           };
-        };
+        in
+        lib.mkMerge [
+          keyboardCfg
+          (lib.mkIf config.laptop.enable touchpadCfg)
+        ];
 
       # Styling overrides
       colors = with config.stylix.base16Scheme; {
