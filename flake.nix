@@ -32,14 +32,14 @@
     in
     {
 
-      homeConfigurations."ole" = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations."ole@xps" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
         extraSpecialArgs = {
           inherit inputs;
         };
 
-        modules = [ ./home.nix ];
+        modules = [ ./hosts/xps.nix ];
       };
     };
 }

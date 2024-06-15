@@ -36,8 +36,12 @@
   color: @base0F;
 }
 
-#pulseaudio {
-  color: @base07;
+#wireplumber {
+  color: @base0C;
+}
+
+#battery {
+  color: @base09;
 }
 
 #memory {
