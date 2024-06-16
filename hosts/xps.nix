@@ -18,6 +18,8 @@
     common/optional/evince.nix
     common/optional/rider.nix
     common/optional/stylix.nix
+    common/optional/spotify.nix
+    common/optional/vscode.nix
   ];
 
   # Custom options
