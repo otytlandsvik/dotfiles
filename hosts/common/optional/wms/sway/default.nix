@@ -120,5 +120,11 @@
 
       bars = [ { command = "${pkgs.waybar}/bin/waybar"; } ];
     };
+
+    # Touchpad swipe to change workspace
+    extraConfig = lib.mkIf config.laptop.enable ''
+      bindgesture swipe:right workspace prev
+      bindgesture swipe:left workspace next
+    '';
   };
 }
