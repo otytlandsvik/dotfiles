@@ -46,7 +46,7 @@
             "type:keyboard" = {
               xkb_layout = "us,no";
               xkb_variant = "altgr-intl,";
-              xkb_options = "grp:win_space_toggle";
+              xkb_options = "grp:win_space_toggle,caps:escape_shifted_capslock";
             };
           };
           touchpadCfg = {
