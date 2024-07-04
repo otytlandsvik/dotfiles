@@ -41,5 +41,14 @@
 
         modules = [ ./hosts/xps.nix ];
       };
+      homeConfigurations."ole@donkeykong" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+
+        extraSpecialArgs = {
+          inherit inputs;
+        };
+
+        modules = [ ./hosts/donkeykong.nix ];
+      };
     };
 }
