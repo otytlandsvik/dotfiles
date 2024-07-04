@@ -27,9 +27,15 @@
   # Custom options
   laptop.enable = false;
   # Configure widescreen display
-  wms.sway.outputConfig = {
-    HDMI-A-2 = {
-      mode = "3440x1440@49.987Hz";
+  wms.sway = {
+    outputConfig = {
+      HDMI-A-2 = {
+        mode = "3440x1440@49.987Hz";
+      };
+    };
+    swayidle = {
+      lockTimeout = 900;
+      sleepTimeout = 1200;
     };
   };
 }
