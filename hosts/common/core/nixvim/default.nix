@@ -278,6 +278,9 @@
         enable = true;
         options.pairSpaces = true;
       };
+
+      # Git diff signs on sidebar
+      gitsigns.enable = true;
     };
 
     # Packages that are required by plugins, like formatters
