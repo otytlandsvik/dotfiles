@@ -58,6 +58,8 @@
         ripgrep # grep goodness
         fastfetch # System info
         fd # find replacement
+        zip
+        unzip
         ;
     };
   };
