@@ -26,6 +26,7 @@
 
   # Custom options
   laptop.enable = false;
+
   # Configure widescreen display
   wms.sway = {
     outputConfig = {
@@ -38,4 +39,7 @@
       sleepTimeout = 1200;
     };
   };
+
+  # Large display also warrants slightly smaller cursor
+  cursor.size = 20;
 }
