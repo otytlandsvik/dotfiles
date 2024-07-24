@@ -91,7 +91,7 @@ in
             };
 
             "cpu" = {
-              format = "  {}%";
+              format = "  {usage}%";
               interval = 5;
               on-click = "alacritty -e btop";
             };
