@@ -17,6 +17,7 @@
     common/optional/k9s.nix
     common/optional/kubernetes.nix
     common/optional/obsidian.nix
+    common/optional/psql.nix
     common/optional/rider.nix
     common/optional/spotify.nix
     common/optional/stylix.nix
