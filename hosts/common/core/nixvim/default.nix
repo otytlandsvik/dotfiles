@@ -281,6 +281,9 @@
 
       # Git diff signs on sidebar
       gitsigns.enable = true;
+
+      # Highlight other uses of word under cursor
+      illuminate.enable = true;
     };
 
     # Packages that are required by plugins, like formatters
