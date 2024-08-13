@@ -50,5 +50,14 @@
 
         modules = [ ./hosts/donkeykong.nix ];
       };
+      homeConfigurations."oty@ekman" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+
+        extraSpecialArgs = {
+          inherit inputs;
+        };
+
+        modules = [ ./hosts/ekman.nix ];
+      };
     };
 }
