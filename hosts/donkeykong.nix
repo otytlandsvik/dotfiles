@@ -12,10 +12,12 @@
     ################ Optionals ################
     common/optional/wms/sway
     common/optional/cursor.nix
+    common/optional/discord.nix
     common/optional/evince.nix
     common/optional/ferdium.nix
     common/optional/k9s.nix
     common/optional/kubernetes.nix
+    common/optional/netcdf.nix
     common/optional/obsidian.nix
     common/optional/psql.nix
     common/optional/rider.nix
