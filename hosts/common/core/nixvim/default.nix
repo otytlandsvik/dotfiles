@@ -234,13 +234,15 @@
               rev = "d939b3a1db56820f6b810f764e9163f514cb833a";
               hash = "sha256-MQg7cZDsSXlcmfPfwgWcY/N66iBuCQf2yjzbg10WcsA=";
             };
-            # generate = false;
+            generate = false;
             meta.homepage = "https://github.com/ionide/tree-sitter-fsharp";
           };
         in
         {
           enable = true;
           indent = true;
+          nixvimInjections = true;
+          languageRegister.fsharp = "fsharp";
           # FIXME: fsharp grammar won't work
 
           # grammarPackages = with config.programs.nixvim.plugins.treesitter.package.builtGrammars; [
@@ -270,6 +272,7 @@
           # ];
           # ++ [ fsharp-grammar ];
           grammarPackages = pkgs.vimPlugins.nvim-treesitter.allGrammars ++ [ fsharp-grammar ];
+          # grammarPackages = [ fsharp-grammar ];
         };
 
       # Leader popup suggestions
@@ -350,6 +353,58 @@
       goimports-reviser
       gofumpt
     ];
+
+    # extraPlugins =
+    #   let
+    #     fsharp-grammar = pkgs.tree-sitter.buildGrammar {
+    #       language = "fsharp";
+    #       version = "0.0.0+rev=d939b3a";
+    #       src = pkgs.fetchFromGitHub {
+    #         owner = "ionide";
+    #         repo = "tree-sitter-fsharp";
+    #         rev = "d939b3a1db56820f6b810f764e9163f514cb833a";
+    #         hash = "sha256-MQg7cZDsSXlcmfPfwgWcY/N66iBuCQf2yjzbg10WcsA=";
+    #       };
+    #       # generate = false;
+    #       meta.homepage = "https://github.com/ionide/tree-sitter-fsharp";
+    #     };
+    #     treesitter = pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [
+    #       p.c
+    #       p.lua
+    #       p.vim
+    #       p.vimdoc
+    #       p.query
+    #
+    #       fsharp-grammar
+    #       p.bash
+    #       p.bibtex
+    #       p.c_sharp
+    #       p.cue
+    #       p.cpp
+    #       p.css
+    #       p.dhall
+    #       p.dockerfile
+    #       p.fish
+    #       p.git_rebase
+    #       p.gitattributes
+    #       p.gitignore
+    #       p.glsl
+    #       p.go
+    #       p.html
+    #       p.javascript
+    #       p.latex
+    #       p.markdown
+    #       p.markdown_inline
+    #       p.nix
+    #       p.python
+    #       p.rust
+    #       p.sql
+    #       p.typescript
+    #       p.yaml
+    #       p.zig
+    #     ]);
+    #   in
+    #   [ treesitter ];
 
     # Keep lua config in lua file for syntax highlights and formatting
     extraConfigLua = builtins.readFile ./lua/extraConfig.lua;
