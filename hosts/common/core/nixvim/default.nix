@@ -17,6 +17,7 @@
       autoread = true; # Reload files changed outside vim
       lazyredraw = true; # Redraw lazily
       wrap = false; # Don't wrap lines by default
+      scrolloff = 5; # Show a few lines of context around cursor
 
       # Indentation
       # autoindent = true;
@@ -65,6 +66,12 @@
 
           # Typst
           typst-lsp.enable = true;
+
+          # Rust
+          rust-analyzer.enable = true;
+        };
+        keymaps.lspBuf = {
+          K = "hover";
         };
       };
 
@@ -216,7 +223,54 @@
       };
 
       # Treesitter
-      treesitter.enable = true;
+      treesitter =
+        let
+          fsharp-grammar = pkgs.tree-sitter.buildGrammar {
+            language = "fsharp";
+            version = "0.0.0+rev=d939b3a";
+            src = pkgs.fetchFromGitHub {
+              owner = "ionide";
+              repo = "tree-sitter-fsharp";
+              rev = "d939b3a1db56820f6b810f764e9163f514cb833a";
+              hash = "sha256-MQg7cZDsSXlcmfPfwgWcY/N66iBuCQf2yjzbg10WcsA=";
+            };
+            # generate = false;
+            meta.homepage = "https://github.com/ionide/tree-sitter-fsharp";
+          };
+        in
+        {
+          enable = true;
+          indent = true;
+          # FIXME: fsharp grammar won't work
+
+          # grammarPackages = with config.programs.nixvim.plugins.treesitter.package.builtGrammars; [
+          #   bash
+          #   c_sharp
+          #   css
+          #   csv
+          #   dockerfile
+          #   fsharp-grammar
+          #   fish
+          #   go
+          #   haskell
+          #   html
+          #   javascript
+          #   json
+          #   latex
+          #   lua
+          #   make
+          #   markdown
+          #   nix
+          #   python
+          #   toml
+          #   typescript
+          #   typst
+          #   rust
+          #   yaml
+          # ];
+          # ++ [ fsharp-grammar ];
+          grammarPackages = pkgs.vimPlugins.nvim-treesitter.allGrammars ++ [ fsharp-grammar ];
+        };
 
       # Leader popup suggestions
       which-key.enable = true;
