@@ -3,5 +3,6 @@
   programs.yazi.enable = true;
 
   # Also need Uberzug++ for image preview
-  home.packages = [ pkgs.ueberzugpp ];
+  # TODO: Add ueberzugpp when build error is fixed
+  # home.packages = [ pkgs.ueberzugpp ];
 }

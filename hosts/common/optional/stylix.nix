@@ -5,6 +5,7 @@
   colorScheme = inputs.nix-colors.colorSchemes.catppuccin-mocha;
 
   stylix = {
+    enable = true;
     # Pass theme to stylix
     base16Scheme = config.colorScheme.palette;
 

@@ -54,7 +54,8 @@
       inherit (pkgs)
 
         fzf # Fuzzy find
-        delta # Diff pager for git
+        # TODO: Add delta back when build error is fixed (0.18.0)
+        # delta # Diff pager for git
         ripgrep # grep goodness
         fastfetch # System info
         fd # find replacement

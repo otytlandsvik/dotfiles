@@ -41,7 +41,7 @@
         enable = true;
         servers = {
           # Nix
-          nil_ls.enable = true;
+          nil-ls.enable = true;
 
           # F#
           fsautocomplete.enable = true;
@@ -65,10 +65,14 @@
           pylsp.enable = true;
 
           # Typst
-          typst-lsp.enable = true;
+          tinymist.enable = true;
 
           # Rust
-          rust-analyzer.enable = true;
+          rust-analyzer = {
+            enable = true;
+            installCargo = true;
+            installRustc = true;
+          };
         };
         keymaps.lspBuf = {
           K = "hover";
@@ -115,7 +119,7 @@
       # Bufferline (showing open buffers)
       bufferline = {
         enable = true;
-        diagnostics = "nvim_lsp"; # Show lsp warnings
+        settings.options.diagnostics = "nvim_lsp"; # Show lsp warnings
       };
 
       # Welcome screen
@@ -240,7 +244,7 @@
         in
         {
           enable = true;
-          indent = true;
+          settings.indent.enable = true;
           nixvimInjections = true;
           languageRegister.fsharp = "fsharp";
           # FIXME: fsharp grammar won't work
