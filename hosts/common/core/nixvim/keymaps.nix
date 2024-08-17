@@ -5,8 +5,8 @@
     # Neo-tree
     {
       key = "<leader>e";
-      action = "<cmd>Neotree toggle<CR>";
-      options.desc = "Toggle neo-tree";
+      action = "<cmd>Neotree toggle reveal<CR>";
+      options.desc = "Toggle neo-tree (reveal)";
     }
     # Buffers
     {

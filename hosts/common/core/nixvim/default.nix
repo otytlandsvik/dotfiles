@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   imports = [ ./keymaps.nix ];
 
@@ -76,6 +76,8 @@
         };
         keymaps.lspBuf = {
           K = "hover";
+          gd = "definition";
+          gr = "references";
         };
       };
 
@@ -197,6 +199,7 @@
       # Filetree viewer
       neo-tree = {
         enable = true;
+        closeIfLastWindow = true;
         # TODO: This should be enabled on default, and it should work...
         buffers.followCurrentFile.enabled = true;
       };
@@ -211,6 +214,10 @@
             options.desc = "Find files";
             action = "find_files";
           };
+          "<leader>fh" = {
+            options.desc = "Find hidden files";
+            action = "find_files hidden=true";
+          };
           "<leader>fg" = {
             options.desc = "Find with grep";
             action = "live_grep";
@@ -218,6 +225,18 @@
           "<leader>fb" = {
             options.desc = "Find buffers";
             action = "buffers";
+          };
+          "<leader>fc" = {
+            options.desc = "Find commands";
+            action = "commands";
+          };
+          "<leader>fj" = {
+            options.desc = "Find in jumplist";
+            action = "jumplist";
+          };
+          "<leader>fk" = {
+            options.desc = "Find keymap";
+            action = "keymaps";
           };
         };
         extensions = {
@@ -244,40 +263,52 @@
         in
         {
           enable = true;
-          settings.indent.enable = true;
+          settings = {
+            indent.enable = true;
+            highlight.enable = true;
+          };
           nixvimInjections = true;
           languageRegister.fsharp = "fsharp";
-          # FIXME: fsharp grammar won't work
 
-          # grammarPackages = with config.programs.nixvim.plugins.treesitter.package.builtGrammars; [
-          #   bash
-          #   c_sharp
-          #   css
-          #   csv
-          #   dockerfile
-          #   fsharp-grammar
-          #   fish
-          #   go
-          #   haskell
-          #   html
-          #   javascript
-          #   json
-          #   latex
-          #   lua
-          #   make
-          #   markdown
-          #   nix
-          #   python
-          #   toml
-          #   typescript
-          #   typst
-          #   rust
-          #   yaml
-          # ];
-          # ++ [ fsharp-grammar ];
-          grammarPackages = pkgs.vimPlugins.nvim-treesitter.allGrammars ++ [ fsharp-grammar ];
-          # grammarPackages = [ fsharp-grammar ];
+          grammarPackages =
+            with config.programs.nixvim.plugins.treesitter.package.builtGrammars;
+            [
+              bash
+              bibtex
+              c_sharp
+              cue
+              cpp
+              css
+              csv
+              dockerfile
+              fish
+              git_rebase
+              gitattributes
+              gitignore
+              go
+              haskell
+              html
+              javascript
+              json
+              latex
+              lua
+              make
+              markdown
+              markdown_inline
+              nix
+              python
+              rust
+              toml
+              typescript
+              typst
+              yaml
+              zig
+            ]
+            ++ [ fsharp-grammar ];
         };
+
+      # Sticky function signatures / scope context
+      treesitter-context.enable = true;
 
       # Leader popup suggestions
       which-key.enable = true;
@@ -345,6 +376,12 @@
 
       # Highlight other uses of word under cursor
       illuminate.enable = true;
+
+      # Surround words/lines with brackets
+      surround.enable = true;
+
+      # Preview markdown in the browser
+      markdown-preview.enable = true;
     };
 
     # Packages that are required by plugins, like formatters
@@ -357,58 +394,6 @@
       goimports-reviser
       gofumpt
     ];
-
-    # extraPlugins =
-    #   let
-    #     fsharp-grammar = pkgs.tree-sitter.buildGrammar {
-    #       language = "fsharp";
-    #       version = "0.0.0+rev=d939b3a";
-    #       src = pkgs.fetchFromGitHub {
-    #         owner = "ionide";
-    #         repo = "tree-sitter-fsharp";
-    #         rev = "d939b3a1db56820f6b810f764e9163f514cb833a";
-    #         hash = "sha256-MQg7cZDsSXlcmfPfwgWcY/N66iBuCQf2yjzbg10WcsA=";
-    #       };
-    #       # generate = false;
-    #       meta.homepage = "https://github.com/ionide/tree-sitter-fsharp";
-    #     };
-    #     treesitter = pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [
-    #       p.c
-    #       p.lua
-    #       p.vim
-    #       p.vimdoc
-    #       p.query
-    #
-    #       fsharp-grammar
-    #       p.bash
-    #       p.bibtex
-    #       p.c_sharp
-    #       p.cue
-    #       p.cpp
-    #       p.css
-    #       p.dhall
-    #       p.dockerfile
-    #       p.fish
-    #       p.git_rebase
-    #       p.gitattributes
-    #       p.gitignore
-    #       p.glsl
-    #       p.go
-    #       p.html
-    #       p.javascript
-    #       p.latex
-    #       p.markdown
-    #       p.markdown_inline
-    #       p.nix
-    #       p.python
-    #       p.rust
-    #       p.sql
-    #       p.typescript
-    #       p.yaml
-    #       p.zig
-    #     ]);
-    #   in
-    #   [ treesitter ];
 
     # Keep lua config in lua file for syntax highlights and formatting
     extraConfigLua = builtins.readFile ./lua/extraConfig.lua;
