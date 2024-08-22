@@ -6,8 +6,7 @@
       # Configure delta as the default pager
       git.paging = {
         colorArg = "always";
-        # TODO: Add back delta once build error is fixed
-        # pager = "delta --dark --paging=never";
+        pager = "delta --dark --paging=never";
       };
     };
   };
