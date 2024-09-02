@@ -100,5 +100,11 @@
       action = "<cmd>noh<CR>";
       options.desc = "Turn off highlights";
     }
+    # Write without formatting
+    {
+      key = "<leader>wn";
+      action = "<cmd>noa w<CR>";
+      options.desc = "Write without formatting";
+    }
   ];
 }
