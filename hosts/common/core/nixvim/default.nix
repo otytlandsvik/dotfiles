@@ -18,7 +18,8 @@
       lazyredraw = true; # Redraw lazily
       wrap = false; # Don't wrap lines by default
       scrolloff = 5; # Show a few lines of context around cursor
-      swapfile = false;
+      swapfile = false; # Don't create a swapfile if closed without saving
+      cursorline = true; # Highlight the current line
 
       # Indentation
       # autoindent = true;
