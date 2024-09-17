@@ -18,16 +18,17 @@
       lazyredraw = true; # Redraw lazily
       wrap = false; # Don't wrap lines by default
       scrolloff = 5; # Show a few lines of context around cursor
+      swapfile = false;
 
       # Indentation
       # autoindent = true;
-      cindent = true; # Automatically indent braces
-      # smartindent = true;
+      # cindent = true; # Automatically indent braces
+      smartindent = true; # Insert indents automatically
       # smarttab = true;
-      shiftwidth = 2;
-      # softtabstop = 2;
-      # tabstop = 2;
-      # expandtab = true;
+      shiftwidth = 2; # Size of an indent
+      shiftround = true; # Round indent to multiple of shitfwidth
+      softtabstop = 2; # Number of spaces to insert on <Tab>
+      expandtab = true; # Use spaces instead of tabs
     };
 
     # Set leader key to space
@@ -41,7 +42,7 @@
         enable = true;
         servers = {
           # Nix
-          nil-ls.enable = true;
+          nixd.enable = true;
 
           # F#
           fsautocomplete.enable = true;
@@ -357,7 +358,7 @@
       };
 
       # Notification UI
-      fidget.enable = true;
+      # fidget.enable = true;
 
       # Comment utilities
       comment.enable = true;
@@ -366,6 +367,7 @@
       todo-comments.enable = true;
 
       # Automatically close braces
+      # TODO: Maybe switch to nvim-autopairs?
       autoclose = {
         enable = true;
         options.pairSpaces = true;
@@ -394,6 +396,29 @@
       goimports-reviser
       gofumpt
     ];
+
+    # Autocommands
+    autoCmd =
+      let
+        mkFileTypeCmd = pattern: command: {
+          event = [
+            "BufEnter"
+            "BufWinEnter"
+          ];
+          pattern = pattern;
+          command = command;
+        };
+      in
+      [
+        # Set wrapping and spell checking for typst files
+        (mkFileTypeCmd [ "*.typ" ] "setlocal wrap linebreak spell spelllang=en_us")
+        # Set 4 spaces to default for F#
+        (mkFileTypeCmd [
+          "*.fs"
+          "*.fsi"
+          "*.fsx"
+        ] "setlocal shiftwidth=4 softtabstop=4")
+      ];
 
     # Keep lua config in lua file for syntax highlights and formatting
     extraConfigLua = builtins.readFile ./lua/extraConfig.lua;
