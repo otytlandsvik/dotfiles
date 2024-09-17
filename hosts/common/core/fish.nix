@@ -7,6 +7,7 @@
       ll = "eza -al";
       lg = "lazygit";
       cat = "bat";
+      tree = "eza -T";
       fetch = "fastfetch";
     };
 
