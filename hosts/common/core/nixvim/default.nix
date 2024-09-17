@@ -366,11 +366,11 @@
       # Highlight todo comments
       todo-comments.enable = true;
 
-      # Automatically close braces
-      # TODO: Maybe switch to nvim-autopairs?
-      autoclose = {
+      # Automatically pair braces, etc
+      # TODO: Add rules to properly handle pairing braces composed
+      # with multiple characters, like ```...```
+      nvim-autopairs = {
         enable = true;
-        options.pairSpaces = true;
       };
 
       # Git diff signs on sidebar
