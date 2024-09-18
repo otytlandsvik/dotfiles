@@ -180,6 +180,7 @@
               [
                 (mkButton " New File" "<CMD>ene<CR>" "n")
                 (mkButton " Find File" "<CMD>lua require('telescope.builtin').find_files()<CR>" "f")
+                (mkButton " Live Grep" "<CMD>lua require('telescope.builtin').live_grep()<CR>" "g")
                 (mkButton " Quit Neovim" "<CMD>qa<CR>" "q")
               ];
           }
