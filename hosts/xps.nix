@@ -11,6 +11,7 @@
 
     ################ Optionals ################
     common/optional/wms/sway
+    common/optional/bambu.nix
     common/optional/cursor.nix
     common/optional/discord.nix
     common/optional/evince.nix
