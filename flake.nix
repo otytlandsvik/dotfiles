@@ -31,7 +31,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in
     {
-
+      # Dell laptop
       homeConfigurations."ole@xps" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
@@ -41,6 +41,7 @@
 
         modules = [ ./hosts/xps.nix ];
       };
+      # Old work machine
       homeConfigurations."ole@donkeykong" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
@@ -50,6 +51,17 @@
 
         modules = [ ./hosts/donkeykong.nix ];
       };
+      # New work machine
+      homeConfigurations."ole@jzargo" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+
+        extraSpecialArgs = {
+          inherit inputs;
+        };
+
+        modules = [ ./hosts/jzargo.nix ];
+      };
+      # Ekman server
       homeConfigurations."oty@ekman" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
