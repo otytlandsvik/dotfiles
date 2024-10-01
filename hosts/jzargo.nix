@@ -31,19 +31,14 @@
   # Custom options
   laptop.enable = false;
 
-  # Configure widescreen display
+  # Configure idle timeouts
   wms.sway = {
-    outputConfig = {
-      HDMI-A-2 = {
-        mode = "3440x1440@49.987Hz";
-      };
-    };
     swayidle = {
       lockTimeout = 900;
       sleepTimeout = 1200;
     };
   };
 
-  # Large display also warrants slightly smaller cursor
+  # Large display warrants slightly smaller cursor
   cursor.size = 20;
 }
