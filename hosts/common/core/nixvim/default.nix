@@ -204,7 +204,6 @@
       neo-tree = {
         enable = true;
         closeIfLastWindow = true;
-        # TODO: This should be enabled on default, and it should work...
         buffers.followCurrentFile.enabled = true;
       };
 
@@ -321,7 +320,9 @@
       indent-blankline = {
         enable = true;
         settings.scope = {
-          show_start = false; # Disable scope start underline
+          # Disable undelines for scope start and end
+          show_start = false;
+          show_end = false;
         };
       };
 

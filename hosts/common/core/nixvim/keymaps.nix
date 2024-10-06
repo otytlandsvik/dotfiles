@@ -5,8 +5,13 @@
     # Neo-tree
     {
       key = "<leader>e";
-      action = "<cmd>Neotree toggle reveal<CR>";
-      options.desc = "Toggle neo-tree (reveal)";
+      action = "<cmd>Neotree toggle reveal position=float<CR>";
+      options.desc = "Toggle neo-tree (floating window)";
+    }
+    {
+      key = "<leader>E";
+      action = "<cmd>Neotree toggle reveal position=left<CR>";
+      options.desc = "Toggle neo-tree (left window)";
     }
     # Buffers
     {
