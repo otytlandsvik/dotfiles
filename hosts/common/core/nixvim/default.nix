@@ -41,6 +41,7 @@
       # Language service providers
       lsp = {
         enable = true;
+        inlayHints = true;
         servers = {
           # Nix
           nixd.enable = true;
@@ -64,7 +65,7 @@
           ccls.enable = true;
 
           # Python
-          pylsp.enable = true;
+          pyright.enable = true;
 
           # Typst
           tinymist.enable = true;
