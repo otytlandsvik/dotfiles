@@ -251,18 +251,7 @@
       # Treesitter
       treesitter =
         let
-          fsharp-grammar = pkgs.tree-sitter.buildGrammar {
-            language = "fsharp";
-            version = "0.0.0+rev=d939b3a";
-            src = pkgs.fetchFromGitHub {
-              owner = "ionide";
-              repo = "tree-sitter-fsharp";
-              rev = "d939b3a1db56820f6b810f764e9163f514cb833a";
-              hash = "sha256-MQg7cZDsSXlcmfPfwgWcY/N66iBuCQf2yjzbg10WcsA=";
-            };
-            generate = false;
-            meta.homepage = "https://github.com/ionide/tree-sitter-fsharp";
-          };
+          fsharp-grammar = pkgs.callPackage ./fsharpGrammar.nix { };
         in
         {
           enable = true;
