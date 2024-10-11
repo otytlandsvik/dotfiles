@@ -69,7 +69,7 @@ in
               tooltip-format-wifi = "{essid} ({signalStrength}%)";
               tooltip-format-ethernet = "{ifname}";
               # TODO: Pass in terminal emulator as a binding for better modularity
-              on-click = "alacritty -e nmtui";
+              on-click = "networkmanager_dmenu";
               max-length = 20;
             };
 

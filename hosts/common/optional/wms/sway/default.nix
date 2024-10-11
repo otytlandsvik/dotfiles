@@ -9,6 +9,7 @@
     ./waybar/waybar.nix
     ./rofi # dmenu replacement
     ./rofi/powermenu.nix # powermenu using rofi
+    ./rofi/networkmanager.nix # networkmanager using rofi
     ./mako.nix # notification daemon
     ./swaylock.nix
     ./swayidle.nix
