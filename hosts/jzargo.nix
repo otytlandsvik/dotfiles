@@ -12,6 +12,8 @@
     ################ Optionals ################
     common/optional/wms/sway
     common/optional/cursor.nix
+    common/optional/dia.nix
+    common/optional/chromium.nix
     common/optional/discord.nix
     common/optional/evince.nix
     common/optional/ferdium.nix
@@ -22,6 +24,7 @@
     common/optional/psql.nix
     common/optional/rider.nix
     common/optional/spotify.nix
+    common/optional/ssh.nix
     common/optional/stylix.nix
     common/optional/vpn.nix
     common/optional/vscode.nix
