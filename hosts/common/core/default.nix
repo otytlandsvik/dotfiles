@@ -43,6 +43,7 @@
         TERM = "alacritty";
         TERMINAL = "alacritty";
         EDITOR = "nvim";
+        ELECTRON_OZONE_PLATFORM_HINT = "auto";
       };
     };
 
