@@ -11,10 +11,10 @@
 
     ################ Optionals ################
     common/optional/stylix.nix
+    common/optional/netcdf.nix
     common/optional/yazi.nix
   ];
 
   # Custom config
   home.username = "oty";
-
 }
