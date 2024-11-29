@@ -23,12 +23,11 @@
 
       # Indentation
       # autoindent = true;
-      # cindent = true; # Automatically indent braces
       smartindent = true; # Insert indents automatically
       # smarttab = true;
-      shiftwidth = 2; # Size of an indent
+      shiftwidth = 4; # Size of an indent
       shiftround = true; # Round indent to multiple of shitfwidth
-      softtabstop = 2; # Number of spaces to insert on <Tab>
+      softtabstop = 4; # Number of spaces to insert on <Tab>
       expandtab = true; # Use spaces instead of tabs
     };
 
@@ -280,7 +279,6 @@
         {
           enable = true;
           settings = {
-            indent.enable = true;
             highlight.enable = true;
           };
           nixvimInjections = true;
@@ -401,6 +399,14 @@
 
       # Preview markdown in the browser
       markdown-preview.enable = true;
+
+      # Typst plugin
+      typst-vim = {
+        enable = true;
+        settings = {
+          pdf_viewer = "evince";
+        };
+      };
     };
 
     # Packages that are required by plugins, like formatters
@@ -427,17 +433,15 @@
         };
       in
       [
+        (mkFileTypeCmd [ "*.nix" ] "setlocal shiftwidth=2 softtabstop=2")
         # Set wrapping and spell checking for typst files
         (mkFileTypeCmd [ "*.typ" ] "setlocal wrap linebreak spell spelllang=en_us")
-        # Set 4 spaces to default for F#
-        (mkFileTypeCmd [
-          "*.fs"
-          "*.fsi"
-          "*.fsx"
-        ] "setlocal shiftwidth=4 softtabstop=4")
       ];
 
     # Keep lua config in lua file for syntax highlights and formatting
     extraConfigLua = builtins.readFile ./lua/extraConfig.lua;
+
+    # Fsharp indentation config from ionide-vim
+    extraFiles."indent/fsharp.vim".source = ./vimscript/indentFsharp.vim;
   };
 }

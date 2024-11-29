@@ -111,5 +111,11 @@
       action = "<cmd>noa w<CR>";
       options.desc = "Write without formatting";
     }
+    # Run refactor/format with LSP
+    {
+      key = "<leader>r";
+      action = "<cmd>lua vim.lsp.buf.format()<CR>";
+      options.desc = "Refactor/format with LSP";
+    }
   ];
 }
