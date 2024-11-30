@@ -257,12 +257,12 @@
             (pkgs-unstable.tree-sitter.buildGrammar {
               language = "fsharp";
               location = "fsharp";
-              version = "0.1.0";
+              version = "0.1.0+rev=971da5f";
               src = pkgs-unstable.fetchFromGitHub {
                 owner = "ionide";
                 repo = "tree-sitter-fsharp";
-                rev = "v0.1.0";
-                hash = "sha256-9YSywEoXxmLbyj3K888DbrHUBG4DrGTbYesW/SeDVvs=";
+                rev = "971da5ff0266bfe4a6ecfb94616548032d6d1ba0";
+                hash = "sha256-0jrbznAXcjXrbJ5jnxWMzPKxRopxKCtoQXGl80R1M0M=";
               };
               meta.homepage = "https://github.com/ionide/tree-sitter-fsharp";
             }).overrideAttrs
@@ -287,40 +287,41 @@
           nixvimInjections = true;
           languageRegister.fsharp = "fsharp";
 
-          grammarPackages = with config.programs.nixvim.plugins.treesitter.package.builtGrammars; [
-            bash
-            bibtex
-            c_sharp
-            cue
-            cpp
-            css
-            csv
-            dockerfile
-            fish
-            git_rebase
-            gitattributes
-            gitignore
-            go
-            haskell
-            html
-            javascript
-            json
-            latex
-            lua
-            make
-            markdown
-            markdown_inline
-            nix
-            python
-            rust
-            toml
-            typescript
-            typst
-            yaml
-            zig
-          ];
-          # FIXME: Broken schemes don't work with current treesitter version
-          # ++ [ fsharp-grammar ];
+          grammarPackages =
+            with config.programs.nixvim.plugins.treesitter.package.builtGrammars;
+            [
+              bash
+              bibtex
+              c_sharp
+              cue
+              cpp
+              css
+              csv
+              dockerfile
+              fish
+              git_rebase
+              gitattributes
+              gitignore
+              go
+              haskell
+              html
+              javascript
+              json
+              latex
+              lua
+              make
+              markdown
+              markdown_inline
+              nix
+              python
+              rust
+              toml
+              typescript
+              typst
+              yaml
+              zig
+            ]
+            ++ [ fsharp-grammar ];
         };
 
       # Sticky function signatures / scope context
