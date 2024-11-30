@@ -1,6 +1,9 @@
-{ pkgs, config, ... }:
+{ pkgs-unstable, config, ... }:
 {
   imports = [ ./keymaps.nix ];
+
+  # Set colorscheme through nixvim instead
+  stylix.targets.nixvim.enable = false;
 
   programs.nixvim = {
     enable = true;
@@ -52,7 +55,7 @@
           dockerls.enable = true;
 
           # js/ts
-          tsserver.enable = true;
+          ts_ls.enable = true;
 
           # CSS
           cssls.enable = true;
@@ -70,7 +73,7 @@
           tinymist.enable = true;
 
           # Rust
-          rust-analyzer = {
+          rust_analyzer = {
             enable = true;
             installCargo = true;
             installRustc = true;
@@ -251,11 +254,11 @@
       treesitter =
         let
           fsharp-grammar =
-            (pkgs.tree-sitter.buildGrammar {
+            (pkgs-unstable.tree-sitter.buildGrammar {
               language = "fsharp";
               location = "fsharp";
               version = "0.1.0";
-              src = pkgs.fetchFromGitHub {
+              src = pkgs-unstable.fetchFromGitHub {
                 owner = "ionide";
                 repo = "tree-sitter-fsharp";
                 rev = "v0.1.0";
@@ -284,41 +287,40 @@
           nixvimInjections = true;
           languageRegister.fsharp = "fsharp";
 
-          grammarPackages =
-            with config.programs.nixvim.plugins.treesitter.package.builtGrammars;
-            [
-              bash
-              bibtex
-              c_sharp
-              cue
-              cpp
-              css
-              csv
-              dockerfile
-              fish
-              git_rebase
-              gitattributes
-              gitignore
-              go
-              haskell
-              html
-              javascript
-              json
-              latex
-              lua
-              make
-              markdown
-              markdown_inline
-              nix
-              python
-              rust
-              toml
-              typescript
-              typst
-              yaml
-              zig
-            ]
-            ++ [ fsharp-grammar ];
+          grammarPackages = with config.programs.nixvim.plugins.treesitter.package.builtGrammars; [
+            bash
+            bibtex
+            c_sharp
+            cue
+            cpp
+            css
+            csv
+            dockerfile
+            fish
+            git_rebase
+            gitattributes
+            gitignore
+            go
+            haskell
+            html
+            javascript
+            json
+            latex
+            lua
+            make
+            markdown
+            markdown_inline
+            nix
+            python
+            rust
+            toml
+            typescript
+            typst
+            yaml
+            zig
+          ];
+          # FIXME: Broken schemes don't work with current treesitter version
+          # ++ [ fsharp-grammar ];
         };
 
       # Sticky function signatures / scope context
@@ -341,28 +343,31 @@
       conform-nvim = {
         enable = true;
 
-        formatOnSave = builtins.readFile ./lua/formatOnSave.lua;
+        settings = {
 
-        formattersByFt = {
-          nix = [ "nixfmt" ];
-          lua = [ "stylua" ];
-          python = [
-            "isort"
-            "black"
-          ];
-          javascript = [ "prettierd" ];
-          typescript = [ "prettierd" ];
-          javascriptreact = [ "prettierd" ];
-          typescriptreact = [ "prettierd" ];
-          css = [ "prettierd" ];
-          html = [ "prettierd" ];
-          json = [ "prettierd" ];
-          yaml = [ "prettierd" ];
-          markdown = [ "prettierd" ];
-          go = [
-            "goimports-reviser"
-            "gofumpt"
-          ];
+          format_on_save = builtins.readFile ./lua/formatOnSave.lua;
+
+          formatters_by_ft = {
+            nix = [ "nixfmt" ];
+            lua = [ "stylua" ];
+            python = [
+              "isort"
+              "black"
+            ];
+            javascript = [ "prettierd" ];
+            typescript = [ "prettierd" ];
+            javascriptreact = [ "prettierd" ];
+            typescriptreact = [ "prettierd" ];
+            css = [ "prettierd" ];
+            html = [ "prettierd" ];
+            json = [ "prettierd" ];
+            yaml = [ "prettierd" ];
+            markdown = [ "prettierd" ];
+            go = [
+              "goimports-reviser"
+              "gofumpt"
+            ];
+          };
         };
       };
 
@@ -395,7 +400,10 @@
       illuminate.enable = true;
 
       # Surround words/lines with brackets
-      surround.enable = true;
+      vim-surround.enable = true;
+
+      # Icons
+      web-devicons.enable = true;
 
       # Preview markdown in the browser
       markdown-preview.enable = true;
@@ -410,7 +418,7 @@
     };
 
     # Packages that are required by plugins, like formatters
-    extraPackages = with pkgs; [
+    extraPackages = with pkgs-unstable; [
       nixfmt-rfc-style
       prettierd
       stylua
