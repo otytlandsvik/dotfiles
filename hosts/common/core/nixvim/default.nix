@@ -1,4 +1,4 @@
-{ pkgs-unstable, config, ... }:
+{ pkgs, config, ... }:
 {
   imports = [ ./keymaps.nix ];
 
@@ -254,11 +254,11 @@
       treesitter =
         let
           fsharp-grammar =
-            (pkgs-unstable.tree-sitter.buildGrammar {
+            (pkgs.tree-sitter.buildGrammar {
               language = "fsharp";
               location = "fsharp";
               version = "0.1.0+rev=971da5f";
-              src = pkgs-unstable.fetchFromGitHub {
+              src = pkgs.fetchFromGitHub {
                 owner = "ionide";
                 repo = "tree-sitter-fsharp";
                 rev = "971da5ff0266bfe4a6ecfb94616548032d6d1ba0";
@@ -327,7 +327,7 @@
       # Sticky function signatures / scope context
       treesitter-context.enable = true;
 
-      # Leader popup suggestions
+      # Keymap popup suggestions
       which-key.enable = true;
 
       # Show indentation lines and highlight scope
@@ -419,7 +419,7 @@
     };
 
     # Packages that are required by plugins, like formatters
-    extraPackages = with pkgs-unstable; [
+    extraPackages = with pkgs; [
       nixfmt-rfc-style
       prettierd
       stylua
