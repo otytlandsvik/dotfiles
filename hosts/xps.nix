@@ -23,6 +23,7 @@
     common/optional/rider.nix
     common/optional/spotify.nix
     common/optional/stylix.nix
+    common/optional/tmux.nix
     common/optional/vscode.nix
     common/optional/yazi.nix
   ];
