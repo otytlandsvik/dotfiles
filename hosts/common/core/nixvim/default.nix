@@ -112,7 +112,7 @@
             { name = "luasnip"; }
           ];
           mapping = {
-            "<CR>" = "cmp.mapping.confirm({ select = true })";
+            "<CR>" = builtins.readFile ./lua/cmp/cr.lua;
             "<Up>" = builtins.readFile ./lua/cmp/up.lua;
             "<Down>" = builtins.readFile ./lua/cmp/down.lua;
             "<Tab>" = builtins.readFile ./lua/cmp/tab.lua;
