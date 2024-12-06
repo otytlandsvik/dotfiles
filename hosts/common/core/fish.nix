@@ -14,7 +14,9 @@
     };
 
     shellAbbrs = {
-      hms = "home-manager switch --flake ~/dotfiles/#ole";
+      t = "tmux";
+      tt = "tmux a -t";
+      tn = "tmux new -s";
     };
 
     interactiveShellInit = ''
