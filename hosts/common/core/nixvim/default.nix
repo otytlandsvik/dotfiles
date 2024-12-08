@@ -409,6 +409,9 @@
       # Preview markdown in the browser
       markdown-preview.enable = true;
 
+      # Synchronize pane navigation with tmux
+      tmux-navigator.enable = true;
+
       # Typst plugin
       typst-vim = {
         enable = true;

@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   programs.tmux = {
     enable = true;
@@ -6,6 +6,7 @@
     shortcut = "Space";
     escapeTime = 0;
     clock24 = true;
+    plugins = [ pkgs.tmuxPlugins.vim-tmux-navigator ];
     extraConfig = ''
       # Keybinds
       bind | split-window -h
