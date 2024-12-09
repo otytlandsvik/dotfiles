@@ -62,10 +62,10 @@
     }
     {
       key = "<leader>-";
-      action = "<cmd>hsplit<CR>";
+      action = "<cmd>split<CR>";
       options.desc = "Create new window, horizontal split";
     }
-    # Comment 
+    # Comment
     {
       mode = [ "n" ];
       key = "<C-/>";
