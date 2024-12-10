@@ -1,12 +1,27 @@
 { pkgs, ... }:
 {
+  # Disable stylix to apply theme plugin
+  stylix.targets.tmux.enable = false;
+
   programs.tmux = {
     enable = true;
     keyMode = "vi";
     shortcut = "Space";
     escapeTime = 0;
     clock24 = true;
-    plugins = [ pkgs.tmuxPlugins.vim-tmux-navigator ];
+    plugins = with pkgs.tmuxPlugins; [
+      vim-tmux-navigator
+      {
+        plugin = catppuccin;
+        extraConfig = ''
+          # Display window name instead of path
+          set -g @catppuccin_window_default_text "#W"
+          set -g @catppuccin_window_current_text "#W"
+          # Customize status modules
+          set -g @catppuccin_status_modules_right "session date_time"
+        '';
+      }
+    ];
     extraConfig = ''
       # Keybinds
       bind | split-window -h
