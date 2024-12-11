@@ -18,7 +18,9 @@
           set -g @catppuccin_window_default_text "#W"
           set -g @catppuccin_window_current_text "#W"
           # Customize status modules
-          set -g @catppuccin_status_modules_right "session date_time"
+          set -g @catppuccin_date_time_icon ""
+          set -g @catppuccin_date_time_text "%H:%M"
+          set -g @catppuccin_status_modules_right "session directory date_time"
         '';
       }
     ];
