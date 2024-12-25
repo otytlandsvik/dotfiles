@@ -10,7 +10,7 @@
     inputs.stylix.homeManagerModules.stylix
 
     ################ Optionals ################
-    common/optional/wms/sway
+    common/optional/wms/hyprland
     common/optional/bambu.nix
     common/optional/cursor.nix
     common/optional/discord.nix

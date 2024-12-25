@@ -28,6 +28,10 @@
   color: @base0D;
 }
 
+#workspaces button.active {
+  color: @base0D;
+}
+
 #clock {
   color: @base0B;
 }
