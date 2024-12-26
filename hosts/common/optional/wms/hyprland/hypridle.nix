@@ -62,7 +62,7 @@
               laptopTimeouts = [
                 {
                   timeout = cfg.dimTimeout;
-                  on-timeout = "brightnessctl -s set 10";
+                  on-timeout = "brightnessctl -s set 40";
                   on-resume = "brightnessctl -r";
                 }
               ];
