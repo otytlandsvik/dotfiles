@@ -1,14 +1,31 @@
-{ config, inputs, ... }:
+{
+  lib,
+  config,
+  inputs,
+  ...
+}:
 {
 
-  # Set global color scheme with nix-colors
-  colorScheme = inputs.nix-colors.colorSchemes.catppuccin-mocha;
+  options.style = {
+    wallpaper = lib.mkOption {
+      type = lib.types.path;
+      default = ../../../assets/nix-black-4k.png;
+      description = "Path to wallpaper image";
+    };
+    transparency.enable = lib.mkEnableOption "transparency in hyprland";
+  };
 
-  stylix = {
-    enable = true;
-    # Pass theme to stylix
-    base16Scheme = config.colorScheme.palette;
+  config = {
 
-    image = ../../../assets/nix-black-4k.png;
+    # Set global color scheme with nix-colors
+    colorScheme = inputs.nix-colors.colorSchemes.catppuccin-mocha;
+
+    stylix = {
+      enable = true;
+      # Pass theme to stylix
+      base16Scheme = config.colorScheme.palette;
+
+      image = config.style.wallpaper;
+    };
   };
 }

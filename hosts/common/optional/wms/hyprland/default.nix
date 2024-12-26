@@ -83,6 +83,8 @@
         workspace_swipe = true;
       };
 
+      windowrulev2 = lib.mkIf config.style.transparency "opacity 0.9, class:(Alacritty)";
+
       "$mainMod" = "SUPER";
 
       bind =

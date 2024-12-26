@@ -30,4 +30,6 @@
 
   # Custom options
   laptop.enable = true;
+
+  style.wallpaper = ../assets/old-computer.png;
 }
