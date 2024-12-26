@@ -10,7 +10,7 @@
     ../rofi # dmenu replacement
     ../rofi/powermenu.nix # Powermenu using rofi
     ../rofi/networkmanager.nix # Networkmanager using rofi
-    ../mako.nix # Notification daemon
+    ../swaync.nix # Notification daemon
     ./hyprlock.nix
     ./hypridle.nix
   ];
@@ -20,8 +20,7 @@
     grimblast # Screenshot utility
     playerctl # Media controller
     brightnessctl
-    # TODO: Make use of nm-tray
-    nm-tray
+    networkmanagerapplet
   ];
 
   # Required to render waybar properly
@@ -54,7 +53,7 @@
           "border, 1, 10, default"
           "borderangle, 1, 8, default"
           "fade, 1, 7, default"
-          "workspaces, 1, 6, default"
+          "workspaces, 1, 3, default"
         ];
       };
 
@@ -95,7 +94,7 @@
               "$mainMod, W, togglegroup,"
               "$mainMod SHIFT, Q, killactive,"
               "$mainMod CTRL, L, exec, hyprlock --immediate"
-              "$mainMod SHIFT, P, exec, rofi-powermenu"
+              "$mainMod, P, exec, rofi-powermenu"
 
               ", Print, exec, grimblast copysave area"
 
@@ -111,8 +110,14 @@
               "$mainMod SHIFT, K, movewindoworgroup, u"
               "$mainMod SHIFT, L, movewindoworgroup, r"
 
+              # Resize windows
+              "$mainMod ALT, H, resizeactive, -10 0"
+              "$mainMod ALT, J, resizeactive, 0 10"
+              "$mainMod ALT, K, resizeactive, 0 -10"
+              "$mainMod ALT, L, resizeactive, 10 0"
+
               # Master layout
-              "$mainMod, P, layoutmsg, swapwithmaster"
+              "$mainMod, M, layoutmsg, swapwithmaster"
               "$mainMod, BACKSPACE, layoutmsg, orientationnext"
 
               # Cycle windows
@@ -169,9 +174,11 @@
         ", XF86AudioPrev,  exec, playerctl previous"
       ];
 
-      # Waybar
+      # Start utilities on launch
       exec-once = [
         "waybar"
+        "nm-applet"
+        "blueman-applet"
       ];
     };
   };
