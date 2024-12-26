@@ -83,7 +83,10 @@
         workspace_swipe = true;
       };
 
-      windowrulev2 = lib.mkIf config.style.transparency "opacity 0.9, class:(Alacritty)";
+      windowrulev2 = [
+        "float, title:(MainPicker)" # Screensharing picker
+        (lib.mkIf config.style.transparency.enable "opacity 0.9, class:(Alacritty)")
+      ];
 
       "$mainMod" = "SUPER";
 

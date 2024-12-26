@@ -31,5 +31,8 @@
   # Custom options
   laptop.enable = true;
 
-  style.wallpaper = ../assets/old-computer.png;
+  style = {
+    wallpaper = ../assets/old-computer.png;
+    transparency.enable = true;
+  };
 }
