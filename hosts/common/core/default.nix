@@ -23,7 +23,7 @@
 
   # Custom options
   options = {
-    laptop.enable = lib.mkEnableOption "Enable laptop-specific features";
+    laptop.enable = lib.mkEnableOption "laptop-specific features";
   };
 
   config = {
@@ -43,7 +43,7 @@
         TERM = "alacritty";
         TERMINAL = "alacritty";
         EDITOR = "nvim";
-        ELECTRON_OZONE_PLATFORM_HINT = "auto";
+        ELECTRON_OZONE_PLATFORM_HINT = 1;
       };
     };
 
@@ -58,6 +58,7 @@
         delta # Diff pager for git
         ripgrep # grep goodness
         fastfetch # System info
+        onefetch # Git repository info
         fd # find replacement
         zip
         unzip
