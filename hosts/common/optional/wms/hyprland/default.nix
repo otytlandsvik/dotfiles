@@ -23,8 +23,11 @@
     networkmanagerapplet
   ];
 
-  # Required to render waybar properly
-  wms.waybar.windowManager = "hyprland";
+  # Configure waybar
+  wms.waybar = {
+    windowManager = "hyprland";
+    swayncBell.enable = true;
+  };
 
   wayland.windowManager.hyprland = {
     enable = true;

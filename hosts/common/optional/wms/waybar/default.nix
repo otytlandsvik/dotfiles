@@ -11,6 +11,7 @@ in
       default = "sway";
       description = "Window manager to use with waybar. Can be 'sway' or 'hyprland'";
     };
+    swayncBell.enable = lib.mkEnableOption "add notification module to access the swaync notification center";
   };
 
   config = {
@@ -50,6 +51,7 @@ in
                   "network"
                   (if config.laptop.enable then "battery" else "")
                   "clock"
+                  (if config.wms.waybar.swayncBell.enable then "custom/notification" else "")
                   "tray"
                 ];
 
@@ -134,10 +136,33 @@ in
                   interval = 60;
                 };
               };
+              swayncBellModule = {
+                "custom/notification" = {
+                  tooltip = false;
+                  format = "{icon} ";
+                  format-icons = {
+                    "notification" = "<span class='unread'><sup></sup></span>";
+                    "none" = "";
+                    "dnd-notification" = "<span class='unread'><sup></sup></span>";
+                    "dnd-none" = "";
+                    "inhibited-notification" = "<span class='unread'><sup></sup></span>";
+                    "inhibited-none" = "";
+                    "dnd-inhibited-notification" = "<span class='unread'><sup></sup></span>";
+                    "dnd-inhibited-none" = "";
+                  };
+                  return-type = "json";
+                  exec-if = "which swaync-client";
+                  exec = "swaync-client -swb";
+                  on-click = "swaync-client -t -sw";
+                  on-click-right = "swaync-client -d -sw";
+                  escape = true;
+                };
+              };
             in
             lib.mkMerge [
               baseBar
               (lib.mkIf config.laptop.enable laptopModules)
+              (lib.mkIf config.wms.waybar.swayncBell.enable swayncBellModule)
             ];
         };
 

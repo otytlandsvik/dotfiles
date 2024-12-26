@@ -63,3 +63,11 @@
 #idle_inhibitor {
   color: @base0D;
 }
+
+#custom-notification {
+  color: @base0E;
+}
+
+#unread {
+  color: @base08;
+}
