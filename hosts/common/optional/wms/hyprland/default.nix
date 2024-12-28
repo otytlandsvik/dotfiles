@@ -60,24 +60,16 @@
         ];
       };
 
-      input =
-        let
-          mkIfLaptop =
-            laptopOpts: otherOpts:
-            lib.mkMerge [
-              (lib.mkIf config.laptop.enable laptopOpts)
-              (lib.mkIf (!config.laptop.enable) otherOpts)
-            ];
-        in
-        {
-          kb_layout = mkIfLaptop "us,no" "us";
-          kb_variant = mkIfLaptop "altgr-intl," "altgr-intl";
+      input = {
+        kb_layout = "us,no";
+        kb_variant = "altgr-intl,";
+        kb_options = "grp:win_space_toggle,caps:escape";
 
-          touchpad = lib.mkIf config.laptop.enable {
-            natural_scroll = true;
-          };
-
+        touchpad = lib.mkIf config.laptop.enable {
+          natural_scroll = true;
         };
+
+      };
 
       gestures = lib.mkIf config.laptop.enable {
         workspace_swipe = true;
