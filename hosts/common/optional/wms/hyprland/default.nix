@@ -10,7 +10,7 @@
     ../rofi # dmenu replacement
     ../rofi/powermenu.nix # Powermenu using rofi
     ../rofi/networkmanager.nix # Networkmanager using rofi
-    ../swaync.nix # Notification daemon
+    ../swaync # Notification daemon
     ./hyprlock.nix
     ./hypridle.nix
   ];

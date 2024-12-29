@@ -1,0 +1,200 @@
+/* base16 colors generated in swaync.nix */
+@import "./colors.css";
+
+* {
+  font-family: JetBrainsMono NFP;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.control-center .notification-row:focus,
+.control-center .notification-row:hover {
+  opacity: 1;
+  background: @base01;
+}
+
+.notification-row {
+  outline: none;
+  margin: 20px;
+  padding: 0;
+}
+
+.notification {
+  background: transparent;
+  margin: 0px;
+}
+
+.notification-content {
+  background: @base00;
+  padding: 7px;
+  border-radius: 0px;
+  border: 2px solid @base0D;
+  margin: 0;
+}
+
+.close-button {
+  background: @base0D;
+  color: @base00;
+  text-shadow: none;
+  padding: 0;
+  border-radius: 0px;
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+.close-button:hover {
+  box-shadow: none;
+  background: @base0C;
+  transition: all 0.15s ease-in-out;
+  border: none;
+}
+
+.notification-action {
+  color: @base0A;
+  border: 2px solid @base0D;
+  border-top: none;
+  border-radius: 0px;
+  background: @base00;
+}
+
+.notification-default-action:hover,
+.notification-action:hover {
+  color: @base0D;
+  background: @base00;
+}
+
+.summary {
+  padding-top: 7px;
+  font-size: 13px;
+  color: @base0D;
+}
+
+.time {
+  font-size: 11px;
+  color: @base0D;
+  margin-right: 24px;
+}
+
+.body {
+  font-size: 12px;
+  color: @base0D;
+}
+
+.control-center {
+  background: @base00;
+  border: 2px solid @base0D;
+  border-radius: 0px;
+}
+
+.control-center-list {
+  background: transparent;
+}
+
+.control-center-list-placeholder {
+  opacity: 0.5;
+}
+
+.floating-notifications {
+  background: transparent;
+}
+
+.blank-window {
+  background: alpha(black, 0.1);
+}
+
+.widget-title {
+  color: @base0D;
+  background: @base01;
+  padding: 5px 10px;
+  margin: 10px 10px 5px 10px;
+  font-size: 1.5rem;
+  border-radius: 5px;
+}
+
+.widget-title > button {
+  font-size: 1rem;
+  color: @base05;
+  text-shadow: none;
+  background: @base00;
+  box-shadow: none;
+  border-radius: 5px;
+}
+
+.widget-title > button:hover {
+  background: @base0D;
+  color: @base00;
+}
+
+.widget-dnd {
+  background: @base01;
+  padding: 5px 10px;
+  margin: 5px 10px 10px 10px;
+  border-radius: 5px;
+  font-size: large;
+  color: @base0D;
+}
+
+.widget-dnd > switch {
+  border-radius: 4px;
+  background: @base02;
+}
+
+.widget-dnd > switch:checked {
+  background: @base0D;
+  border: 1px solid @base0D;
+}
+
+.widget-dnd > switch slider {
+  background: @base00;
+  border-radius: 5px;
+}
+
+.widget-dnd > switch:checked slider {
+  background: @base00;
+  border-radius: 5px;
+}
+
+.widget-label {
+  margin: 10px 10px 5px 10px;
+}
+
+.widget-label > label {
+  font-size: 1rem;
+  color: @base05;
+}
+
+.widget-mpris {
+  color: @base05;
+  background: @base01;
+  padding: 5px 10px 0px 0px;
+  margin: 5px 10px 5px 10px;
+  border-radius: 0px;
+}
+
+.widget-mpris > box > button {
+  border-radius: 5px;
+}
+
+.widget-mpris-player {
+  padding: 5px 10px;
+  margin: 10px;
+}
+
+.widget-mpris-title {
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.widget-mpris-subtitle {
+  font-size: 1.1rem;
+}
+
+.widget-menubar > box > .menu-button-bar > button {
+  border: none;
+  background: transparent;
+}
+
+.topbar-buttons > button {
+  border: none;
+  background: transparent;
+}
