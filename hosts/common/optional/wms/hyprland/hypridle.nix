@@ -23,7 +23,7 @@
     suspendTimeout = lib.mkOption {
       type = lib.types.int;
       default = 900;
-      description = "Idle seconds before device is suspended";
+      description = "Idle seconds before device is suspended. Only applies to laptops";
     };
   };
 
@@ -54,16 +54,16 @@
                   on-timeout = "hyprctl dispatch dpms off";
                   on-resume = "hyprctl dispatch dpms on";
                 }
-                {
-                  timeout = cfg.suspendTimeout;
-                  on-timeout = "${lockCommand} & systemctl suspend";
-                }
               ];
               laptopTimeouts = [
                 {
                   timeout = cfg.dimTimeout;
                   on-timeout = "brightnessctl -s set 40";
                   on-resume = "brightnessctl -r";
+                }
+                {
+                  timeout = cfg.suspendTimeout;
+                  on-timeout = "${lockCommand} & systemctl suspend";
                 }
               ];
             in
