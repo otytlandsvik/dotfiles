@@ -10,7 +10,7 @@
     inputs.stylix.homeManagerModules.stylix
 
     ################ Optionals ################
-    common/optional/wms/sway
+    common/optional/wms/hyprland
     common/optional/cursor.nix
     common/optional/dia.nix
     common/optional/chromium.nix
@@ -36,10 +36,11 @@
   laptop.enable = false;
 
   # Configure idle timeouts
-  wms.sway = {
-    swayidle = {
+  wms.hyprland = {
+    hypridle = {
       lockTimeout = 900;
       sleepTimeout = 1200;
+      suspendTimeout = 1200;
     };
   };
 
