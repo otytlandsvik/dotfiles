@@ -412,6 +412,9 @@
       # Synchronize pane navigation with tmux
       tmux-navigator.enable = true;
 
+      # vimium-like jumping
+      leap.enable = true;
+
       # Typst plugin
       typst-vim = {
         enable = true;
