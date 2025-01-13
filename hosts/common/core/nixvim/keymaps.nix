@@ -144,5 +144,11 @@
       action = "<cmd>lua vim.lsp.buf.format()<CR>";
       options.desc = "Refactor/format with LSP";
     }
+    # Disable inlay hints
+    {
+      key = "<leader>ih";
+      action = "<cmd>lua vim.lsp.inlay_hint.enable(false)<CR>";
+      options.desc = "Disable inlay hints";
+    }
   ];
 }
