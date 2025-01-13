@@ -24,10 +24,24 @@
       key = "L";
       action = "<cmd>bnext<CR>";
     }
+    # Snacks bufdelete
     {
-      key = "<leader>bd";
-      action = "<cmd>bd<CR>";
-      options.desc = "Delete current buffer";
+      mode = [ "n" ];
+      key = "<leader>bc";
+      action = "<cmd>lua Snacks.bufdelete.delete()<CR>";
+      options.desc = "Close current buffer";
+    }
+    {
+      mode = [ "n" ];
+      key = "<leader>bo";
+      action = "<cmd>lua Snacks.bufdelete.other()<CR>";
+      options.desc = "Close all buffers but current";
+    }
+    {
+      mode = [ "n" ];
+      key = "<leader>ba";
+      action = "<cmd>lua Snacks.bufdelete.all()<CR>";
+      options.desc = "Close all buffers";
     }
     # Windows
     {
@@ -64,6 +78,19 @@
       key = "<leader>-";
       action = "<cmd>split<CR>";
       options.desc = "Create new window, horizontal split";
+    }
+    # Git
+    {
+      mode = [ "n" ];
+      key = "<leader>gb";
+      action = "<cmd>lua Snacks.git.blame_line()<CR>";
+      options.desc = "Open git blame for current line";
+    }
+    {
+      mode = [ "n" ];
+      key = "<leader>go";
+      action = "<cmd>lua Snacks.gitbrowse()<CR>";
+      options.desc = "Open git repository in browser";
     }
     # Comment
     {

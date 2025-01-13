@@ -378,6 +378,29 @@
         fileTypes = [ "*" ];
       };
 
+      # Various QOL improvement plugins
+      # FIXME: Only a handful of plugins in this collection are working...
+      snacks = {
+        enable = true;
+        settings = {
+          # Prevent LSP and Treesitter from attaching when opening very large files
+          bigfile.enabled = true;
+          # Delete buffers without affecting window layout
+          bufdelete.enabled = true;
+          # Git utilities (git blame line)
+          git.enabled = true;
+          # Go to commit in browser
+          gitbrowse.enabled = true;
+          # Show indent lines and scopes using treesitter
+          # indent.enabled = true;
+          # Draw file before loading plugins
+          quickfile.enabled = true;
+          # scope.enabled = true;
+          # Smooth scrolling
+          # scroll.enabled = true;
+        };
+      };
+
       # Notification UI
       # fidget.enable = true;
 
@@ -395,7 +418,7 @@
       };
 
       # Git diff signs on sidebar
-      gitsigns.enable = true;
+      # gitsigns.enable = true;
 
       # Highlight other uses of word under cursor
       illuminate.enable = true;
