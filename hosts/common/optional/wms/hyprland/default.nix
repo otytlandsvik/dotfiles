@@ -11,6 +11,7 @@
     ../rofi/powermenu.nix # Powermenu using rofi
     ../rofi/networkmanager.nix # Networkmanager using rofi
     ../swaync # Notification daemon
+    ../batsignal.nix # Battery monitor
     ./hyprlock.nix
     ./hypridle.nix
   ];
