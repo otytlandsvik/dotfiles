@@ -11,6 +11,7 @@
       cat = "bat";
       tree = "eza -T";
       fetch = "fastfetch";
+      k = "kubectl";
     };
 
     shellAbbrs = {
