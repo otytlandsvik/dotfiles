@@ -156,6 +156,12 @@
           (lib.mkIf config.laptop.enable laptopBindings)
         ];
 
+      # Mouse bindings
+      bindm = [
+        "$mainMod, mouse:272, movewindow"
+        "$mainMod, mouse:273, resizewindow"
+      ];
+
       # Bindings that repeat when held down
       binde = [
         ", XF86MonBrightnessUp,   exec, brightnessctl set +10%"
