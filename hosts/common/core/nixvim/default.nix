@@ -64,7 +64,7 @@
           gopls.enable = true;
 
           # C/C++
-          ccls.enable = true;
+          clangd.enable = true;
 
           # Python
           pyright.enable = true;
