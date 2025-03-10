@@ -21,6 +21,7 @@
     common/optional/k9s.nix
     common/optional/kubernetes.nix
     common/optional/netcdf.nix
+    common/optional/nautilus.nix
     common/optional/obsidian.nix
     common/optional/psql.nix
     common/optional/rider.nix
