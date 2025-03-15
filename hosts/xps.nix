@@ -14,6 +14,7 @@
     common/optional/bambu.nix
     common/optional/cursor.nix
     common/optional/discord.nix
+    common/optional/dotnet.nix
     common/optional/evince.nix
     common/optional/ferdium.nix
     common/optional/k9s.nix
