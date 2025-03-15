@@ -447,21 +447,21 @@
       };
     };
 
-    extraPlugins =
-      let
-        nvim-ghost = pkgs.vimUtils.buildVimPlugin {
-          name = "nvim-ghost.nvim";
-          src = pkgs.fetchFromGitHub {
-            owner = "subnut";
-            repo = "nvim-ghost.nvim";
-            rev = "67cc8f38c69d271af1c2430ff5099766f3550eb8";
-            hash = "sha256-XldDgPqVeIfUjaRLVUMp88eHBHLzoVgOmT3gupPs+ao=";
-          };
-        };
-      in
-      [
-        nvim-ghost
-      ];
+    # extraPlugins =
+    #   let
+    #     nvim-ghost = pkgs.vimUtils.buildVimPlugin {
+    #       name = "nvim-ghost.nvim";
+    #       src = pkgs.fetchFromGitHub {
+    #         owner = "subnut";
+    #         repo = "nvim-ghost.nvim";
+    #         rev = "67cc8f38c69d271af1c2430ff5099766f3550eb8";
+    #         hash = "sha256-XldDgPqVeIfUjaRLVUMp88eHBHLzoVgOmT3gupPs+ao=";
+    #       };
+    #     };
+    #   in
+    #   [
+    #     nvim-ghost
+    #   ];
 
     # Packages that are required by plugins, like formatters
     extraPackages = with pkgs; [
