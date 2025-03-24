@@ -9,6 +9,7 @@
     shortcut = "Space";
     escapeTime = 0;
     clock24 = true;
+    mouse = true;
     plugins = with pkgs.tmuxPlugins; [
       vim-tmux-navigator
       {
