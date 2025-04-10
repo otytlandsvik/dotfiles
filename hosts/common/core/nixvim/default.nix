@@ -70,7 +70,13 @@
           pyright.enable = true;
 
           # Typst
-          tinymist.enable = true;
+          tinymist = {
+            enable = true;
+            # TODO: Remove this workaround when moving to nvim 10.3
+            extraOptions = {
+              offset_encoding = "utf-8";
+            };
+          };
 
           # Rust
           rust_analyzer = {
