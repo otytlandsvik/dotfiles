@@ -47,9 +47,9 @@ As a reminder to myself and as a resource to anyone seeking inspiration, here is
 
    **After bootstrapping, home-manager will install and manage itself.** That's why it's sufficient to run it in a nix-shell.
 
-6. Build the config using home-manager (as an example, if `username` was added as a flake output):
+6. Build the config using home-manager (as an example, if `host@username` was added as a flake output):
    ```sh
-   $ home-manager switch --flake .#username
+   $ home-manager switch --flake .#host@username
    ```
 
 > [!NOTE]
