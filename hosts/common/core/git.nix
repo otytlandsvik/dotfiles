@@ -49,7 +49,11 @@
         autoupdate = true;
       };
       # Sign commits with SSH key
-      gpg.format = "ssh";
+      gpg = {
+        format = "ssh";
+        # NOTE: This file has to be created and populated with the pub key!
+        ssh.allowedSignersFile = "~/.ssh/allowed_signers";
+      };
       user.signingkey = "/home/${config.home.username}/.ssh/id_ed25519.pub";
     };
   };
