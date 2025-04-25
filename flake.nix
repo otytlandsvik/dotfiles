@@ -61,6 +61,16 @@
 
         modules = [ ./hosts/jzargo.nix ];
       };
+      # Ocenbox desktop
+      homeConfigurations."ole@haddock" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+
+        extraSpecialArgs = {
+          inherit inputs;
+        };
+
+        modules = [ ./hosts/haddock.nix ];
+      };
       # Ekman server
       homeConfigurations."oty@ekman" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
