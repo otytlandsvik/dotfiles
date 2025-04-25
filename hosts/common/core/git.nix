@@ -55,6 +55,7 @@
         ssh.allowedSignersFile = "~/.ssh/allowed_signers";
       };
       user.signingkey = "/home/${config.home.username}/.ssh/id_ed25519.pub";
+      commit.gpgsign = true;
     };
   };
 }
