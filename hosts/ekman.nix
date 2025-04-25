@@ -16,5 +16,5 @@
   ];
 
   # Custom config
-  home.username = "oty";
+  # home.username = "oty";
 }

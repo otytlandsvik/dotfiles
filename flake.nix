@@ -72,7 +72,7 @@
         modules = [ ./hosts/haddock.nix ];
       };
       # Ekman server
-      homeConfigurations."oty@ekman" = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations."ole@ekman" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
         extraSpecialArgs = {
