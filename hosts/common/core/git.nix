@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 {
   programs.git = {
     enable = true;
@@ -48,6 +48,9 @@
         enabled = true;
         autoupdate = true;
       };
+      # Sign commits with SSH key
+      gpg.format = "ssh";
+      user.signingkey = "/home/${config.home.username}/.ssh/id_ed25519.pub";
     };
   };
 }
