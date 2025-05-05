@@ -24,6 +24,10 @@
     networkmanagerapplet
   ];
 
+  home.sessionVariables = {
+    XDG_SCREENSHOTS_DIR = "${config.home.homeDirectory}/screenshots";
+  };
+
   # Configure waybar
   wms.waybar = {
     windowManager = "hyprland";
