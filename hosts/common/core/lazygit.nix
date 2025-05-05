@@ -4,9 +4,13 @@
     enable = true;
     settings = {
       # Configure delta as the default pager
-      git.paging = {
-        colorArg = "always";
-        pager = "delta --dark --paging=never";
+      git = {
+        # Avoid exiting lazygit to enter passphrase for signing key
+        overrideGpg = true;
+        paging = {
+          colorArg = "always";
+          pager = "delta --dark --paging=never";
+        };
       };
     };
   };
