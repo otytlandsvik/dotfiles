@@ -15,9 +15,14 @@
     };
 
     shellAbbrs = {
+      # tmux
       t = "tmux";
-      tt = "tmux a -t";
+      ta = "tmux a";
       tn = "tmux new -s";
+      # git
+      gc = "git commit -v";
+      ga = "git add";
+      gl = "git log";
     };
 
     interactiveShellInit = ''
