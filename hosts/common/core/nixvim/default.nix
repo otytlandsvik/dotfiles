@@ -267,11 +267,11 @@
             (pkgs.tree-sitter.buildGrammar {
               language = "fsharp";
               location = "fsharp";
-              version = "0.1.0+rev=971da5f";
+              version = "0.1.0+rev=02929f0";
               src = pkgs.fetchFromGitHub {
                 owner = "ionide";
                 repo = "tree-sitter-fsharp";
-                rev = "971da5ff0266bfe4a6ecfb94616548032d6d1ba0";
+                rev = "02929f084726db969e5b916d144436f248146824";
                 hash = "sha256-0jrbznAXcjXrbJ5jnxWMzPKxRopxKCtoQXGl80R1M0M=";
               };
               meta.homepage = "https://github.com/ionide/tree-sitter-fsharp";
