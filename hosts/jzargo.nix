@@ -46,6 +46,9 @@
     };
   };
 
-  # Large display warrants slightly smaller cursor
-  cursor.size = 20;
+  style = {
+    wallpaper = ../assets/old-computer.png;
+    transparency.enable = true;
+  };
+
 }
