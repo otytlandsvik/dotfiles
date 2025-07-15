@@ -24,6 +24,7 @@
     common/optional/nautilus.nix
     common/optional/obsidian.nix
     common/optional/psql.nix
+    common/optional/rclone.nix
     common/optional/rider.nix
     common/optional/spotify.nix
     common/optional/ssh.nix
