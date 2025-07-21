@@ -35,8 +35,8 @@
       set -g status-left ' #[fg=blue][#S] '
 
       # Right Status
-      set -g status-right '#[bg=green fg=black] λ #{pane_title} #[bg=blue fg=black]  %H:%M '
-      set -g status-right-length 50
+      set -g status-right '#[bg=green fg=black] λ #{=/30/...:pane_title} #[bg=blue fg=black]  %H:%M '
+      set -g status-right-length 70
     '';
   };
 }
