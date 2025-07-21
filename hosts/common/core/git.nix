@@ -56,6 +56,10 @@
       };
       user.signingkey = "/home/${config.home.username}/.ssh/id_ed25519.pub";
       commit.gpgsign = true;
+      alias = {
+        # Stolen from https://stackoverflow.com/questions/1838873/visualizing-branch-topology-in-git/34467298#34467298
+        history = "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all";
+      };
     };
   };
 }
