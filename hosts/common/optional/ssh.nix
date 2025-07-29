@@ -13,4 +13,6 @@
       # };
     };
   };
+  # OpenSSH private key agent
+  services.ssh-agent.enable = true;
 }
