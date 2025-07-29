@@ -24,6 +24,17 @@
 
       ### Styles ###
 
+      # Panes
+      set -g pane-active-border-style 'fg=red'
+      set -g pane-border-indicators 'arrows'
+
+      # Command prompt
+      set -g message-command-style 'fg=black bg=red'
+      set -g message-style 'fg=black bg=red'
+
+      # Status Bar
+      set -g status-bg 'black'
+
       # Window Status
       setw -g window-status-current-style 'fg=black bg=red'
       setw -g window-status-current-format ' #I #W #F '
