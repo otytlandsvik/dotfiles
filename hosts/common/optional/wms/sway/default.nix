@@ -46,7 +46,7 @@
 
       config = {
         modifier = "Mod4";
-        terminal = "alacritty";
+        terminal = "ghostty";
         defaultWorkspace = "workspace number 1";
 
         # Sway overrides xkb config from system

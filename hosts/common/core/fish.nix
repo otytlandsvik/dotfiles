@@ -21,8 +21,10 @@
       tn = "tmux new -s";
       # git
       gc = "git commit -v";
+      gca = "git commit --amend --no-edit";
       ga = "git add";
       gl = "git log";
+      gpf = "git push --force-with-lease";
     };
 
     interactiveShellInit = ''

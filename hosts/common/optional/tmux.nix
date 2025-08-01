@@ -20,7 +20,7 @@
 
       # True color
       set -g default-terminal 'tmux-256color'
-      set -as terminal-overrides ',alacritty*:Tc'
+      # set -as terminal-overrides ',alacritty*:Tc'
 
       ### Styles ###
 

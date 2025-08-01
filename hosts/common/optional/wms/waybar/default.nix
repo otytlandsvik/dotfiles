@@ -100,13 +100,13 @@ in
                 "memory" = {
                   format = "  {}%";
                   interval = 5;
-                  on-click = "alacritty -e btop";
+                  on-click = "ghostty -e btop";
                 };
 
                 "cpu" = {
                   format = "  {usage}%";
                   interval = 5;
-                  on-click = "alacritty -e btop";
+                  on-click = "ghostty -e btop";
                 };
 
                 "disk" = {

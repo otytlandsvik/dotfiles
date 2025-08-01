@@ -37,7 +37,7 @@
   wayland.windowManager.hyprland = {
     enable = true;
     settings = {
-      "$terminal" = "alacritty";
+      "$terminal" = "ghostty";
       "$menu" = "${pkgs.rofi-wayland}/bin/rofi -show drun";
 
       # Set default scaling
@@ -82,7 +82,7 @@
 
       windowrulev2 = [
         "float, title:(MainPicker)" # Screensharing picker
-        (lib.mkIf config.style.transparency.enable "opacity 0.9, class:(Alacritty)")
+        (lib.mkIf config.style.transparency.enable "opacity 0.9, class:(com.mitchellh.ghostty)")
       ];
 
       "$mainMod" = "SUPER";

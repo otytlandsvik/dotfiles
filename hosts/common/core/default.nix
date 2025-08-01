@@ -7,8 +7,8 @@
 {
   imports = [
     # Packages with custom configs
-    ./alacritty.nix # Terminal emulator
     ./git.nix
+    ./ghostty.nix # Terminal emulator
     ./lazygit.nix # Terminal-based git GUI
     ./nixvim # neovim configured through nix
     ./fonts.nix
@@ -40,8 +40,8 @@
       stateVersion = lib.mkDefault "23.11";
       sessionVariables = {
         SHELL = "fish";
-        TERM = "alacritty";
-        TERMINAL = "alacritty";
+        TERM = "ghostty";
+        TERMINAL = "ghostty";
         EDITOR = "nvim";
         ELECTRON_OZONE_PLATFORM_HINT = 1;
       };
