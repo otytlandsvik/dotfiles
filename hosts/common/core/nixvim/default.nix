@@ -343,16 +343,6 @@
       # Keymap popup suggestions
       which-key.enable = true;
 
-      # Show indentation lines and highlight scope
-      indent-blankline = {
-        enable = true;
-        settings.scope = {
-          # Disable undelines for scope start and end
-          show_start = false;
-          show_end = false;
-        };
-      };
-
       # Formatting
       conform-nvim = {
         enable = true;
@@ -392,7 +382,6 @@
       };
 
       # Various QOL improvement plugins
-      # FIXME: Only a handful of plugins in this collection are working...
       snacks = {
         enable = true;
         settings = {
@@ -405,10 +394,15 @@
           # Go to commit in browser
           gitbrowse.enabled = true;
           # Show indent lines and scopes using treesitter
-          # indent.enabled = true;
+          indent = {
+            enabled = true;
+            animate.duration = {
+              step = 10;
+              total = 250;
+            };
+          };
           # Draw file before loading plugins
           quickfile.enabled = true;
-          # scope.enabled = true;
           # Smooth scrolling
           scroll = {
             enabled = true;
