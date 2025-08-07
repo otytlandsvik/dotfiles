@@ -410,7 +410,16 @@
           quickfile.enabled = true;
           # scope.enabled = true;
           # Smooth scrolling
-          # scroll.enabled = true;
+          scroll = {
+            enabled = true;
+            animate = {
+              duration = {
+                step = 15;
+                total = 50;
+              };
+              easing = "linear";
+            };
+          };
         };
       };
 
