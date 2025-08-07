@@ -44,6 +44,7 @@
 
       # Left Status
       set -g status-left ' #[fg=blue][#S] '
+      set -g status-left-length 50
 
       # Right Status
       set -g status-right '#[bg=green fg=black] λ #{=/30/...:pane_title} #[bg=blue fg=black]  %H:%M '
