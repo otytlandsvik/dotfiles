@@ -54,6 +54,9 @@
           # Dockerfile
           dockerls.enable = true;
 
+          # Helm
+          helm_ls.enable = true;
+
           # js/ts
           ts_ls.enable = true;
 
@@ -356,7 +359,7 @@
 
         settings = {
 
-          format_on_save = builtins.readFile ./lua/formatOnSave.lua;
+          # format_on_save = builtins.readFile ./lua/formatOnSave.lua;
 
           formatters_by_ft = {
             nix = [ "nixfmt" ];
