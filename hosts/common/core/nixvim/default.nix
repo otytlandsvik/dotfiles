@@ -436,6 +436,9 @@
       # Git diff signs on sidebar
       gitsigns.enable = true;
 
+      # Git in nvim
+      fugitive.enable = true;
+
       # Highlight other uses of word under cursor
       illuminate.enable = true;
 
