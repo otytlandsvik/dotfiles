@@ -16,6 +16,9 @@
       branch.sort = "-committerdate";
       tag.sort = "version:refname";
 
+      # Use delta pager
+      core.pager = "delta";
+
       diff = {
         # Better algorithm for 'git diff'
         algorithm = "histogram";
