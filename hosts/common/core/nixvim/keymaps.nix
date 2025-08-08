@@ -132,12 +132,13 @@
       action = "<cmd>noh<CR>";
       options.desc = "Turn off highlights";
     }
+    # NOTE: not needed as long as format on save is disabled
     # Write without formatting
-    {
-      key = "<leader>wn";
-      action = "<cmd>noa w<CR>";
-      options.desc = "Write without formatting";
-    }
+    # {
+    #   key = "<leader>wn";
+    #   action = "<cmd>noa w<CR>";
+    #   options.desc = "Write without formatting";
+    # }
     # Run refactor/format with LSP
     {
       key = "<leader>r";
