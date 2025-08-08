@@ -70,6 +70,21 @@
       options.desc = "Close current window";
     }
     {
+      key = "<leader>w-";
+      action = "<C-w>_";
+      options.desc = "Maximize window vertically";
+    }
+    {
+      key = "<leader>w|";
+      action = "<C-w>|";
+      options.desc = "Maximize window horizontally";
+    }
+    {
+      key = "<leader>w=";
+      action = "<C-w>=";
+      options.desc = "Space window splits evenly";
+    }
+    {
       key = "<leader>|";
       action = "<cmd>vsplit<CR>";
       options.desc = "Create new window, vertical split";
