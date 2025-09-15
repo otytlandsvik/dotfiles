@@ -376,9 +376,9 @@
       };
 
       # Display color code colors
-      nvim-colorizer = {
+      colorizer = {
         enable = true;
-        fileTypes = [ "*" ];
+        settings.fileTypes = [ "*" ];
       };
 
       # Various QOL improvement plugins

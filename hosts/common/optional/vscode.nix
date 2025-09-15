@@ -2,7 +2,7 @@
 {
   programs.vscode = {
     enable = true;
-    extensions = with pkgs.vscode-extensions; [
+    profiles.default.extensions = with pkgs.vscode-extensions; [
       vscodevim.vim
       ms-dotnettools.csharp
       ionide.ionide-fsharp
