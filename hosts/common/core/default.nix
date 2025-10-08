@@ -9,6 +9,7 @@
     # Packages with custom configs
     ./git.nix
     ./ghostty.nix # Terminal emulator
+    ./comma.nix # Run uninstalled programs easily
     ./lazygit.nix # Terminal-based git GUI
     ./nixvim # neovim configured through nix
     ./fonts.nix

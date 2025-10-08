@@ -19,6 +19,11 @@
     nix-colors.url = "github:misterio77/nix-colors";
 
     stylix.url = "github:danth/stylix/release-25.05";
+
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

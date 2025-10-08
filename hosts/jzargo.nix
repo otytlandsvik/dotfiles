@@ -8,6 +8,7 @@
     inputs.nixvim.homeManagerModules.nixvim
     inputs.nix-colors.homeManagerModules.default
     inputs.stylix.homeManagerModules.stylix
+    inputs.nix-index-database.homeModules.nix-index
 
     ################ Optionals ################
     common/optional/wms/hyprland
