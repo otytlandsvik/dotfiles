@@ -140,6 +140,7 @@ in
                 "custom/notification" = {
                   tooltip = false;
                   format = "{icon} ";
+                  # FIXME: Apparently, spans cannot have a class
                   format-icons = {
                     "notification" = "<span class='unread'><sup></sup></span>";
                     "none" = "";

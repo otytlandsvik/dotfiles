@@ -94,6 +94,12 @@
       action = "<cmd>split<CR>";
       options.desc = "Create new window, horizontal split";
     }
+    # Better paste
+    {
+      key = "<leader>p";
+      action = "\"_dP";
+      options.desc = "Paste without overwriting yank buffer";
+    }
     # Git
     {
       mode = [ "n" ];
