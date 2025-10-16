@@ -442,8 +442,24 @@
       # Highlight other uses of word under cursor
       illuminate.enable = true;
 
-      # Surround words/lines with brackets
-      vim-surround.enable = true;
+      # Surround words/lines
+      # FIXME: For some reason, dx and cx are not working...
+      nvim-surround = {
+        enable = true;
+        settings.keymaps = {
+          insert = "<C-g>x";
+          insert_line = "<C-g>X";
+          normal = "yx";
+          normal_cur = "yxx";
+          normal_line = "yX";
+          normal_cur_line = "yXX";
+          visual = "x";
+          visual_line = "X";
+          delete = "dx";
+          change = "cx";
+          change_line = "cX";
+        };
+      };
 
       # Icons
       web-devicons.enable = true;
@@ -455,7 +471,11 @@
       tmux-navigator.enable = true;
 
       # vimium-like jumping
-      leap.enable = true;
+      leap = {
+        enable = true;
+        # NOTE: Custom mappings in keymaps.nix
+        addDefaultMappings = false;
+      };
 
       # Typst plugin
       typst-vim = {

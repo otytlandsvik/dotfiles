@@ -113,6 +113,19 @@
       action = "<cmd>lua Snacks.gitbrowse()<CR>";
       options.desc = "Open git repository in browser";
     }
+    # Leap nvim
+    {
+      mode = [ "n" "x" "o" ];
+      key = "s";
+      action = "<Plug>(leap-forward)";
+      options.desc = "Leap forward to";
+    }
+    {
+      mode = [ "n" "x" "o" ];
+      key = "S";
+      action = "<Plug>(leap-backward)";
+      options.desc = "Leap backward to";
+    }
     # Comment
     {
       mode = [ "n" ];
