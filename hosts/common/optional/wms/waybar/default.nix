@@ -140,15 +140,14 @@ in
                 "custom/notification" = {
                   tooltip = false;
                   format = "{icon} ";
-                  # FIXME: Apparently, spans cannot have a class
                   format-icons = {
-                    "notification" = "<span class='unread'><sup></sup></span>";
+                    "notification" = "<span color=${palette.base08}><sup></sup></span>";
                     "none" = "";
-                    "dnd-notification" = "<span class='unread'><sup></sup></span>";
+                    "dnd-notification" = "<span color=${palette.base08}><sup></sup></span>";
                     "dnd-none" = "";
-                    "inhibited-notification" = "<span class='unread'><sup></sup></span>";
+                    "inhibited-notification" = "<span color=${palette.base08}><sup></sup></span>";
                     "inhibited-none" = "";
-                    "dnd-inhibited-notification" = "<span class='unread'><sup></sup></span>";
+                    "dnd-inhibited-notification" = "<span color=${palette.base08}><sup></sup></span>";
                     "dnd-inhibited-none" = "";
                   };
                   return-type = "json";
