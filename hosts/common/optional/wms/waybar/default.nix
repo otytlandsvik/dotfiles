@@ -141,13 +141,13 @@ in
                   tooltip = false;
                   format = "{icon} ";
                   format-icons = {
-                    "notification" = "<span color=${palette.base08}><sup></sup></span>";
+                    "notification" = "<span color='${palette.base08}'><sup></sup></span>";
                     "none" = "";
-                    "dnd-notification" = "<span color=${palette.base08}><sup></sup></span>";
+                    "dnd-notification" = "<span color='${palette.base08}'><sup></sup></span>";
                     "dnd-none" = "";
-                    "inhibited-notification" = "<span color=${palette.base08}><sup></sup></span>";
+                    "inhibited-notification" = "<span color='${palette.base08}'><sup></sup></span>";
                     "inhibited-none" = "";
-                    "dnd-inhibited-notification" = "<span color=${palette.base08}><sup></sup></span>";
+                    "dnd-inhibited-notification" = "<span color='${palette.base08}'><sup></sup></span>";
                     "dnd-inhibited-none" = "";
                   };
                   return-type = "json";
