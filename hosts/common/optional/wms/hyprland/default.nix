@@ -105,21 +105,33 @@
 
               # Move focus
               "$mainMod, H, movefocus, l"
+              "$mainMod, Left, movefocus, l"
               "$mainMod, J, movefocus, d"
+              "$mainMod, Down, movefocus, d"
               "$mainMod, K, movefocus, u"
+              "$mainMod, Up, movefocus, u"
               "$mainMod, L, movefocus, r"
+              "$mainMod, Right, movefocus, r"
 
               # Move across groups
               "$mainMod SHIFT, H, movewindoworgroup, l"
+              "$mainMod SHIFT, Left, movewindoworgroup, l"
               "$mainMod SHIFT, J, movewindoworgroup, d"
+              "$mainMod SHIFT, Down, movewindoworgroup, d"
               "$mainMod SHIFT, K, movewindoworgroup, u"
+              "$mainMod SHIFT, Up, movewindoworgroup, u"
               "$mainMod SHIFT, L, movewindoworgroup, r"
+              "$mainMod SHIFT, Right, movewindoworgroup, r"
 
               # Resize windows
               "$mainMod ALT, H, resizeactive, -10 0"
+              "$mainMod ALT, Left, resizeactive, -10 0"
               "$mainMod ALT, J, resizeactive, 0 10"
+              "$mainMod ALT, Down, resizeactive, 0 10"
               "$mainMod ALT, K, resizeactive, 0 -10"
+              "$mainMod ALT, Up, resizeactive, 0 -10"
               "$mainMod ALT, L, resizeactive, 10 0"
+              "$mainMod ALT, Right, resizeactive, 10 0"
 
               # Master layout
               "$mainMod, M, layoutmsg, swapwithmaster"
