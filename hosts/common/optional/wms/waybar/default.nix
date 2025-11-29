@@ -48,7 +48,6 @@ in
                 modules-right = [
                   "idle_inhibitor"
                   "wireplumber"
-                  "network"
                   (if config.laptop.enable then "battery" else "")
                   "clock"
                   (if config.wms.waybar.swayncBell.enable then "custom/notification" else "")
@@ -74,16 +73,6 @@ in
                 "clock" = {
                   format = "  {:%a %d/%m %R}";
                   interval = 60;
-                };
-
-                "network" = {
-                  format-wifi = "  ";
-                  format-ethernet = "󰛳 ";
-                  format-disconnected = "󰲛 ";
-                  tooltip-format-wifi = "{essid} ({signalStrength}%)";
-                  tooltip-format-ethernet = "{ifname}";
-                  on-click = "networkmanager_dmenu";
-                  max-length = 20;
                 };
 
                 "wireplumber" = {
