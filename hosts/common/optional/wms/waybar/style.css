@@ -9,6 +9,11 @@
   font-weight: 600;
 }
 
+window#waybar {
+    /* TODO: Find a way to do this with the base16 pallette */
+    background-color: rgba(30, 30, 46, 0.6);
+}
+
 #tray,
 #clock,
 #cpu,

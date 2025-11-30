@@ -85,6 +85,11 @@
         (lib.mkIf config.style.transparency.enable "opacity 0.9, class:(com.mitchellh.ghostty)")
       ];
 
+      layerrule = [
+        "blur, namespace:(waybar)"
+        "ignorealpha 0.9, namespace:(waybar)"
+      ];
+
       "$mainMod" = "SUPER";
 
       bind =
