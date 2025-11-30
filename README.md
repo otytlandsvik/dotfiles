@@ -6,7 +6,7 @@ The structure is inspired by [EmergentMind's config](https://github.com/Emergent
 **This config**:
 
 - Uses flakes
-- Uses the 25.05 branch
+- Uses the 25.11 branch
 - Is meant to be used both on NixOS with a separate system config, and on non-nixos systems
 
 ## Bootstrapping

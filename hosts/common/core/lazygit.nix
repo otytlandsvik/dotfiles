@@ -7,10 +7,11 @@
       git = {
         # Avoid exiting lazygit to enter passphrase for signing key
         overrideGpg = true;
-        paging = {
-          colorArg = "always";
-          pager = "delta --dark --paging=never";
-        };
+        pagers = [
+          {
+            pager = "delta --dark --paging=never";
+          }
+        ];
       };
     };
   };

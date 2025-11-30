@@ -38,7 +38,7 @@
     enable = true;
     settings = {
       "$terminal" = "ghostty";
-      "$menu" = "${pkgs.rofi-wayland}/bin/rofi -show drun";
+      "$menu" = "${pkgs.rofi}/bin/rofi -show drun";
 
       # Set default scaling
       monitor = ", preferred, auto, 1";
@@ -77,7 +77,7 @@
       };
 
       gestures = lib.mkIf config.laptop.enable {
-        workspace_swipe = true;
+        gesture = "3, horizontal, workspace";
       };
 
       windowrulev2 = [

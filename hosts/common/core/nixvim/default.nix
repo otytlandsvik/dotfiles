@@ -141,7 +141,7 @@
       # Welcome screen
       alpha = {
         enable = true;
-        layout = [
+        settings.layout = [
           {
             type = "padding";
             val = 2;
@@ -218,8 +218,10 @@
       # Filetree viewer
       neo-tree = {
         enable = true;
-        closeIfLastWindow = true;
-        buffers.followCurrentFile.enabled = true;
+        settings = {
+          closeIfLastWindow = true;
+          buffers.followCurrentFile.enabled = true;
+        };
       };
 
       # File search
@@ -473,8 +475,6 @@
       # vimium-like jumping
       leap = {
         enable = true;
-        # NOTE: Custom mappings in keymaps.nix
-        addDefaultMappings = false;
       };
 
       # Typst plugin
