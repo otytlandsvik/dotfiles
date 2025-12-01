@@ -5,9 +5,9 @@
     common/core
 
     ################ Extras passed from flake ################
-    inputs.nixvim.homeManagerModules.nixvim
+    inputs.nixvim.homeModules.nixvim
     inputs.nix-colors.homeManagerModules.default
-    inputs.stylix.homeManagerModules.stylix
+    inputs.stylix.homeModules.stylix
     inputs.nix-index-database.homeModules.nix-index
 
     ################ Optionals ################
@@ -49,7 +49,7 @@
   };
 
   style = {
-    wallpaper = ../assets/old-computer.png;
+    wallpaper = ../assets/ersfjord.jpg;
     transparency.enable = true;
   };
 
