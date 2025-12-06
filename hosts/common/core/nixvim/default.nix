@@ -87,6 +87,9 @@
             installCargo = true;
             installRustc = true;
           };
+
+          # Zig
+          zls.enable = true;
         };
         keymaps.lspBuf = {
           K = "hover";
