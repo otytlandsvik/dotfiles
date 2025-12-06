@@ -12,6 +12,8 @@
       tree = "eza -T";
       fetch = "fastfetch";
       k = "kubectl";
+      # Zoxide alias for qwerty
+      j = "z";
     };
 
     shellAbbrs = {
