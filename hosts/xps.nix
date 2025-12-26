@@ -16,13 +16,13 @@
     common/optional/cursor.nix
     common/optional/discord.nix
     common/optional/dotnet.nix
-    common/optional/evince.nix
     common/optional/ferdium.nix
     common/optional/k9s.nix
     common/optional/kubernetes.nix
     common/optional/nautilus.nix
     common/optional/obsidian.nix
     common/optional/openfortivpn.nix
+    common/optional/papers.nix
     common/optional/rider.nix
     common/optional/spotify.nix
     common/optional/stylix.nix
