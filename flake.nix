@@ -83,6 +83,16 @@
 
         modules = [ ./hosts/dipper.nix ];
       };
+      # Oceanbox laptop
+      homeConfigurations."ole@diver" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+
+        extraSpecialArgs = {
+          inherit inputs;
+        };
+
+        modules = [ ./hosts/diver.nix ];
+      };
       # Ekman server
       homeConfigurations."ole@ekman" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
