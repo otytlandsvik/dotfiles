@@ -13,6 +13,11 @@
       description = "Path to wallpaper image";
     };
     transparency.enable = lib.mkEnableOption "transparency in hyprland";
+    hyprlandMonitorConfig = lib.mkOption {
+      type = lib.types.str;
+      default = ", preferred, auto, 1";
+      description = "Monitor config for hyprland";
+    };
   };
 
   config = {

@@ -41,7 +41,7 @@
       "$menu" = "${pkgs.rofi}/bin/rofi -show drun";
 
       # Set default scaling
-      monitor = ", preferred, auto, 1";
+      monitor = config.style.hyprlandMonitorConfig;
 
       general = {
         border_size = 2;

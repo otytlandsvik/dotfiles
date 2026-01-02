@@ -73,6 +73,16 @@
 
         modules = [ ./hosts/haddock.nix ];
       };
+      # New Ocenbox desktop
+      homeConfigurations."ole@dipper" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+
+        extraSpecialArgs = {
+          inherit inputs;
+        };
+
+        modules = [ ./hosts/dipper.nix ];
+      };
       # Ekman server
       homeConfigurations."ole@ekman" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
