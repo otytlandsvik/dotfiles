@@ -24,6 +24,7 @@
     common/optional/psql.nix
     common/optional/rclone.nix
     common/optional/rider.nix
+    common/optional/signal.nix
     common/optional/spotify.nix
     common/optional/ssh.nix
     common/optional/stylix.nix
