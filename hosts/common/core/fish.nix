@@ -27,6 +27,16 @@
       ga = "git add";
       gl = "git log";
       gpf = "git push --force-with-lease";
+      # kubectl
+      kcd = "kubectl config set-context --current --namespace";
+    };
+
+    functions = {
+      kcc = {
+        wraps = "kubectl config use";
+        body = "kubectl config use $argv";
+      };
+      kcv = "kubectl config get-contexts";
     };
 
     interactiveShellInit = ''
