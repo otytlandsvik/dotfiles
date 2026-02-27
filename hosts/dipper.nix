@@ -49,7 +49,7 @@
   style = {
     wallpaper = ../assets/ersfjord.jpg;
     transparency.enable = true;
-    hyprlandMonitorConfig = "DP-2, preferred, auto, 1.25";
+    hyprlandMonitorConfig = "DP-2, 5120x2160@74.99, auto, 1.25";
   };
 
 }
