@@ -6,11 +6,11 @@
 }:
 {
   imports = [
-    ../waybar
+    # ../waybar
     ../rofi # dmenu replacement
     ../rofi/powermenu.nix # Powermenu using rofi
     ../rofi/networkmanager.nix # Networkmanager using rofi
-    ../swaync # Notification daemon
+    # ../swaync # Notification daemon
     ../batsignal.nix # Battery monitor
     ./hyprlock.nix
     ./hypridle.nix
@@ -29,10 +29,10 @@
   };
 
   # Configure waybar
-  wms.waybar = {
-    windowManager = "hyprland";
-    swayncBell.enable = true;
-  };
+  # wms.waybar = {
+  #   windowManager = "hyprland";
+  #   swayncBell.enable = true;
+  # };
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -204,9 +204,7 @@
 
       # Start utilities on launch
       exec-once = [
-        "waybar"
-        "nm-applet"
-        "blueman-applet"
+        "noctalia-shell"
       ];
     };
   };

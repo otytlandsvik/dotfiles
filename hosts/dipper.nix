@@ -9,9 +9,11 @@
     inputs.nix-colors.homeManagerModules.default
     inputs.stylix.homeModules.stylix
     inputs.nix-index-database.homeModules.nix-index
+    inputs.noctalia.homeModules.default
 
     ################ Optionals ################
     common/optional/wms/hyprland
+    common/optional/wms/noctalia.nix
     common/optional/cursor.nix
     common/optional/chromium.nix
     common/optional/dotnet.nix
