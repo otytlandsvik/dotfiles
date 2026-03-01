@@ -13,7 +13,7 @@
     lockTimeout = lib.mkOption {
       type = lib.types.int;
       default = 300;
-      description = "Idle seconds before hyprlock is engaged";
+      description = "Idle seconds before lock screen is engaged";
     };
     sleepTimeout = lib.mkOption {
       type = lib.types.int;
@@ -29,7 +29,7 @@
 
   config =
     let
-      lockCommand = "pidof hyprlock || hyprlock";
+      lockCommand = "noctalia-shell ipc call lockScreen lock";
       cfg = config.wms.hyprland.hypridle;
     in
     {
