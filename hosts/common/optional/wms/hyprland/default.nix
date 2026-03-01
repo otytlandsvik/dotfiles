@@ -25,6 +25,9 @@
     XDG_SCREENSHOTS_DIR = "${config.home.homeDirectory}/screenshots";
   };
 
+  # Let noctalia manage the wallpaper
+  stylix.targets.hyprland.hyprpaper.enable = false;
+
   wayland.windowManager.hyprland =
   let
     noctalia = cmd: "noctalia-shell ipc call ${cmd}";
