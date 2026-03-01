@@ -6,13 +6,10 @@
 }:
 {
   imports = [
-    # ../waybar
-    ../rofi # dmenu replacement
-    ../rofi/powermenu.nix # Powermenu using rofi
-    ../rofi/networkmanager.nix # Networkmanager using rofi
-    # ../swaync # Notification daemon
-    ../batsignal.nix # Battery monitor
-    ./hyprlock.nix
+    # ../rofi # dmenu replacement
+    # ../rofi/powermenu.nix # Powermenu using rofi
+    # ../rofi/networkmanager.nix # Networkmanager using rofi
+    # ./hyprlock.nix
     ./hypridle.nix
   ];
 
@@ -21,33 +18,47 @@
     grimblast # Screenshot utility
     playerctl # Media controller
     brightnessctl
-    networkmanagerapplet
+    # networkmanagerapplet
   ];
 
   home.sessionVariables = {
     XDG_SCREENSHOTS_DIR = "${config.home.homeDirectory}/screenshots";
   };
 
-  # Configure waybar
-  # wms.waybar = {
-  #   windowManager = "hyprland";
-  #   swayncBell.enable = true;
-  # };
-
-  wayland.windowManager.hyprland = {
+  wayland.windowManager.hyprland =
+  let
+    noctalia = cmd: "noctalia-shell ipc call ${cmd}";
+  in
+  {
     enable = true;
     settings = {
       "$terminal" = "ghostty";
-      "$menu" = "${pkgs.rofi}/bin/rofi -show drun";
+      "$menu" = noctalia "launcher toggle";
 
       # Set default scaling
       monitor = config.style.hyprlandMonitorConfig;
 
       general = {
         border_size = 2;
-        gaps_in = 0;
-        gaps_out = 0;
+        gaps_in = 5;
+        gaps_out = 10;
         layout = "master";
+      };
+
+      # From noctalia docs
+      decoration = {
+        rounding = 10;
+        rounding_power = 2;
+        shadow = {
+          enabled = true;
+          range = 4;
+          render_power = 3;
+        };
+        blur = {
+          enabled = true;
+          size = 8;
+          passes = 3;
+        };
       };
 
       animations = {
@@ -82,12 +93,13 @@
 
       windowrulev2 = [
         "float, title:(MainPicker)" # Screensharing picker
-        (lib.mkIf config.style.transparency.enable "opacity 0.9, class:(com.mitchellh.ghostty)")
+        (lib.mkIf config.style.transparency.enable "opacity 0.8, class:(com.mitchellh.ghostty)")
       ];
 
       layerrule = [
-        "blur, namespace:(waybar)"
-        "ignorealpha 0.9, namespace:(waybar)"
+        "blur, noctalia-background-.*"
+        "blurpopups, noctalia-background-.*"
+        "ignorealpha 0.5, noctalia-background-.*"
       ];
 
       "$mainMod" = "SUPER";
@@ -103,8 +115,8 @@
               "$mainMod, X, exec, firefox"
               "$mainMod, W, togglegroup,"
               "$mainMod SHIFT, Q, killactive,"
-              "$mainMod CTRL, L, exec, hyprlock --immediate"
-              "$mainMod, P, exec, rofi-powermenu"
+              "$mainMod CTRL, L, exec, ${noctalia "lockScreen lock"}"
+              "$mainMod, P, exec, ${noctalia "sessionMenu toggle"}"
 
               ", Print, exec, grimblast copysave area"
 
@@ -169,7 +181,7 @@
               )
             );
           laptopBindings = [
-            ", switch:Lid Switch, exec, hyprlock"
+            ", switch:Lid Switch, exec, ${noctalia "lockScreen lock"}"
           ];
         in
         lib.mkMerge [

@@ -1,12 +1,14 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   home.packages = with pkgs; [ gpu-screen-recorder ];
   programs.noctalia-shell = {
     enable = true;
-    systemd.enable = true;
     settings = {
       location = {
         name = "Tromsø";
         firstDayOfWeek = 1;
+      };
+      ui = {
+        panelBackgroundOpacity = lib.mkForce 0.8;
       };
     };
     plugins = {
