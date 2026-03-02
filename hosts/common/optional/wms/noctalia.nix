@@ -10,6 +10,12 @@
       ui = {
         panelBackgroundOpacity = lib.mkForce 0.8;
       };
+      general = {
+        lockScreenBlur = 40;
+        lockScreenTint = 18;
+        compactLockScreen = true;
+        clockStyle = "analog";
+      };
     };
     plugins = {
       sources = [
