@@ -100,9 +100,9 @@
       ];
 
       layerrule = [
-        "blur, noctalia-background-.*"
-        "blurpopups, noctalia-background-.*"
-        "ignorealpha 0.5, noctalia-background-.*"
+        "blur, noctalia-background-.*$"
+        "blurpopups, noctalia-background-.*$"
+        "ignorealpha 0.5, noctalia-background-.*$"
       ];
 
       "$mainMod" = "SUPER";
