@@ -16,6 +16,7 @@
     common/optional/wms/noctalia.nix
     common/optional/cursor.nix
     common/optional/chromium.nix
+    common/optional/claude.nix
     common/optional/dotnet.nix
     common/optional/papers.nix
     common/optional/ferdium.nix
@@ -31,7 +32,6 @@
     common/optional/ssh.nix
     common/optional/stylix.nix
     common/optional/tmux.nix
-    common/optional/vpn.nix
     common/optional/vscode.nix
     common/optional/yazi.nix
   ];
