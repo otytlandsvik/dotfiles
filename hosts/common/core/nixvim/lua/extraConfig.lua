@@ -3,6 +3,9 @@
 -- Timeout before keybind is triggered
 vim.opt.timeoutlen = 250
 
+-- Jump between error diagnostics by default
+vim.diagnostic.config({jump = {severity = vim.diagnostic.severity.ERROR}})
+
 -- Highlight selection on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
 	group = vim.api.nvim_create_augroup("highlight_yank", {}),
