@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, config, ... }: {
   home.packages = with pkgs; [ gpu-screen-recorder ];
   programs.noctalia-shell = {
     enable = true;
@@ -16,6 +16,34 @@
         compactLockScreen = true;
         clockStyle = "analog";
       };
+      # bar = {
+      #   widgets = {
+      #     right = [
+      #       {
+      #         id = "Battery";
+      #         alwaysShowPercenage = true;
+      #       }
+      #     ];
+      #   };
+      # };
+    };
+    colors = with config.lib.stylix.colors.withHashtag; {
+      mPrimary = lib.mkForce base0D;
+      mOnPrimary = lib.mkForce base00;
+      mSecondary = lib.mkForce base0E;
+      mOnSecondary = lib.mkForce base00;
+      mTertiary = lib.mkForce base0C;
+      mOnTertiary = lib.mkForce base00;
+      mError = lib.mkForce base08;
+      mOnError = lib.mkForce base00;
+      mSurface = lib.mkForce base00;
+      mOnSurface = lib.mkForce base05;
+      mHover = lib.mkForce base0C;
+      mOnHover = lib.mkForce base00;
+      mSurfaceVariant = lib.mkForce base01;
+      mOnSurfaceVariant = lib.mkForce base04;
+      mOutline = lib.mkForce base03;
+      mShadow = lib.mkForce base00;
     };
     plugins = {
       sources = [
