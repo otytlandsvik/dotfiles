@@ -14,8 +14,8 @@
     };
     transparency.enable = lib.mkEnableOption "transparency in hyprland";
     hyprlandMonitorConfig = lib.mkOption {
-      type = lib.types.str;
-      default = ", preferred, auto, 1";
+      type = lib.types.listOf lib.types.str;
+      default = [ ", preferred, auto, 1" ];
       description = "Monitor config for hyprland";
     };
   };

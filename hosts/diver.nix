@@ -14,6 +14,8 @@
     ################ Optionals ################
     common/optional/wms/hyprland
     common/optional/wms/noctalia.nix
+    common/optional/claude.nix
+    common/optional/chromium.nix
     common/optional/cursor.nix
     common/optional/dotnet.nix
     common/optional/ferdium.nix
@@ -34,7 +36,11 @@
   laptop.enable = true;
 
   style = {
-    wallpaper = ../assets/ersfjord.jpg;
+    wallpaper = ../assets/diver.jpg;
     transparency.enable = true;
+    # hyprlandMonitorConfig = [
+    #   "eDP-1, 1920x1200@60.00200, auto, 1,"
+    #   "DP-2, 1920x1200@30.000, auto, 1, mirror, eDP-1"
+    # ];
   };
 }
