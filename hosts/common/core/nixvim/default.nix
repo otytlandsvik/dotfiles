@@ -43,7 +43,7 @@
       # Language service providers
       lsp = {
         enable = true;
-        inlayHints = true;
+        # inlayHints = true;
         servers = {
           # Nix
           nixd.enable = true;
@@ -97,14 +97,6 @@
           gr = "references";
         };
       };
-
-      # Handy code snippets
-      luasnip = {
-        enable = true;
-        fromVscode = [ { } ];
-      };
-
-      friendly-snippets.enable = true;
 
       # Completion engine
       cmp-nvim-lsp.enable = true;
@@ -275,12 +267,12 @@
             (pkgs.tree-sitter.buildGrammar {
               language = "fsharp";
               location = "fsharp";
-              version = "0.1.0+rev=02929f0";
+              version = "0.2.2+rev=594c500";
               src = pkgs.fetchFromGitHub {
                 owner = "ionide";
                 repo = "tree-sitter-fsharp";
-                rev = "02929f084726db969e5b916d144436f248146824";
-                hash = "sha256-0jrbznAXcjXrbJ5jnxWMzPKxRopxKCtoQXGl80R1M0M=";
+                rev = "594c500ecace8618db32dd1144307897277db067";
+                hash = "sha256-e66aAsmNJWMcElqFIxSiHZgyQsq8NT7zU9y/fpbqJF4=";
               };
               meta.homepage = "https://github.com/ionide/tree-sitter-fsharp";
             }).overrideAttrs
@@ -380,12 +372,6 @@
         };
       };
 
-      # Display color code colors
-      colorizer = {
-        enable = true;
-        settings.fileTypes = [ "*" ];
-      };
-
       # Various QOL improvement plugins
       snacks = {
         enable = true;
@@ -421,12 +407,6 @@
           };
         };
       };
-
-      # Notification UI
-      # fidget.enable = true;
-
-      # Comment utilities
-      comment.enable = true;
 
       # Highlight todo comments
       todo-comments.enable = true;
@@ -488,22 +468,6 @@
         };
       };
     };
-
-    # extraPlugins =
-    #   let
-    #     nvim-ghost = pkgs.vimUtils.buildVimPlugin {
-    #       name = "nvim-ghost.nvim";
-    #       src = pkgs.fetchFromGitHub {
-    #         owner = "subnut";
-    #         repo = "nvim-ghost.nvim";
-    #         rev = "67cc8f38c69d271af1c2430ff5099766f3550eb8";
-    #         hash = "sha256-XldDgPqVeIfUjaRLVUMp88eHBHLzoVgOmT3gupPs+ao=";
-    #       };
-    #     };
-    #   in
-    #   [
-    #     nvim-ghost
-    #   ];
 
     # Packages that are required by plugins, like formatters
     extraPackages = with pkgs; [
