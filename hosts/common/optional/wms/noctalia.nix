@@ -16,6 +16,7 @@
         compactLockScreen = true;
         clockStyle = "analog";
       };
+      dock.enabled = false;
       # bar = {
       #   widgets = {
       #     right = [
