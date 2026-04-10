@@ -496,6 +496,7 @@
         (mkFileTypeCmd [ "*.nix" ] "setlocal shiftwidth=2 softtabstop=2")
         # Set wrapping and spell checking for typst files
         (mkFileTypeCmd [ "*.typ" ] "setlocal wrap linebreak spell spelllang=en_us")
+        (mkFileTypeCmd [ "*.fs" ] "setlocal commentstring=//\\ %s")
       ];
 
     # Keep lua config in lua file for syntax highlights and formatting
