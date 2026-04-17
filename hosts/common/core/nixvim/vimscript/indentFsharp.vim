@@ -5,15 +5,15 @@
 "               Markus Mottl         <markus.mottl@gmail.com>
 "               Rudi Grinberg        <rudi.grinberg@gmail.com>
 "               Gregor Uhlenheuer    <kongo2002@gmail.com>
+"               Phil Thompson        <phil@electricvisions.com>
+"               Julian Pottle        <julian.pottle@gmail.com>
 " Last Change:  2013 Jun 29
 "               2005 Jun 25 - Fixed multiple bugs due to 'else\nreturn ind' working
 "               2005 May 09 - Added an option to not indent OCaml-indents specially (MM)
 "               2013 June   - commented textwidth (Marc Weber)
 "               2014 August - Ported to F#
 "               2014 August - F# specific cleanup
-"
-" Marc Weber's comment: This file may contain a lot of (very custom) stuff
-" which eventually should be moved somewhere else ..
+"               2026 April  - Rewrite based on PhilT's vim-fsharp plugin
 
 " Only load this indent file when no other was loaded.
 
@@ -22,235 +22,262 @@ if exists("b:did_indent")
 endif
 let b:did_indent = 1
 
-setlocal indentexpr=GetFsharpIndent()
-setlocal indentkeys+=0=and,0=class,0=constraint,0=done,0=else,0=end,0=exception,0=external,0=if,0=in,0=include,0=inherit,0=let,0=method,0=open,0=then,0=type,0=val,0=with,0;;,0>\],0\|\],0>},0\|,0},0\],0)
+setlocal indentexpr=FSharpIndent()
+setlocal indentkeys+=0=\|,0=\|],0=when,0=elif,0=else,0=\|\>,==,=with
 
-" Only define the function once.
-if exists("*GetFsharpIndent")
+" Only define the function once
+if exists("*FsharpIndent")
     finish
 endif
 
-" Skipping pattern, for comments
-function! s:GetLineWithoutFullComment(lnum)
-    let lnum = prevnonblank(a:lnum - 1)
-    let lline = substitute(getline(lnum), '(\*.*\*)\s*$', '', '')
-    while lline =~ '^\s*$' && lnum > 0
-        let lnum = prevnonblank(lnum - 1)
-        let lline = substitute(getline(lnum), '(\*.*\*)\s*$', '', '')
+" Debug logging
+if $VIM_FS_VERBOSE == 'true'
+    command! -nargs=1 Log echom <args>
+else
+    command! -nargs=1 Log echom
+endif
+
+let s:funcRegex = '^\s*\(let\|member\|default\|override\) .\+ =\s*$'
+let s:classRegex = '^\s*type .\+ =\s*$'
+let s:letClassRegex = s:funcRegex.'\|'.s:classRegex
+let s:moduleRegex = '^\s*module .\+ =\s*$'
+let s:matchRegex = '\s*match .\+ with$'
+let s:matchCaseRegex = '^\s*| .\+ ->.*$'
+let s:recordRegex = '^\s*.\+ with$\|{$'
+
+function! s:TrimSpacesAndComments(line)
+    let line = substitute(a:line, '\v(.*)\/\/.*', '\1', '')
+    return substitute(line, '\v^\s*(.{-})\s*$', '\1', '')
+endfunction
+
+function! s:ScopedFind(regex, start_line, scope)
+    let lnum = a:start_line
+    let max_indent = a:scope
+    let indent = a:scope
+    let line = ''
+    let in_comment = 0
+    let blank_lines = 0
+
+    Log 'ScopedFind scope is '.a:scope
+
+    " This loop terminates when a line matches the regex,
+    " we reach the top of the file,
+    " or we go out of function scope (2 blank lines)
+    " In addition, it ignores lines that are indented further
+    while lnum > 0 && blank_lines < 2 && (
+            \ in_comment || line == "" || indent > max_indent ||
+            \ line !~ a:regex
+            \ )
+        let lnum -= 1
+        let line = getline(lnum)
+        let indent = indent(lnum)
+
+        Log 'lnum:'.lnum.', indent:'.indent.', max_indent:'.max_indent
+        Log 'in_comment:'.in_comment.', line:'.line
+
+        " Indicate if we are in a multiline comment
+        if line =~ '*)$'
+            let in_comment = 1
+        endif
+        if line =~ '^\s*(*'
+            let in_comment = 0
+        endif
+        if line == ''
+            blank_lines += 1
+        else
+            blank_lines = 0
+        endif
     endwhile
+
+    Log 'Blank lines '.blank_lines
+    Log 'ScopedFind matched on line '.lnum.': ['.line.']'
+    return line =~ a:regex ? lnum : -1
+endfunction
+
+function! s:IsInCommentOrString()
+    let symbol_type = synIDattr(synID(line("."), col("."), 0), "name")
+    Log 'IsInCommentOrString: '.symbol_type.' at line '.line('.').', col '.col('.')
+    return (symbol_type =~? 'comment\|string')
+endfunction
+
+function! s:SkipFunc()
+    return s:IsInCommentOrString()
+endfunction
+
+function! s:FindPair(start_word, middle_word, end_word)
+    Log 'FindPair: Currently at line: '.line('.').' and column: '.col('.')
+
+    " Make sure we're inside the pair if outside but doesn't affect
+    " if we're already inside due to auto-pairs
+    let [lnum, col] = searchpairpos(a:start_word, a:middle_word, a:end_word,
+            \ 'bWn', 's:SkipFunc()')
+
+    Log 'FindPair matched on line '.lnum.': ['.getline(lnum).']'
     return lnum
 endfunction
 
-" Indent for ';;' to match multiple 'let'
-function! s:GetInd(lnum, pat, lim)
-    let llet = search(a:pat, 'bW')
-    let old = indent(a:lnum)
-    while llet > 0
-        let old = indent(llet)
-        let nb = s:GetLineWithoutFullComment(llet)
-        if getline(nb) =~ a:lim
-            return old
+function! s:IndentPair(start_word, middle_word, end_word)
+    return indent(s:FindPair(a:start_word, a:middle_word, a:end_word))
+endfunction
+
+let s:matchKeyword = '^\s*|$'
+let s:matchCase = '^\s*| .*$'
+let s:whenKeyword = '^\s*when$'
+let s:whenClause = '^\s*when .\+ ->$'
+let s:defaultCase = '^\s*| _ -> .\+$'
+
+function! s:IndentMatchExpression(lnum)
+    let curr_line = getline(a:lnum)
+    let prev_lnum = prevnonblank(a:lnum - 1)
+    let prev_line = getline(prev_lnum)
+    let prev_indent = indent(prev_lnum)
+    let indent = -1
+
+    Log 'Current line: '.curr_line
+    Log 'Previous line: '.prev_line
+
+    if curr_line =~ s:matchKeyword.'\|'.s:matchCase.'\|'.s:whenKeyword ||
+            \ prev_line =~ s:matchCase.'\|'.s:whenClause.'\|'.s:defaultCase
+
+        let match_lnum = s:ScopedFind(s:matchRegex, a:lnum, prev_indent)
+
+        if match_lnum != -1
+            if prev_line =~ s:defaultCase
+                Log '!match: default case'
+                let indent = indent(match_lnum) - shiftwidth()
+            elseif curr_line =~ s:matchKeyword.'\|'.s:matchCase
+                Log '!match: case'
+                let indent = indent(match_lnum)
+            else
+                Log '!match: result'
+                let indent = indent(match_lnum) + shiftwidth()
+            endif
         endif
-        let llet = search(a:pat, 'bW')
-    endwhile
-    return old
+    endif
+
+    return indent
 endfunction
 
-" Indent pairs
-function! s:FindPair(pstart, pmid, pend)
-    call search(a:pend, 'bW')
-    return indent(searchpair(a:pstart, a:pmid, a:pend, 'bWn', 'synIDattr(synID(line("."), col("."), 0), "name") =~? "string\\|comment"'))
-endfunction
+function! FSharpIndent()
+    let current_line = s:TrimSpacesAndComments(getline(v:lnum))
+    let current_indent = indent(v:lnum)
+    let previous_lnum = prevnonblank(v:lnum - 1)
+    let previous_indent = indent(previous_lnum)
+    let previous_line = s:TrimSpacesAndComments(getline(previous_lnum))
+    let indent = previous_indent
 
-" Indent 'let'
-function! s:FindLet(pstart, pmid, pend)
-    call search(a:pend, 'bW')
-    return indent(searchpair(a:pstart, a:pmid, a:pend, 'bWn', 'synIDattr(synID(line("."), col("."), 0), "name") =~? "string\\|comment" || getline(".") =~ "^\\s*let\\>.*=.*\\<in\\s*$" || getline(prevnonblank(".") - 1) =~ s:beflet'))
-endfunction
+    Log 'Detecting...'
 
-function! GetFsharpIndent()
-    " Find a non-commented line above the current line.
-    let lnum = s:GetLineWithoutFullComment(v:lnum)
-
-    " At the start of the file use zero indent.
-    if lnum == 0
+    if v:lnum == 0
+        Log '! at line 0. Setting indent to 0'
         return 0
     endif
 
-    let ind = indent(lnum)
-    let lline = substitute(getline(lnum), '(\*.*\*)\s*$', '', '')
+    let indentForMatch = s:IndentMatchExpression(v:lnum)
 
-    " " Return single 'shiftwidth' after lines matching:
-    " if lline =~ '^\s*|.*->\s*$'
-    "     return ind + &sw
-    " endif
+    if indentForMatch != -1
+        let indent = indentForMatch
 
-    let line = getline(v:lnum)
+    elseif current_line =~ '^}$'
+        let indent = s:IndentPair('{', '', '}')
+        Log '! dedent `}`: '.indent
 
-    " Indent if current line begins with 'end':
-    if line =~ '^\s*end\>'
-        return s:FindPair(s:module, '','\<end\>')
+    elseif current_line =~ '^\(]\||]\)$'
+        let indent = s:IndentPair('\[', '', '\]')
+        Log '! dedent `]`: '.indent
 
-        " Indent if current line begins with 'done' for 'do':
-    elseif line =~ '^\s*done\>'
-        return s:FindPair('\<do\>', '','\<done\>')
+    elseif current_line =~ '^)$'
+        let indent = s:IndentPair('(', '', ')')
+        Log '! dedent `)`: '.indent
 
-        " Indent if current line begins with '}' or '>}':
-    elseif line =~ '^\s*\(\|>\)}'
-        return s:FindPair('{', '','}')
+    elseif current_line =~ '^|>$'
+        Log '! `|>` pipeline operator on current line'
+        let indent = previous_indent
 
-        " Indent if current line begins with ']', '|]' or '>]':
-    elseif line =~ '^\s*\(\||\|>\)\]'
-        return s:FindPair('\[', '','\]')
-
-        " Indent if current line begins with ')':
-    elseif line =~ '^\s*)'
-        return s:FindPair('(', '',')')
-
-        " Indent if current line begins with 'let':
-    elseif line =~ '^\s*let\>'
-        if lline !~ s:lim . '\|' . s:letlim . '\|' . s:beflet
-            return s:FindLet(s:type, '','\<let\s*$')
+    elseif current_line =~ '^\(elif\( .* then\)\?\|else\)$'
+        Log '! `elif/else` on current line'
+        if previous_line =~ '^\(if\|elif\)'
+            let indent = previous_indent
+        else
+            let indent = previous_indent - shiftwidth()
         endif
 
-        " Indent if current line begins with 'class' or 'type':
-    elseif line =~ '^\s*\(class\|type\)\>'
-        if lline !~ s:lim . '\|\<and\s*$\|' . s:letlim
-            return s:FindLet(s:type, '','\<\(class\|type\)\s*$')
+    elseif current_line =~ '^\s*\w\+ =$'
+        Log '! Potential field'
+        let lnum = s:ScopedFind(s:recordRegex.'\|'.s:matchRegex, v:lnum, previous_indent)
+        let line = lnum == -1 ? '' : getline(lnum)
+        if line !~ s:matchRegex && lnum != -1
+            let indent = indent(lnum) + shiftwidth()
+            let indent += line =~ '^\s*{.\+ with$' ? shiftwidth() : 0
         endif
 
-        " Indent for pattern matching:
-    elseif line =~ '^\s*|'
-        if lline !~ '^\s*\(|[^\]]\|\(match\|type\|with\)\>\)\|\<\(function\|private\|with\)\s*$'
-            call search('|', 'bW')
-            return indent(searchpair('^\s*\(match\|type\)\>\|\<\(function\|private\|with\)\s*$', '', '^\s*|', 'bWn', 'synIDattr(synID(line("."), col("."), 0), "name") =~? "string\\|comment" || getline(".") !~ "^\\s*|.*->"'))
+    elseif current_line =~ '^\s*with$'
+        Log '! with'
+        let indent = previous_indent - shiftwidth()
+
+    elseif previous_line =~ '^\s*\(try\|with\)$'
+        Log '! try/with'
+        let indent = previous_indent + shiftwidth()
+
+    elseif previous_line =~ '=\s*$'
+        Log '! let/module/member etc ='
+        let indent = previous_indent + shiftwidth()
+
+    elseif previous_line =~ '^\(let\|type\).*=\(\s\({\|[\|[|\)\)\?$'
+        Log '! type/record/array/list'
+        let indent = previous_indent + shiftwidth()
+
+    elseif previous_line =~ '\([\|[|\|{\|[{\|(\)$'
+        Log '! list/record/tuple'
+        let indent = previous_indent + shiftwidth()
+
+    elseif previous_line =~ '^{ .\+ with$'
+        Log '! record copy and update expression (same line)'
+        let indent = previous_indent + shiftwidth()
+
+    elseif previous_line =~ '^.\+ with$'
+        Log '! record copy and update expression (newline)'
+        let indent = previous_indent + shiftwidth()
+
+    elseif previous_line =~ '(fun\s.*->$'
+        Log '! lambda'
+        let indent = previous_indent + shiftwidth()
+
+    elseif previous_line =~ '(\s*$'
+        Log '! parens'
+        let indent = previous_indent + shiftwidth()
+
+    elseif previous_line =~ '^|>$'
+        Log '! `|>` on previous line'
+        let indent = previous_indent + shiftwidth()
+
+    elseif (previous_lnum + 3) <= v:lnum
+        Log '! two blank lines for end of function'
+        if current_line == ''
+            let lnum = s:ScopedFind(s:letClassRegex, v:lnum, previous_indent)
+            let indent = lnum == -1 ? 0 : indent(lnum)
+        else
+            let indent = current_indent
         endif
 
-        " Indent if current line begins with ';;':
-    elseif line =~ '^\s*;;'
-        if lline !~ ';;\s*$'
-            return s:GetInd(v:lnum, s:letpat, s:letlim)
-        endif
+    elseif previous_line =~ '^\s*\(if\|elif\) .* then$'
+            \ || previous_line =~ '^else$'
+        Log '! if/elif then'
+        let indent = previous_indent + shiftwidth()
 
-        " Indent if current line begins with 'in':
-    elseif line =~ '^\s*in\>'
-        if lline !~ '^\s*\(let\|and\)\>'
-            return s:FindPair('\<let\>', '', '\<in\>')
-        endif
-
-        " Indent if current line begins with 'else':
-    elseif line =~ '^\s*else\>'
-        if lline !~ '^\s*\(if\|then\)\>'
-            return s:FindPair('\<if\>', '', '\<else\>')
-        endif
-
-        " Indent if current line begins with 'then':
-    elseif line =~ '^\s*then\>'
-        if lline !~ '^\s*\(if\|else\)\>'
-            return s:FindPair('\<if\>', '', '\<then\>')
-        endif
-
-        " Indent if current line begins with 'and':
-    elseif line =~ '^\s*and\>'
-        if lline !~ '^\s*\(and\|let\|type\)\>\|\<end\s*$'
-            return ind - &sw
-        endif
-
-        " Indent if current line begins with 'with':
-    elseif line =~ '^\s*with\>'
-        if lline !~ '^\s*\(match\|try\)\>'
-            return s:FindPair('\<\%(match\|try\)\>', '','\<with\>')
-        endif
-
-        " Indent if current line begins with 'exception', 'external', 'include' or
-        " 'open':
-    elseif line =~ '^\s*\(exception\|external\|include\|open\)\>'
-        if lline !~ s:lim . '\|' . s:letlim
-            call search(line)
-            return indent(search('^\s*\(\(exception\|external\|include\|open\|type\)\>\|val\>.*:\)', 'bW'))
-        endif
-
-        " Indent if current line begins with 'val':
-    elseif line =~ '^\s*val\>'
-        if lline !~ '^\s*\(exception\|external\|include\|open\)\>\|' . s:obj . '\|' . s:letlim
-            return indent(search('^\s*\(\(exception\|include\|initializer\|method\|open\|type\|val\)\>\|external\>.*:\)', 'bW'))
-        endif
-
-        " Indent if current line begins with 'constraint', 'inherit', 'initializer'
-        " or 'method':
-    elseif line =~ '^\s*\(constraint\|inherit\|initializer\|method\)\>'
-        if lline !~ s:obj
-            return indent(search('\<\(object\|object\s*(.*)\)\s*$', 'bW')) + &sw
-        endif
-
-    endif
-
-
-        " Don't change indent after lines begins with '//':
-    if lline =~ '^\s*//'
-        let i = indent(v:lnum)
-        return i == 0 ? ind : i
-    endif
-
-    " Add a 'shiftwidth' after lines ending with:
-    if lline =~ '\(:\|=\|->\|<-\|(\|\[\|{\|{<\|\[|\|\[<\|\<\(begin\|do\|else\|fun\|function\|functor\|if\|initializer\|object\|private\|sig\|struct\|then\|try\)\|\<object\s*(.*)\)\s*$'
-        let ind = ind + &sw
-
-        " Back to normal indent after lines ending with ';;':
-    elseif lline =~ ';;\s*$' && lline !~ '^\s*;;'
-        let ind = s:GetInd(v:lnum, s:letpat, s:letlim)
-
-        " Back to normal indent after lines ending with 'end':
-    elseif lline =~ '\<end\s*$'
-        let ind = s:FindPair(s:module, '','\<end\>')
-
-        " Back to normal indent after lines ending with 'in':
-    elseif lline =~ '\<in\s*$' && lline !~ '^\s*in\>'
-        let ind = s:FindPair('\<let\>', '', '\<in\>')
-
-        " Back to normal indent after lines ending with 'done':
-    elseif lline =~ '\<done\s*$'
-        let ind = s:FindPair('\<do\>', '','\<done\>')
-
-        " Back to normal indent after lines ending with '}' or '>}':
-    elseif lline =~ '\(\|>\)}\s*$'
-        let ind = s:FindPair('{', '','}')
-
-        " Back to normal indent after lines ending with ']', '|]' or '>]':
-    elseif lline =~ '\(\||\|>\)\]\s*$'
-        let ind = s:FindPair('\[', '','\]')
-
-        " Back to normal indent after comments:
-    elseif lline =~ '\*)\s*$'
-        call search('\*)', 'bW')
-        let ind = indent(searchpair('(\*', '', '\*)', 'bWn', 'synIDattr(synID(line("."), col("."), 0), "name") =~? "string"'))
-
-        " Back to normal indent after lines ending with ')':
-    elseif lline =~ ')\s*$'
-        let ind = s:FindPair('(', '',')')
-
-        " If this is a multiline comment then align '*':
-    elseif lline =~ '^\s*(\*' && line =~ '^\s*\*'
-        let ind = ind + 1
+    elseif previous_line =~ '\sdo$'
+        Log '! while/for do'
+        let indent = previous_indent + shiftwidth()
 
     else
-        " Don't change indentation of this line
-        " for new lines (indent==0) use indentation of previous line
-
-        " This is for preventing removing indentation of these args:
-        "   let f x =
-        "     let y = x + 1 in
-        "     Printf.printf
-        "       "o"           << here
-        "       "oeuth"       << don't touch indentation
-
-        let i = indent(v:lnum)
-        return i == 0 ? ind : i
+        Log '- keep indent of previous line'
+        Log 'line matched ['.line.']'
 
     endif
 
-    return ind
+    Log 'End of detection. Indent: '.indent
 
+    return indent
 endfunction
 
 " vim: sw=4 et sts=4
