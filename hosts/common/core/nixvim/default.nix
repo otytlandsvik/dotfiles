@@ -1,4 +1,33 @@
 { pkgs, config, ... }:
+let
+  # Build the latest fsharp grammar, and its queries
+  fsharp-grammar =
+    (pkgs.tree-sitter.buildGrammar {
+      language = "fsharp";
+      location = "fsharp";
+      version = "0.2.2+rev=b576ecf";
+      src = pkgs.fetchFromGitHub {
+        owner = "ionide";
+        repo = "tree-sitter-fsharp";
+        rev = "b576ecf7ced09c0cd74a39618694512dcfc6c110";
+        hash = "sha256-mXoD5tAFuKloakjS+plPWqxTPN4uhwvYqxD4aRf0/64=";
+      };
+      meta.homepage = "https://github.com/ionide/tree-sitter-fsharp";
+    }).overrideAttrs
+      {
+        # NOTE: We override the installPhase in order to place the queries under
+        # queries/fsharp, so we can later add it to the nvim runtimepath.
+        installPhase = ''
+          runHook preInstall
+          mkdir -p $out/queries/fsharp
+          if [[ -d ../queries ]]; then
+            cp ../queries/*.scm $out/queries/fsharp
+          fi
+          mv parser $out/
+          runHook postInstall
+        '';
+      };
+in
 {
   imports = [ ./keymaps.nix ];
 
@@ -261,78 +290,51 @@
       };
 
       # Treesitter
-      treesitter =
-        let
-          fsharp-grammar =
-            (pkgs.tree-sitter.buildGrammar {
-              language = "fsharp";
-              location = "fsharp";
-              version = "0.2.2+rev=594c500";
-              src = pkgs.fetchFromGitHub {
-                owner = "ionide";
-                repo = "tree-sitter-fsharp";
-                rev = "594c500ecace8618db32dd1144307897277db067";
-                hash = "sha256-e66aAsmNJWMcElqFIxSiHZgyQsq8NT7zU9y/fpbqJF4=";
-              };
-              meta.homepage = "https://github.com/ionide/tree-sitter-fsharp";
-            }).overrideAttrs
-              {
-                # Override installPhase to fetch queries from correct directory
-                installPhase = ''
-                  runHook preInstall
-                  mkdir $out
-                  mv parser $out/
-                  if [[ -d ../queries ]]; then
-                    cp -r ../queries $out
-                  fi
-                  runHook postInstall
-                '';
-              };
-        in
-        {
-          enable = true;
-          settings = {
-            highlight.enable = true;
-          };
-          nixvimInjections = true;
-          languageRegister.fsharp = "fsharp";
-
-          grammarPackages =
-            with config.programs.nixvim.plugins.treesitter.package.builtGrammars;
-            [
-              bash
-              bibtex
-              c_sharp
-              cue
-              cpp
-              css
-              csv
-              dockerfile
-              fish
-              git_rebase
-              gitattributes
-              gitignore
-              go
-              haskell
-              html
-              javascript
-              json
-              latex
-              lua
-              make
-              markdown
-              markdown_inline
-              nix
-              python
-              rust
-              toml
-              typescript
-              typst
-              yaml
-              zig
-            ]
-            ++ [ fsharp-grammar ];
+      treesitter = {
+        enable = true;
+        settings = {
+          highlight.enable = true;
         };
+        nixvimInjections = true;
+        languageRegister.fsharp = "fsharp";
+
+        grammarPackages =
+          with config.programs.nixvim.plugins.treesitter.package.builtGrammars;
+          [
+            bash
+            bibtex
+            c_sharp
+            cue
+            cpp
+            css
+            csv
+            dockerfile
+            fish
+            git_rebase
+            gitattributes
+            gitignore
+            go
+            haskell
+            html
+            javascript
+            json
+            latex
+            lua
+            make
+            markdown
+            markdown_inline
+            nix
+            python
+            rust
+            toml
+            typescript
+            typst
+            yaml
+            xml
+            zig
+          ]
+          ++ [ fsharp-grammar ];
+      };
 
       # Sticky function signatures / scope context
       treesitter-context.enable = true;
@@ -499,8 +501,11 @@
         (mkFileTypeCmd [ "*.fs" ] "setlocal commentstring=//\\ %s")
       ];
 
-    # Keep lua config in lua file for syntax highlights and formatting
-    extraConfigLua = builtins.readFile ./lua/extraConfig.lua;
+    # NOTE: We prepend the fsharp-grammar path to the runtimepath here, so its queries
+    # (which we correctly placed under queries/fsharp earlier) take precedence over
+    # the default nvim-treesitter queries, which are outdated.
+    extraConfigLua =
+      "${builtins.readFile ./lua/extraConfig.lua}" + "\n" + "vim.opt.rtp:prepend('${fsharp-grammar}')";
 
     # Fsharp indentation config from ionide-vim
     extraFiles."indent/fsharp.vim".source = ./vimscript/indentFsharp.vim;
