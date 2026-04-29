@@ -11,8 +11,8 @@
         panelBackgroundOpacity = lib.mkForce 0.8;
       };
       general = {
-        lockScreenBlur = 40;
-        lockScreenTint = 18;
+        lockScreenBlur = 0.40;
+        lockScreenTint = 0.18;
         compactLockScreen = true;
         clockStyle = "analog";
       };
