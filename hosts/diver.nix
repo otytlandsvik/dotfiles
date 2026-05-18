@@ -10,9 +10,10 @@
     inputs.stylix.homeModules.stylix
     inputs.nix-index-database.homeModules.nix-index
     inputs.noctalia.homeModules.default
+    inputs.niri.homeModules.niri
 
     ################ Optionals ################
-    common/optional/wms/hyprland
+    common/optional/wms/niri
     common/optional/wms/noctalia.nix
     common/optional/claude.nix
     common/optional/chromium.nix
