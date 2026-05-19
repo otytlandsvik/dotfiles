@@ -10,7 +10,7 @@
     # ../rofi/powermenu.nix # Powermenu using rofi
     # ../rofi/networkmanager.nix # Networkmanager using rofi
     # ./hyprlock.nix
-    ./hypridle.nix
+    ../hypridle.nix
   ];
 
   home.packages = with pkgs; [
@@ -26,88 +26,87 @@
   };
 
   wayland.windowManager.hyprland =
-  let
-    noctalia = cmd: "noctalia-shell ipc call ${cmd}";
-  in
-  {
-    enable = true;
-    settings = {
-      "$terminal" = "ghostty";
-      "$menu" = noctalia "launcher toggle";
+    let
+      noctalia = cmd: "noctalia-shell ipc call ${cmd}";
+    in
+    {
+      enable = true;
+      settings = {
+        "$terminal" = "ghostty";
+        "$menu" = noctalia "launcher toggle";
 
-      # Set default scaling
-      monitor = config.style.hyprlandMonitorConfig;
+        # Set default scaling
+        monitor = config.style.hyprlandMonitorConfig;
 
-      general = {
-        border_size = 2;
-        gaps_in = 5;
-        gaps_out = 10;
-        layout = "master";
-      };
-
-      # From noctalia docs
-      decoration = {
-        rounding = 10;
-        rounding_power = 2;
-        shadow = {
-          enabled = true;
-          range = 4;
-          render_power = 3;
+        general = {
+          border_size = 2;
+          gaps_in = 5;
+          gaps_out = 10;
+          layout = "master";
         };
-        blur = {
-          enabled = true;
-          size = 8;
-          passes = 3;
+
+        # From noctalia docs
+        decoration = {
+          rounding = 10;
+          rounding_power = 2;
+          shadow = {
+            enabled = true;
+            range = 4;
+            render_power = 3;
+          };
+          blur = {
+            enabled = true;
+            size = 8;
+            passes = 3;
+          };
         };
-      };
 
-      animations = {
-        enabled = true;
+        animations = {
+          enabled = true;
 
-        bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
+          bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
 
-        animation = [
-          "windows, 1, 7, myBezier"
-          "windowsOut, 1, 7, default, popin 80%"
-          "border, 1, 10, default"
-          "borderangle, 1, 8, default"
-          "fade, 1, 7, default"
-          "workspaces, 1, 3, default"
+          animation = [
+            "windows, 1, 7, myBezier"
+            "windowsOut, 1, 7, default, popin 80%"
+            "border, 1, 10, default"
+            "borderangle, 1, 8, default"
+            "fade, 1, 7, default"
+            "workspaces, 1, 3, default"
+          ];
+        };
+
+        input = {
+          kb_layout = "us,no";
+          kb_variant = "altgr-intl,";
+          kb_options = "grp:win_space_toggle,caps:escape";
+
+          touchpad = lib.mkIf config.laptop.enable {
+            natural_scroll = true;
+          };
+
+        };
+
+        gestures = lib.mkIf config.laptop.enable {
+          gesture = "3, horizontal, workspace";
+        };
+
+        windowrulev2 = [
+          "float, title:(MainPicker)" # Screensharing picker
+          (lib.mkIf config.style.transparency.enable "opacity 0.8, class:(com.mitchellh.ghostty)")
         ];
-      };
 
-      input = {
-        kb_layout = "us,no";
-        kb_variant = "altgr-intl,";
-        kb_options = "grp:win_space_toggle,caps:escape";
+        layerrule = [
+          "blur, noctalia-background-.*$"
+          "blurpopups, noctalia-background-.*$"
+          "ignorealpha 0.5, noctalia-background-.*$"
+        ];
 
-        touchpad = lib.mkIf config.laptop.enable {
-          natural_scroll = true;
-        };
+        "$mainMod" = "SUPER";
 
-      };
-
-      gestures = lib.mkIf config.laptop.enable {
-        gesture = "3, horizontal, workspace";
-      };
-
-      windowrulev2 = [
-        "float, title:(MainPicker)" # Screensharing picker
-        (lib.mkIf config.style.transparency.enable "opacity 0.8, class:(com.mitchellh.ghostty)")
-      ];
-
-      layerrule = [
-        "blur, noctalia-background-.*$"
-        "blurpopups, noctalia-background-.*$"
-        "ignorealpha 0.5, noctalia-background-.*$"
-      ];
-
-      "$mainMod" = "SUPER";
-
-      bind =
-        let
-          baseBindings =
-            [
+        bind =
+          let
+            baseBindings = [
               "$mainMod, RETURN, exec, $terminal"
               "$mainMod, V, togglefloating,"
               "$mainMod, F, fullscreen,"
@@ -180,44 +179,44 @@
                 ) 9
               )
             );
-          laptopBindings = [
-            ", switch:Lid Switch, exec, ${noctalia "lockScreen lock"}"
+            laptopBindings = [
+              ", switch:Lid Switch, exec, ${noctalia "lockScreen lock"}"
+            ];
+          in
+          lib.mkMerge [
+            baseBindings
+            (lib.mkIf config.laptop.enable laptopBindings)
           ];
-        in
-        lib.mkMerge [
-          baseBindings
-          (lib.mkIf config.laptop.enable laptopBindings)
+
+        # Mouse bindings
+        bindm = [
+          "$mainMod, mouse:272, movewindow"
+          "$mainMod, mouse:273, resizewindow"
         ];
 
-      # Mouse bindings
-      bindm = [
-        "$mainMod, mouse:272, movewindow"
-        "$mainMod, mouse:273, resizewindow"
-      ];
+        # Bindings that repeat when held down
+        binde = [
+          ", XF86MonBrightnessUp,   exec, brightnessctl set +10%"
+          ", XF86MonBrightnessDown, exec, brightnessctl set 10%-"
 
-      # Bindings that repeat when held down
-      binde = [
-        ", XF86MonBrightnessUp,   exec, brightnessctl set +10%"
-        ", XF86MonBrightnessDown, exec, brightnessctl set 10%-"
+          ", XF86AudioMute,         exec, pamixer --toggle-mute"
+          ", XF86AudioRaiseVolume,  exec, pamixer -ui 5"
+          ", XF86AudioLowerVolume,  exec, pamixer -ud 5"
+        ];
 
-        ", XF86AudioMute,         exec, pamixer --toggle-mute"
-        ", XF86AudioRaiseVolume,  exec, pamixer -ui 5"
-        ", XF86AudioLowerVolume,  exec, pamixer -ud 5"
-      ];
+        # Bindings allowed when locked
+        bindl = [
+          # Media control
+          ", XF86AudioPlay,  exec, playerctl play-pause"
+          ", XF86AudioPause, exec, playerctl pause"
+          ", XF86AudioNext,  exec, playerctl next"
+          ", XF86AudioPrev,  exec, playerctl previous"
+        ];
 
-      # Bindings allowed when locked
-      bindl = [
-        # Media control
-        ", XF86AudioPlay,  exec, playerctl play-pause"
-        ", XF86AudioPause, exec, playerctl pause"
-        ", XF86AudioNext,  exec, playerctl next"
-        ", XF86AudioPrev,  exec, playerctl previous"
-      ];
-
-      # Start utilities on launch
-      exec-once = [
-        "noctalia-shell"
-      ];
+        # Start utilities on launch
+        exec-once = [
+          "noctalia-shell"
+        ];
+      };
     };
-  };
 }

@@ -10,9 +10,10 @@
     inputs.stylix.homeModules.stylix
     inputs.nix-index-database.homeModules.nix-index
     inputs.noctalia.homeModules.default
+    inputs.niri.homeModules.niri
 
     ################ Optionals ################
-    common/optional/wms/hyprland
+    common/optional/wms/niri
     common/optional/wms/noctalia.nix
     common/optional/cursor.nix
     common/optional/chromium.nix
@@ -40,7 +41,7 @@
   laptop.enable = false;
 
   # Configure idle timeouts
-  wms.hyprland = {
+  wms = {
     hypridle = {
       lockTimeout = 900;
       sleepTimeout = 1200;
@@ -51,7 +52,7 @@
   style = {
     wallpaper = ../assets/ersfjord.jpg;
     transparency.enable = true;
-    hyprlandMonitorConfig = [ "DP-2, 5120x2160@74.98, auto, 1.25" ];
+    # hyprlandMonitorConfig = [ "DP-2, 5120x2160@74.98, auto, 1.25" ];
   };
 
 }

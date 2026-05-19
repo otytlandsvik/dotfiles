@@ -1,4 +1,10 @@
-{ pkgs, lib, config, ... }: {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+{
   home.packages = with pkgs; [ gpu-screen-recorder ];
   programs.noctalia-shell = {
     enable = true;
@@ -9,6 +15,10 @@
       };
       ui = {
         panelBackgroundOpacity = lib.mkForce 0.8;
+      };
+      wallpaper = {
+        enabled = true;
+        overviewEnabled = true;
       };
       general = {
         lockScreenBlur = 0.40;

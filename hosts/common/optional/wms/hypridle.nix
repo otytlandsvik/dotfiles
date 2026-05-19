@@ -4,7 +4,7 @@
   ...
 }:
 {
-  options.wms.hyprland.hypridle = {
+  options.wms.hypridle = {
     dimTimeout = lib.mkOption {
       type = lib.types.int;
       default = 150;
@@ -25,19 +25,23 @@
       default = 900;
       description = "Idle seconds before device is suspended. Only applies to laptops";
     };
+    lockCommand = lib.mkOption {
+      type = lib.types.str;
+      default = "noctalia-shell ipc call lockScreen lock";
+      description = "Command to engage lock screen";
+    };
   };
 
   config =
     let
-      lockCommand = "noctalia-shell ipc call lockScreen lock";
-      cfg = config.wms.hyprland.hypridle;
+      cfg = config.wms.hypridle;
     in
     {
       services.hypridle = {
         enable = true;
         settings = {
           general = {
-            lock_cmd = lockCommand;
+            lock_cmd = cfg.lockCommand;
             before_sleep_cmd = "loginctl lock-session";
             after_sleep_cmd = "hyprctl dispatch dpms on";
           };
@@ -47,7 +51,7 @@
               baseTimeouts = [
                 {
                   timeout = cfg.lockTimeout;
-                  on-timeout = lockCommand;
+                  on-timeout = cfg.lockCommand;
                 }
                 {
                   timeout = cfg.sleepTimeout;
@@ -63,7 +67,7 @@
                 }
                 {
                   timeout = cfg.suspendTimeout;
-                  on-timeout = "${lockCommand} & systemctl suspend";
+                  on-timeout = "${cfg.lockCommand} & systemctl suspend";
                 }
               ];
             in
