@@ -495,7 +495,6 @@ in
         };
       in
       [
-        (mkFileTypeCmd [ "*.fs" ] "setlocal commentstring=//\ %s")
         (mkFileTypeCmd [ "*.nix" ] "setlocal shiftwidth=2 softtabstop=2")
         # Set wrapping and spell checking for typst files
         (mkFileTypeCmd [ "*.typ" ] "setlocal wrap linebreak spell spelllang=en_us")
