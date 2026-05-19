@@ -58,6 +58,12 @@ in
           proportion = 1.0 / 3.0;
         };
 
+        preset-window-heights = [
+          { proportion = 1.0 / 3.0; }
+          { proportion = 1.0 / 2.0; }
+          { proportion = 2.0 / 3.0; }
+        ];
+
         focus-ring = {
           width = 3;
           active.gradient = with config.lib.stylix.colors.withHashtag; {
@@ -145,7 +151,10 @@ in
           repeat = false;
         };
 
-        "Mod+O".action.toggle-overview = [ ];
+        "Mod+O" = {
+          action.toggle-overview = [ ];
+          repeat = false;
+        };
 
         # Move focus
         "Mod+H".action.focus-column-left-or-last = [ ];
@@ -203,6 +212,7 @@ in
 
         # Shrink/Grow window/column
         "Mod+R".action.switch-preset-column-width = [ ];
+        "Mod+Shift+R".action.switch-preset-window-height = [ ];
         "Mod+F".action.maximize-column = [ ];
         "Mod+Shift+F".action.fullscreen-window = [ ];
         "Mod+Ctrl+F".action.expand-column-to-available-width = [ ];
@@ -211,9 +221,9 @@ in
         "Mod+V".action.toggle-window-floating = [ ];
 
         "Mod+Minus".action.set-column-width = "-10%";
-        "Mod+Plus".action.set-column-width = "+10%";
-        "Mod+Ctrl+Minus".action.set-window-height = "-10%";
-        "Mod+Ctrl+Plus".action.set-window-height = "+10%";
+        "Mod+Equal".action.set-column-width = "+10%";
+        "Mod+Shift+Minus".action.set-window-height = "-10%";
+        "Mod+Shift+Equal".action.set-window-height = "+10%";
 
         # Go to workspace
         "Mod+1".action.focus-workspace = 1;
