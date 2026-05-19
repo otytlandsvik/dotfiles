@@ -40,6 +40,7 @@ in
         };
         touchpad = lib.mkIf config.laptop.enable {
           natural-scroll = true;
+          dwt = true; # Disable while typing
         };
       };
 
@@ -126,6 +127,10 @@ in
       ];
 
       hotkey-overlay.skip-at-startup = true;
+
+      switch-events = lib.mkIf config.laptop.enable {
+        lid-close.action.spawn = noctalia "lockScreen lock";
+      };
 
       binds = {
         "Mod+Return" = {
