@@ -54,9 +54,14 @@ in
           { proportion = 2.0 / 3.0; }
         ];
 
-        default-column-width = {
-          proportion = 1.0 / 3.0;
-        };
+        default-column-width = lib.mkMerge [
+          (lib.mkIf config.laptop.enable {
+            proportion = 2.0 / 3.0;
+          })
+          (lib.mkIf (!config.laptop.enable) {
+            proportion = 1.0 / 2.0;
+          })
+        ];
 
         preset-window-heights = [
           { proportion = 1.0 / 3.0; }
