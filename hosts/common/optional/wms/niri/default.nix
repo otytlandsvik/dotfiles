@@ -18,6 +18,7 @@ in
   imports = [
     ../hypridle.nix
     ./screenshot.nix
+    ./screen-mirror.nix
   ];
   home.sessionVariables = {
     NIXOS_OZONE_WL = "1";
@@ -155,6 +156,10 @@ in
         "Mod+Alt+L".action.spawn = noctalia "lockScreen lock";
         "Mod+D".action.spawn = noctalia "launcher toggle";
         "Mod+P".action.spawn = noctalia "sessionMenu toggle";
+        "Mod+Shift+P" = {
+          action.spawn-sh = "niri-mirror";
+          repeat = false;
+        };
         "Mod+Shift+Q" = {
           action.close-window = [ ];
           repeat = false;
