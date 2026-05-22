@@ -17,8 +17,12 @@ in
 {
   imports = [
     ../hypridle.nix
+    ./screenshot.nix
   ];
-  home.sessionVariables.NIXOS_OZONE_WL = "1";
+  home.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+    XDG_PICTURES_DIR = "${config.home.homeDirectory}/Pictures";
+  };
 
   home.packages = with pkgs; [
     wl-clipboard
@@ -160,6 +164,11 @@ in
           action.toggle-overview = [ ];
           repeat = false;
         };
+
+        # Screenshot with custom script
+        "Print".action.spawn-sh = "niri-screenshot region";
+        "Mod+S".action.spawn-sh = "niri-screenshot window";
+        "Mod+Ctrl+S".action.spawn-sh = "niri-screenshot monitor";
 
         # Move focus between columns/windows
         "Mod+H".action.focus-column-left-or-last = [ ];
