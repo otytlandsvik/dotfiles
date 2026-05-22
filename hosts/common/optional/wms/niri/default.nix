@@ -148,7 +148,7 @@ in
           action.spawn = "ghostty";
           repeat = false;
         };
-        "Mod+Ctrl+L".action.spawn = noctalia "lockScreen lock";
+        "Mod+Alt+L".action.spawn = noctalia "lockScreen lock";
         "Mod+D".action.spawn = noctalia "launcher toggle";
         "Mod+P".action.spawn = noctalia "sessionMenu toggle";
         "Mod+Shift+Q" = {
@@ -161,7 +161,7 @@ in
           repeat = false;
         };
 
-        # Move focus
+        # Move focus between columns/windows
         "Mod+H".action.focus-column-left-or-last = [ ];
         "Mod+Left".action.focus-column-left-or-last = [ ];
         "Mod+J".action.focus-window-down = [ ];
@@ -174,10 +174,21 @@ in
         "Mod+Home".action.focus-column-first = [ ];
         "Mod+End".action.focus-column-last = [ ];
 
+        # Move focus between workspaces
         "Mod+U".action.focus-workspace-down = [ ];
         "Mod+Page_Down".action.focus-workspace-down = [ ];
         "Mod+I".action.focus-workspace-up = [ ];
         "Mod+Page_Up".action.focus-workspace-up = [ ];
+
+        # Move focus between monitors
+        "Mod+Ctrl+H".action.focus-monitor-left = [ ];
+        "Mod+Ctrl+Left".action.focus-monitor-left = [ ];
+        "Mod+Ctrl+J".action.focus-monitor-down = [ ];
+        "Mod+Ctrl+Down".action.focus-monitor-down = [ ];
+        "Mod+Ctrl+K".action.focus-monitor-up = [ ];
+        "Mod+Ctrl+Up".action.focus-monitor-up = [ ];
+        "Mod+Ctrl+L".action.focus-monitor-right = [ ];
+        "Mod+Ctrl+Right".action.focus-monitor-right = [ ];
 
         "Mod+WheelScrollDown" = {
           action.focus-workspace-down = [ ];
@@ -205,15 +216,27 @@ in
         "Mod+Shift+Home".action.move-column-to-first = [ ];
         "Mod+Shift+End".action.move-column-to-last = [ ];
 
+        # Move window/column between workspaces
         "Mod+Shift+U".action.move-column-to-workspace-down = [ ];
         "Mod+Shift+Page_Down".action.move-column-to-workspace-down = [ ];
         "Mod+Shift+I".action.move-column-to-workspace-up = [ ];
         "Mod+Shift+Page_Up".action.move-column-to-workspace-up = [ ];
 
-        "Mod+W".action.toggle-column-tabbed-display = [ ];
+        # Move window/column between monitors
+        "Mod+Ctrl+Shift+H".action.move-column-to-monitor-left = [ ];
+        "Mod+Ctrl+Shift+Left".action.move-column-to-monitor-left = [ ];
+        "Mod+Ctrl+Shift+J".action.move-column-to-monitor-down = [ ];
+        "Mod+Ctrl+Shift+Down".action.move-column-to-monitor-down = [ ];
+        "Mod+Ctrl+Shift+K".action.move-column-to-monitor-up = [ ];
+        "Mod+Ctrl+Shift+Up".action.move-column-to-monitor-up = [ ];
+        "Mod+Ctrl+Shift+L".action.move-column-to-monitor-right = [ ];
+        "Mod+Ctrl+Shift+Right".action.move-column-to-monitor-right = [ ];
 
+        # Move window across columns
         "Mod+Comma".action.consume-or-expel-window-left = [ ];
         "Mod+Period".action.consume-or-expel-window-right = [ ];
+
+        "Mod+W".action.toggle-column-tabbed-display = [ ];
 
         # Shrink/Grow window/column
         "Mod+R".action.switch-preset-column-width = [ ];
