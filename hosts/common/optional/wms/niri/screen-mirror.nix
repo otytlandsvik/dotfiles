@@ -9,7 +9,7 @@ let
         jq
       ];
       text = ''
-        wl-mirror "$(niri msg --json focused-output | jq -r .name)"
+        wl-mirror "$(niri msg --json focused-output | jq --raw-output .name)"
       '';
     }
   );
