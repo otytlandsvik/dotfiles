@@ -30,6 +30,16 @@
       default = "noctalia-shell ipc call lockScreen lock";
       description = "Command to engage lock screen";
     };
+    dpmsOnCommand = lib.mkOption {
+      type = lib.types.str;
+      default = "niri msg action power-on-monitors";
+      description = "Command to power on displays";
+    };
+    dpmsOffCommand = lib.mkOption {
+      type = lib.types.str;
+      default = "niri msg action power-off-monitors";
+      description = "Command to power off displays";
+    };
   };
 
   config =
@@ -43,7 +53,7 @@
           general = {
             lock_cmd = cfg.lockCommand;
             before_sleep_cmd = "loginctl lock-session";
-            after_sleep_cmd = "hyprctl dispatch dpms on";
+            after_sleep_cmd = cfg.dpmsOnCommand;
           };
 
           listener =
@@ -55,8 +65,8 @@
                 }
                 {
                   timeout = cfg.sleepTimeout;
-                  on-timeout = "hyprctl dispatch dpms off";
-                  on-resume = "hyprctl dispatch dpms on";
+                  on-timeout = cfg.dpmsOffCommand;
+                  on-resume = cfg.dpmsOnCommand;
                 }
               ];
               laptopTimeouts = [
