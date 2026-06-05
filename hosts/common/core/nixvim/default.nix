@@ -72,6 +72,8 @@ in
       # Language service providers
       lsp = {
         enable = true;
+        # Workaround for https://github.com/ionide/FsAutoComplete/issues/1534
+        onAttach = "client.server_capabilities.semanticTokensProvider = nil";
         # inlayHints = true;
         servers = {
           # Nix
@@ -433,19 +435,19 @@ in
       # FIXME: For some reason, dx and cx are not working...
       nvim-surround = {
         enable = true;
-        settings.keymaps = {
-          insert = "<C-g>x";
-          insert_line = "<C-g>X";
-          normal = "yx";
-          normal_cur = "yxx";
-          normal_line = "yX";
-          normal_cur_line = "yXX";
-          visual = "x";
-          visual_line = "X";
-          delete = "dx";
-          change = "cx";
-          change_line = "cX";
-        };
+        # settings.keymaps = {
+        #   insert = "<C-g>x";
+        #   insert_line = "<C-g>X";
+        #   normal = "yx";
+        #   normal_cur = "yxx";
+        #   normal_line = "yX";
+        #   normal_cur_line = "yXX";
+        #   visual = "x";
+        #   visual_line = "X";
+        #   delete = "dx";
+        #   change = "cx";
+        #   change_line = "cX";
+        # };
       };
 
       # Icons
