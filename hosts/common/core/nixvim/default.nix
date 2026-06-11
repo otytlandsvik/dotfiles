@@ -475,7 +475,7 @@ in
 
     # Packages that are required by plugins, like formatters
     extraPackages = with pkgs; [
-      nixfmt-rfc-style
+      nixfmt
       prettierd
       stylua
       isort
