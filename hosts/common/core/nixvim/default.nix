@@ -5,12 +5,12 @@ let
     (pkgs.tree-sitter.buildGrammar {
       language = "fsharp";
       location = "fsharp";
-      version = "0.2.2+rev=b576ecf";
+      version = "0.3.0+rev=5247ecf";
       src = pkgs.fetchFromGitHub {
         owner = "ionide";
         repo = "tree-sitter-fsharp";
-        rev = "b576ecf7ced09c0cd74a39618694512dcfc6c110";
-        hash = "sha256-mXoD5tAFuKloakjS+plPWqxTPN4uhwvYqxD4aRf0/64=";
+        rev = "5247ecf5aec807b02eab48377206d816485ac95c";
+        hash = "sha256-fSHNhZivJIjFaTHoxNLu6XnaO2UyHQVbnFRP0sq3q1o=";
       };
       meta.homepage = "https://github.com/ionide/tree-sitter-fsharp";
     }).overrideAttrs
