@@ -114,6 +114,22 @@ in
             proportion = 1.0 / 2.0;
           };
         }
+        {
+          matches = [
+            { app-id = "chromium-browser"; }
+            { title = "Sign in to your account - Chromium"; }
+          ];
+
+          open-focused = false;
+        }
+        {
+          matches = [
+            { app-id = "com.gabm.satty"; }
+          ];
+
+          open-floating = true;
+        }
+
         # TODO: Blur comes in v26.04
         # {
         #   matches = [
