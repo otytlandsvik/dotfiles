@@ -66,68 +66,80 @@ in
     # Set leader key to space
     globals.mapleader = " ";
 
+    lsp = {
+      # Workaround for https://github.com/ionide/FsAutoComplete/issues/1534
+      onAttach = "client.server_capabilities.semanticTokensProvider = nil";
+      # inlayHints = true;
+      servers = {
+        # Nix
+        nixd.enable = true;
+
+        # F#
+        fsautocomplete = {
+          enable = true;
+          config = {
+            settings.FSharp = {
+              TooltipShowDocumentationLink = false;
+            };
+          };
+        };
+
+        # Dockerfile
+        dockerls.enable = true;
+
+        # Helm
+        helm_ls.enable = true;
+
+        # js/ts
+        ts_ls.enable = true;
+
+        # CSS
+        cssls.enable = true;
+
+        # golang
+        gopls.enable = true;
+
+        # C/C++
+        clangd.enable = true;
+
+        # Python
+        pyright.enable = true;
+
+        # Typst
+        tinymist = {
+          enable = true;
+        };
+
+        # Rust
+        rust_analyzer = {
+          enable = true;
+        };
+
+        # Zig
+        zls.enable = true;
+      };
+
+      keymaps = [
+        {
+          key = "K";
+          lspBufAction = "hover";
+        }
+        {
+          key = "gd";
+          lspBufAction = "definition";
+        }
+        {
+          key = "gr";
+          lspBufAction = "references";
+        }
+      ];
+
+    };
+
     ############### Plugins ###############
     plugins = {
 
       # Language service providers
-      lsp = {
-        enable = true;
-        # Workaround for https://github.com/ionide/FsAutoComplete/issues/1534
-        onAttach = "client.server_capabilities.semanticTokensProvider = nil";
-        # inlayHints = true;
-        servers = {
-          # Nix
-          nixd.enable = true;
-
-          # F#
-          fsautocomplete.enable = true;
-
-          # Dockerfile
-          dockerls.enable = true;
-
-          # Helm
-          helm_ls.enable = true;
-
-          # js/ts
-          ts_ls.enable = true;
-
-          # CSS
-          cssls.enable = true;
-
-          # golang
-          gopls.enable = true;
-
-          # C/C++
-          clangd.enable = true;
-
-          # Python
-          pyright.enable = true;
-
-          # Typst
-          tinymist = {
-            enable = true;
-            # TODO: Remove this workaround when moving to nvim 10.3
-            extraOptions = {
-              offset_encoding = "utf-8";
-            };
-          };
-
-          # Rust
-          rust_analyzer = {
-            enable = true;
-            installCargo = true;
-            installRustc = true;
-          };
-
-          # Zig
-          zls.enable = true;
-        };
-        keymaps.lspBuf = {
-          K = "hover";
-          gd = "definition";
-          gr = "references";
-        };
-      };
 
       # Completion engine
       cmp-nvim-lsp.enable = true;
