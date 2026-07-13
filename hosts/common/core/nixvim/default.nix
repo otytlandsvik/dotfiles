@@ -66,6 +66,7 @@ in
     # Set leader key to space
     globals.mapleader = " ";
 
+    # Language server providers
     lsp = {
       # Workaround for https://github.com/ionide/FsAutoComplete/issues/1534
       onAttach = "client.server_capabilities.semanticTokensProvider = nil";
@@ -139,7 +140,8 @@ in
     ############### Plugins ###############
     plugins = {
 
-      # Language service providers
+      # Sensible default config for all lsp servers
+      lspconfig.enable = true;
 
       # Completion engine
       cmp-nvim-lsp.enable = true;
