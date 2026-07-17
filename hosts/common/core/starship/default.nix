@@ -13,7 +13,7 @@
         "$hostname"
         "$directory"
         "$git_branch"
-        "$git_status"
+        "\${env_var.ZMX_SESSION}"
         "$line_break"
         "$character"
       ];
@@ -24,7 +24,6 @@
         "$direnv"
         "nix_shell"
         "$cmd_duration"
-        "$os"
       ];
 
       ######## Customized Starship 'modules' ########
@@ -49,11 +48,18 @@
         format = "[ $duration]($style) ";
       };
 
-      os = {
-        disabled = false;
-        format = "on [$symbol]($style)";
+      env_var.ZMX_SESSION = {
+        symbol = "󰬇 ";
+        format = "[$symbol$env_value]($style) ";
+        description = "zmx session name";
         style = "bold blue";
       };
+
+      # os = {
+      #   disabled = false;
+      #   format = "on [$symbol]($style)";
+      #   style = "bold blue";
+      # };
     };
   };
 }

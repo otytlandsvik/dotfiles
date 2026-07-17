@@ -98,6 +98,7 @@
 
         extraSpecialArgs = {
           inherit inputs;
+          inherit system;
         };
 
         modules = [ ./hosts/dipper.nix ];

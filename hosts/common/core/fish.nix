@@ -21,6 +21,8 @@
       t = "tmux";
       ta = "tmux a";
       tn = "tmux new -s";
+      # zmx
+      za = "zmx a";
       # git
       gc = "git commit -v";
       gca = "git commit --amend --no-edit";

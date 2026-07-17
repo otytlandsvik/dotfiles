@@ -40,7 +40,7 @@
       homeDirectory = lib.mkDefault "/home/${config.home.username}";
       stateVersion = lib.mkDefault "23.11";
       sessionVariables = {
-        SHELL = "fish";
+        SHELL = "${lib.getExe pkgs.fish}";
         TERM = "ghostty";
         TERMINAL = "ghostty";
         EDITOR = "nvim";
@@ -54,7 +54,6 @@
     # Packages without custom configs
     home.packages = builtins.attrValues {
       inherit (pkgs)
-
         fzf # Fuzzy find
         delta # Diff pager for git
         ripgrep # grep goodness

@@ -35,6 +35,7 @@
     common/optional/tmux.nix
     common/optional/vscode.nix
     common/optional/yazi.nix
+    common/optional/zmx.nix
   ];
 
   # Custom options
