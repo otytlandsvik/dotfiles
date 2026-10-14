@@ -33,6 +33,7 @@
     common/optional/ssh.nix
     common/optional/stylix.nix
     common/optional/tmux.nix
+    common/optional/teams.nix
     common/optional/vscode.nix
     common/optional/yazi.nix
     common/optional/zmx.nix
