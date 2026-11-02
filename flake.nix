@@ -43,6 +43,16 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    omp = {
+      url = "github:can1357/oh-my-pi";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    nono = {
+      url = "github:nolabs-ai/nono";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
   };
 
   outputs =

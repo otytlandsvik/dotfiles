@@ -11,6 +11,7 @@
     inputs.nix-index-database.homeModules.nix-index
     inputs.noctalia.homeModules.default
     inputs.niri.homeModules.niri
+    inputs.omp.homeManagerModules.default
 
     ################ Optionals ################
     common/optional/wms/niri
@@ -24,6 +25,8 @@
     common/optional/kubernetes.nix
     common/optional/nautilus.nix
     common/optional/obsidian.nix
+    common/optional/nono.nix
+    common/optional/omp.nix
     common/optional/papers.nix
     common/optional/rider.nix
     common/optional/spotify.nix
