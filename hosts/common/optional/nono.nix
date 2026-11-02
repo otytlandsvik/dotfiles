@@ -52,5 +52,10 @@ in
   # Create an ephemeral tmp dir for the sandbox that clears after 7days
   systemd.user.tmpfiles.rules = [ "d %h/.omp/tmp 0700 - - 7d" ];
 
+  # Direct agents to the tmp dir
+  home.file.".omp/agent/RULES.md".text = ''
+    Temporary files: use `$TMPDIR` (`~/.omp/tmp`), NEVER `/tmp` or `/var/tmp`; the nono sandbox blocks writes there. Applies to shell commands, scripts, `git clone`, `mktemp`, and tool output paths.
+  '';
+
   programs.fish.shellAbbrs.ompn = "nono run --profile omp --allow-cwd -- omp";
 }
