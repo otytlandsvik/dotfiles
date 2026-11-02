@@ -6,71 +6,59 @@
 }:
 {
   home.packages = with pkgs; [ gpu-screen-recorder ];
-  programs.noctalia-shell = {
+  programs.noctalia = {
     enable = true;
     settings = {
       location = {
-        name = "Tromsø";
-        firstDayOfWeek = 1;
+        address = "Tromsø";
       };
-      ui = {
-        panelBackgroundOpacity = lib.mkForce 0.8;
+      shell.panel = {
+        transparency_mode = lib.mkForce "soft";
       };
       wallpaper = {
         enabled = true;
-        overviewEnabled = true;
+        default.path = "/home/ole/Pictures/Wallpapers/";
       };
-      general = {
-        lockScreenBlur = 0.40;
-        lockScreenTint = 0.18;
-        compactLockScreen = true;
-        clockStyle = "analog";
+      lockscreen = {
+        blur_intensity = 0.40;
+        tint_intensity = 0.18;
       };
       dock.enabled = false;
-      # bar = {
-      #   widgets = {
-      #     right = [
-      #       {
-      #         id = "Battery";
-      #         alwaysShowPercenage = true;
-      #       }
-      #     ];
-      #   };
-      # };
-    };
-    colors = with config.lib.stylix.colors.withHashtag; {
-      mPrimary = lib.mkForce base0D;
-      mOnPrimary = lib.mkForce base00;
-      mSecondary = lib.mkForce base0E;
-      mOnSecondary = lib.mkForce base00;
-      mTertiary = lib.mkForce base0C;
-      mOnTertiary = lib.mkForce base00;
-      mError = lib.mkForce base08;
-      mOnError = lib.mkForce base00;
-      mSurface = lib.mkForce base00;
-      mOnSurface = lib.mkForce base05;
-      mHover = lib.mkForce base0C;
-      mOnHover = lib.mkForce base00;
-      mSurfaceVariant = lib.mkForce base01;
-      mOnSurfaceVariant = lib.mkForce base04;
-      mOutline = lib.mkForce base03;
-      mShadow = lib.mkForce base00;
-    };
-    plugins = {
-      sources = [
-        {
-          enabled = true;
-          name = "Official Noctalia Plugins";
-          url = "https://github.com/noctalia-dev/noctalia-plugins";
-        }
-      ];
-      states = {
-        screen-recorder = {
-          enabled = true;
-          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
-        };
+      theme = {
+        source = "custom";
+        custom_palette = "stylix";
       };
-      version = 2;
+      plugins = {
+        enabled = [ "noctalia/screen_recorder" ];
+        source = [
+          {
+            name = "official";
+            kind = "git";
+            location = "https://github.com/noctalia-dev/noctalia-plugins";
+            enabled = true;
+          }
+        ];
+      };
+    };
+    customPalettes = {
+      stylix.dark = with config.lib.stylix.colors.withHashtag; {
+        mPrimary = base0D;
+        mOnPrimary = base00;
+        mSecondary = base0E;
+        mOnSecondary = base00;
+        mTertiary = base0C;
+        mOnTertiary = base00;
+        mError = base08;
+        mOnError = base00;
+        mSurface = base00;
+        mOnSurface = base05;
+        mHover = base0C;
+        mOnHover = base00;
+        mSurfaceVariant = base01;
+        mOnSurfaceVariant = base04;
+        mOutline = base03;
+        mShadow = base00;
+      };
     };
   };
 }

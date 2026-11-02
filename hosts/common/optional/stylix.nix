@@ -7,11 +7,6 @@
 {
 
   options.style = {
-    wallpaper = lib.mkOption {
-      type = lib.types.path;
-      default = ../../../assets/nix-black-4k.png;
-      description = "Path to wallpaper image";
-    };
     transparency.enable = lib.mkEnableOption "transparency in hyprland";
     hyprlandMonitorConfig = lib.mkOption {
       type = lib.types.listOf lib.types.str;
@@ -29,8 +24,6 @@
       enable = true;
       # Pass theme to stylix
       base16Scheme = config.colorScheme.palette;
-
-      image = config.style.wallpaper;
     };
   };
 }

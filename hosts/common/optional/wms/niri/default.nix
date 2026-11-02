@@ -8,9 +8,8 @@ let
   noctalia =
     cmd:
     [
-      "noctalia-shell"
-      "ipc"
-      "call"
+      "noctalia"
+      "msg"
     ]
     ++ (pkgs.lib.splitString " " cmd);
 in
@@ -27,8 +26,6 @@ in
 
   home.packages = with pkgs; [
     wl-clipboard
-    playerctl
-    brightnessctl
     xwayland-satellite
   ];
 
@@ -155,13 +152,13 @@ in
       overview.zoom = 0.75;
 
       spawn-at-startup = [
-        { command = [ "noctalia-shell" ]; }
+        { command = [ "noctalia" ]; }
       ];
 
       hotkey-overlay.skip-at-startup = true;
 
       switch-events = lib.mkIf config.laptop.enable {
-        lid-close.action.spawn = noctalia "lockScreen lock";
+        lid-close.action.spawn = noctalia "session lock";
       };
 
       binds = {
@@ -169,9 +166,9 @@ in
           action.spawn = "ghostty";
           repeat = false;
         };
-        "Mod+Alt+L".action.spawn = noctalia "lockScreen lock";
-        "Mod+D".action.spawn = noctalia "launcher toggle";
-        "Mod+P".action.spawn = noctalia "sessionMenu toggle";
+        "Mod+Alt+L".action.spawn = noctalia "session lock";
+        "Mod+D".action.spawn = noctalia "panel-toggle launcher";
+        "Mod+P".action.spawn = noctalia "panel-toggle session";
         "Mod+Shift+P" = {
           action.spawn-sh = "niri-mirror";
           repeat = false;
@@ -307,41 +304,41 @@ in
 
         # Media controls
         "XF86AudioLowerVolume" = {
-          action.spawn = noctalia "volume decrease";
+          action.spawn = noctalia "volume-down";
           allow-when-locked = true;
         };
         "XF86AudioRaiseVolume" = {
-          action.spawn = noctalia "volume increase";
+          action.spawn = noctalia "volume-up";
           allow-when-locked = true;
         };
         "XF86AudioMute" = {
-          action.spawn = noctalia "volume muteOutput";
+          action.spawn = noctalia "volume-mute";
           allow-when-locked = true;
         };
 
         "XF86MonBrightnessUp" = {
-          action.spawn-sh = "brightnessctl set 10%+";
+          action.spawn = noctalia "brightness-up";
           allow-when-locked = true;
         };
         "XF86MonBrightnessDown" = {
-          action.spawn-sh = "brightnessctl set 10%-";
+          action.spawn = noctalia "brightness-down";
           allow-when-locked = true;
         };
 
         "XF86AudioPlay" = {
-          action.spawn-sh = "playerctl play-pause";
+          action.spawn = noctalia "media toggle";
           allow-when-locked = true;
         };
         "XF86AudioPause" = {
-          action.spawn-sh = "playerctl pause";
+          action.spawn = noctalia "media pause";
           allow-when-locked = true;
         };
         "XF86AudioNext" = {
-          action.spawn-sh = "playerctl next";
+          action.spawn = noctalia "media next";
           allow-when-locked = true;
         };
         "XF86AudioPrev" = {
-          action.spawn-sh = "playerctl previous";
+          action.spawn = noctalia "media previous";
           allow-when-locked = true;
         };
       };

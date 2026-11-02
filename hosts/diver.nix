@@ -29,6 +29,7 @@
     common/optional/spotify.nix
     common/optional/stylix.nix
     common/optional/tmux.nix
+    common/optional/teams.nix
     common/optional/vscode.nix
     common/optional/yazi.nix
     common/optional/zmx.nix
@@ -38,7 +39,6 @@
   laptop.enable = true;
 
   style = {
-    wallpaper = ../assets/diver.jpg;
     transparency.enable = true;
     # hyprlandMonitorConfig = [
     #   "eDP-1, 1920x1200@60.00200, auto, 1,"

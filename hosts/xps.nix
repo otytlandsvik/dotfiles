@@ -35,7 +35,6 @@
   laptop.enable = true;
 
   style = {
-    wallpaper = ../assets/ersfjord.jpg;
     transparency.enable = true;
   };
 }
