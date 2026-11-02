@@ -28,17 +28,10 @@
         source = "custom";
         custom_palette = "stylix";
       };
-      plugins = {
-        enabled = [ "noctalia/screen_recorder" ];
-        source = [
-          {
-            name = "official";
-            kind = "git";
-            location = "https://github.com/noctalia-dev/noctalia-plugins";
-            enabled = true;
-          }
-        ];
-      };
+      plugins.enabled = [
+        "noctalia/screen_recorder"
+        "raycursive/niri-displays"
+      ];
     };
     customPalettes = {
       stylix.dark = with config.lib.stylix.colors.withHashtag; {
